@@ -1,0 +1,21 @@
+---
+title: "mortar"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{mortar}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This is a great vignette that clearly explains the package's functionality.
+
+```{r setup}
+library(mortar)
+```

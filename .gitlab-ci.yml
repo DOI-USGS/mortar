@@ -1,0 +1,9 @@
+# The Docker image that will be used to build your app
+#image: ruby:2.7
+pages:
+  script:
+    - cp -r docs/* public
+  artifacts:
+    paths:
+      # The folder that contains the files to be exposed at the Page URL
+      - public
