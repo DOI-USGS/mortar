@@ -3,7 +3,10 @@ Type: Package
 Title: Standardize data science workflows
 Version: 0.1.0
 Authors@R:
-    person("Joseph","Zemmels",,email="jzemmels@usgs.gov",role = c("aut","cre"))
+    c(
+    person("Joseph","Zemmels",,email="jzemmels@usgs.gov",role = c("aut","cre")),
+    person("Anthony","Martinez",role = c("aut","ctb"))
+    )
 Maintainer: Joseph Zemmels <jzemmels@usgs.gov>
 Description: Helper functions to standardize common workflows in the USGS Water 
     Mission Area Data Science Branch.

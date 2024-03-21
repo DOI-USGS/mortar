@@ -10,6 +10,13 @@
 <!-- > in masonry or plastering* -->
 <!-- > ([source](https://www.merriam-webster.com/dictionary/mortar)) -->
 
+> *“If you need to copy + paste the same code more than once, write a
+> function. If you need to write the same function more than once,
+> create a package.”*
+
+(^I know I’ve seen this quote before, but can’t seem to track down the
+source)
+
 The goal of `mortar` is to standardize common workflows in the USGS
 Water Mission Area’s Data Science Branch to produce more robust,
 reproducible pipelines. It contains helper functions to standardize the
@@ -33,25 +40,26 @@ access to this repository (which you should have if you’re reading this
 README).
 
 1.  Clone the repo the usual way like
-    `git clone git@code.usgs.gov:wma/iidd/analytics/mor_tar.git` if
-    using ssh or
-    `git clone https://code.usgs.gov/wma/iidd/analytics/mor_tar.git` if
+    `git clone git@code.usgs.gov:wma/iidd/analytics/mortar.git` if using
+    ssh or
+    `git clone https://code.usgs.gov/wma/iidd/analytics/mortar.git` if
     using https.
 
-2.  Open the mortar.Rproj file to open this package’s project in
+2.  Open the `mortar.Rproj` file to open this package’s project in
     RStudio.
 
 3.  Install the package’s dependencies by running
     `remotes::install_deps()` in the R Console (note: requires the
     [`remotes`](https://remotes.r-lib.org/) R package)
 
-4.  Once open, press CTRL/CMD + SHIFT + B to build and install the
+4.  Once open, press `CTRL/CMD + SHIFT + B` to build and install the
     package. Alternatively, navigate to the “Build” tab in the same
-    toolbar as “Environment” - a quick way is to press CTRL/CMD +
-    SHIFT + F2. Then press the “Install” button at the top.
+    toolbar as “Environment” (usually the upper right-hand pane) - a
+    quick way is to press `CTRL/CMD + SHIFT + F2`. Then press the
+    “Install” button at the top.
 
 5.  Wait for package to install and for the session to restart. You
-    should now be able to load the waterlogged package locally.
+    should now be able to load the `mortar` package locally.
 
 The downside of this local install option is that you’ll need to pull
 and manually re-install the package each time changes are made to this
@@ -98,3 +106,12 @@ package.
   [`reticulate`](https://rstudio.github.io/reticulate/) R package.
 - Function(s) for setting up a `gitlab-ci.yml` file easily and/or
   invoking GitLab runners within a project
+- A function to add the front matter needed to make a repo public (i.e.,
+  license, readme, see the [IWAAs Standard template
+  repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
+- We may want to create a helper function that modifies existing files.
+  For example, it would be cool to be able to have the ability to add
+  the renv status check code under the `library()` lines of the
+  *\_targets.R* file. It would probably require `readLines()` to read
+  the file, `match()` to find the line to write after, `[` and `c()` to
+  reconstruct the lines, and `writeLines()` to write it again.
