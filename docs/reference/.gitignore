@@ -219,3 +219,6 @@ _targets
 !*.empty
 
 # End of https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode
+excluded_file.R
+excluded_dir
+*excluded_pattern*
