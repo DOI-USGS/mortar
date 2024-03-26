@@ -6,20 +6,20 @@
 #'   \url{https://code.usgs.gov/wma/dsp/trainings/ds-pipelines-targets-2-course}
 #'   for an example).
 #'
-#' @param phase_names char vector, names of target phases like "fetch",
+#' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
 #' @param phase_nums int vector, numbers to prepend to phase_names like
 #'   \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
 #'   1:length(phase_names)
 #' @param home chr, root directory of targets project. Defaults to current
-#'   working directory
+#'   working directory "."
 #' @param separate_phase_scripts lgl, should a different R script be created for
 #'   each phase like "1_fetch.R", "2_process.R", etc? If FALSE, then targets
-#'   lists will be initialized in _targets.R file
-#' @param phase_subdirs char vector, subdirectories within each phase like
-#'   "src", "out"
+#'   lists will be initialized in _targets.R file. Defaults to TRUE
+#' @param phase_subdirs chr vector, subdirectories within each phase. Defaults
+#'   to "src", "out"
 #' @param overwrite lgl, should the initialization overwrite files and folders
-#'   that already exist?
+#'   that already exist? Defaults to FALSE
 #'
 #' @examples
 #' # temporary directories in which targets project is initialized (you can skip this part)
@@ -37,7 +37,8 @@
 #' dir.create(tmp)
 #'
 #' # different structure starting with 0_config and including "in/" dir in each phase
-#' tar_init(home = tmp, phase_names = c("config", "pull", "munge", "visualize"),
+#' tar_init(home = tmp,
+#'          phase_names = c("config", "pull", "munge", "visualize"),
 #'          phase_nums = 0:3,
 #'          phase_subdirs = c("in", "src", "out"))
 #'

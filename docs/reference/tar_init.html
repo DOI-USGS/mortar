@@ -68,7 +68,7 @@ for an example).</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>phase_names</dt>
-<dd><p>char vector, names of target phases like "fetch",
+<dd><p>chr vector, names of target phases like "fetch",
 "process", etc.</p></dd>
 
 
@@ -80,23 +80,23 @@ for an example).</p>
 
 <dt>home</dt>
 <dd><p>chr, root directory of targets project. Defaults to current
-working directory</p></dd>
+working directory "."</p></dd>
 
 
 <dt>separate_phase_scripts</dt>
 <dd><p>lgl, should a different R script be created for
 each phase like "1_fetch.R", "2_process.R", etc? If FALSE, then targets
-lists will be initialized in _targets.R file</p></dd>
+lists will be initialized in _targets.R file. Defaults to TRUE</p></dd>
 
 
 <dt>phase_subdirs</dt>
-<dd><p>char vector, subdirectories within each phase like
-"src", "out"</p></dd>
+<dd><p>chr vector, subdirectories within each phase. Defaults
+to "src", "out"</p></dd>
 
 
 <dt>overwrite</dt>
 <dd><p>lgl, should the initialization overwrite files and folders
-that already exist?</p></dd>
+that already exist? Defaults to FALSE</p></dd>
 
 </dl></div>
     <div id="value">
@@ -128,7 +128,8 @@ that already exist?</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># different structure starting with 0_config and including "in/" dir in each phase</span></span></span>
-<span class="r-in"><span><span class="fu">tar_init</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span>, phase_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"pull"</span>, <span class="st">"munge"</span>, <span class="st">"visualize"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span><span class="fu">tar_init</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span>,</span></span>
+<span class="r-in"><span>         phase_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"pull"</span>, <span class="st">"munge"</span>, <span class="st">"visualize"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>         phase_nums <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span></span>
 <span class="r-in"><span>         phase_subdirs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"in"</span>, <span class="st">"src"</span>, <span class="st">"out"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>

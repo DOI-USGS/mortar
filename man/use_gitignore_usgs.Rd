@@ -2,7 +2,7 @@
 % Please edit documentation in R/use_project_usgs.R
 \name{use_gitignore_usgs}
 \alias{use_gitignore_usgs}
-\title{Create a .gitignore with an opinionated list of ignores}
+\title{Create a .gitignore file with an opinionated list of ignores}
 \usage{
 use_gitignore_usgs(home = ".", additions = NULL)
 }
@@ -10,8 +10,23 @@ use_gitignore_usgs(home = ".", additions = NULL)
 \item{home}{chr, root directory of project. Defaults to current working
 directory}
 
-\item{additions}{chr vector, other files to be added to .gitignore}
+\item{additions}{chr vector, other files/directories to be added to
+.gitignore}
 }
 \description{
-Create a .gitignore with an opinionated list of ignores
+Uses .gitignore file from
+\url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}.
+Specify project-specific exclusions with the \code{additions} argument,
+which are appended to the end of the .gitignore.
+}
+\examples{
+tmp <- tempdir()
+use_gitignore_usgs(home = tmp,
+                   additions = c("excluded_file.R",
+                                 "excluded_dir",
+                                 "*excluded_pattern*"))
+
+# here are the contents of the .gitignore:
+cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
+
 }

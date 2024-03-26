@@ -14,7 +14,7 @@ tar_init(
 )
 }
 \arguments{
-\item{phase_names}{char vector, names of target phases like "fetch",
+\item{phase_names}{chr vector, names of target phases like "fetch",
 "process", etc.}
 
 \item{phase_nums}{int vector, numbers to prepend to phase_names like
@@ -22,17 +22,17 @@ tar_init(
 1:length(phase_names)}
 
 \item{home}{chr, root directory of targets project. Defaults to current
-working directory}
+working directory "."}
 
 \item{separate_phase_scripts}{lgl, should a different R script be created for
 each phase like "1_fetch.R", "2_process.R", etc? If FALSE, then targets
-lists will be initialized in _targets.R file}
+lists will be initialized in _targets.R file. Defaults to TRUE}
 
-\item{phase_subdirs}{char vector, subdirectories within each phase like
-"src", "out"}
+\item{phase_subdirs}{chr vector, subdirectories within each phase. Defaults
+to "src", "out"}
 
 \item{overwrite}{lgl, should the initialization overwrite files and folders
-that already exist?}
+that already exist? Defaults to FALSE}
 }
 \value{
 \code{NULL} invisibly
@@ -60,7 +60,8 @@ unlink(tmp, recursive = TRUE, force = TRUE)
 dir.create(tmp)
 
 # different structure starting with 0_config and including "in/" dir in each phase
-tar_init(home = tmp, phase_names = c("config", "pull", "munge", "visualize"),
+tar_init(home = tmp,
+         phase_names = c("config", "pull", "munge", "visualize"),
          phase_nums = 0:3,
          phase_subdirs = c("in", "src", "out"))
 

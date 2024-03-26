@@ -1,8 +1,25 @@
-#' Create a .gitignore with an opinionated list of ignores
+#' Create a .gitignore file with an opinionated list of ignores
+#'
+#' @description Uses .gitignore file from
+#'   \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}.
+#'   Specify project-specific exclusions with the \code{additions} argument,
+#'   which are appended to the end of the .gitignore.
+#'
 #'
 #' @param home chr, root directory of project. Defaults to current working
 #'   directory
-#' @param additions chr vector, other files to be added to .gitignore
+#' @param additions chr vector, other files/directories to be added to
+#'   .gitignore
+#'
+#' @examples
+#' tmp <- tempdir()
+#' use_gitignore_usgs(home = tmp,
+#'                    additions = c("excluded_file.R",
+#'                                  "excluded_dir",
+#'                                  "*excluded_pattern*"))
+#'
+#' # here are the contents of the .gitignore:
+#' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 #'
 #' @export
 
