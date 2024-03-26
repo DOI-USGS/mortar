@@ -85,7 +85,7 @@ created.
 
 This section discusses the basic workflow of writing R packages. It will
 probably go in a CONTRIBUTING file later. See [this cheat
-sheet](https://raw.githubusercontent.com/rstudio/cheatsheets/main/package-development.pdf)
+sheet](https://rstudio.github.io/cheatsheets/package-development.pdf)
 for more information.
 
 1.  Make an informatively named branch off of the main branch of this
@@ -116,8 +116,8 @@ for more information.
   [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html).
   This will update the contents of the `docs` folder.
 
-4.  Re-build the package with `CTRL/CMD + SHIFT + B` and wait for the
-    session to restart.
+4.  Re-build the package with `CTRL/CMD + SHIFT + B`. Wait for the
+    session to restart and the package to load.
 
 5.  Run your function (in the console or wherever) and verify it works
     as expected.

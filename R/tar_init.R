@@ -3,8 +3,10 @@
 #' @description Run this function in a new targets project directory. It will
 #'   create R files and directories using the targets project structure we often
 #'   use in the IIDD Data Science Branch (see
+#'   \url{https://wma.code-pages.usgs.gov/dsp/trainings/ds-pipelines-targets-2-course/12-usgs-data-science-conventions.html}
+#'   for more information on our naming conventions and
 #'   \url{https://code.usgs.gov/wma/dsp/trainings/ds-pipelines-targets-2-course}
-#'   for an example).
+#'   for an example targets project).
 #'
 #' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
@@ -22,7 +24,7 @@
 #'   that already exist? Defaults to FALSE
 #'
 #' @examples
-#' # temporary directories in which targets project is initialized (you can skip this part)
+#' # temporary directories in which targets project is initialized (you can skip this part if creating your own project)
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
