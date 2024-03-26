@@ -5,37 +5,68 @@
 \title{Initialize a targets project}
 \usage{
 tar_init(
-  home = ".",
-  phase_names = c("fetch", "process", "summarize"),
+  phase_names,
   phase_nums = seq_along(phase_names),
+  home = ".",
   separate_phase_scripts = TRUE,
   phase_subdirs = c("src", "out"),
   overwrite = FALSE
 )
 }
 \arguments{
-\item{home}{char, root directory of targets project. Defaults to current
-working directory}
-
-\item{phase_names}{char vector, names of target phases}
+\item{phase_names}{chr vector, names of target phases like "fetch",
+"process", etc.}
 
 \item{phase_nums}{int vector, numbers to prepend to phase_names like
 \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
 1:length(phase_names)}
 
+\item{home}{chr, root directory of targets project. Defaults to current
+working directory "."}
+
 \item{separate_phase_scripts}{lgl, should a different R script be created for
 each phase like "1_fetch.R", "2_process.R", etc? If FALSE, then targets
-lists will be initialized in _targets.R file}
+lists will be initialized in _targets.R file. Defaults to TRUE}
 
-\item{phase_subdirs}{char vector, subdirectories within each phase like
-"src", "out"}
+\item{phase_subdirs}{chr vector, subdirectories within each phase. Defaults
+to "src", "out"}
 
 \item{overwrite}{lgl, should the initialization overwrite files and folders
-that already exist?}
+that already exist? Defaults to FALSE}
 }
 \value{
 \code{NULL} invisibly
 }
 \description{
-Initialize a targets project
+Run this function in a new targets project directory. It will
+create R files and directories using the targets project structure we often
+use in the IIDD Data Science Branch (see
+\url{https://wma.code-pages.usgs.gov/dsp/trainings/ds-pipelines-targets-2-course/12-usgs-data-science-conventions.html}
+for more information on our naming conventions and
+\url{https://code.usgs.gov/wma/dsp/trainings/ds-pipelines-targets-2-course}
+for an example targets project).
+}
+\examples{
+# temporary directories in which targets project is initialized (you can skip this part if creating your own project)
+tmp <- tempdir()
+unlink(tmp, recursive = TRUE, force = TRUE)
+dir.create(tmp)
+
+# creates 1_fetch, 2_process, 3_summarize R scripts and directories
+tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))
+
+list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\\\.(R|empty)$")
+
+# clean out tmp folder
+unlink(tmp, recursive = TRUE, force = TRUE)
+dir.create(tmp)
+
+# different structure starting with 0_config and including "in/" dir in each phase
+tar_init(home = tmp,
+         phase_names = c("config", "pull", "munge", "visualize"),
+         phase_nums = 0:3,
+         phase_subdirs = c("in", "src", "out"))
+
+list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\\\.(R|empty)$")
+
 }

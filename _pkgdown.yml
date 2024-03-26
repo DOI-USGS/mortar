@@ -1,0 +1,6 @@
+reference:
+  - title: "Project Setup"
+    desc: "Initialize elements of a USGS project directory"
+    contents:
+      - tar_init
+      - starts_with("use_")
