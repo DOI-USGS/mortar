@@ -86,25 +86,37 @@ tar_init <- function(phase_names,
                })
 
   if(!file.exists("_targets.R") | overwrite){
-    cat(paste0(
-      'library(targets)
-#source scripts within ',phase_nums[1],'_',phase_names[1],', etc. folders
-#scripts <- list.files(\"',home,'\",recursive = TRUE,full.names = TRUE,pattern = "\\\\.R$")
-#purrr::walk(scripts[stringr::str_detect(scripts,"[0-9]{1}_")],source)
-',
-      ifelse(separate_phase_scripts,
-             paste0(purrr::map2_chr(phase_nums,phase_names,~ paste0("source('",home,"/",.x,"_",.y,".R')")),collapse = "\n"),
-             ""),'
+    phase_script_text <- ""
+    if(separate_phase_scripts) {
+      phase_script_text <- glue::glue("source(\"{home}/{phase_nums}_{phase_names}.R\")") |>
+        glue::glue_collapse(sep = "\n")
+    }
 
-# set options here like `packages = c("tidyverse",...)`
+    phase_target_text <- "list()"
+    if(separate_phase_scripts) {
+      phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
+      phase_target_text <- glue::glue("c({phase_targets})")
+    }
+
+    cat(
+      glue::glue(
+        "library(targets)
+#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders
+#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")
+#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)
+{phase_script_text}
+
+# set options here like `packages = c(\"tidyverse\",...)
 tar_option_set()
 
-',
-      ifelse(!separate_phase_scripts,
-             paste0(purrr::map_chr(phase_nums,~ paste0("p",.x,"_targets_list <- list()")),collapse = "\n"),
-             ""),'
-list(',paste0(purrr::map_chr(phase_nums,~ paste0("p",.x,"_targets_list")),collapse = ", "),')'),
-      file = file.path(home,"_targets.R"))
+
+{phase_target_text}",
+
+        .sep = "\n"
+      ),
+      file = "_targets.R"
+    )
+
   }
 
   return(invisible(NULL))
