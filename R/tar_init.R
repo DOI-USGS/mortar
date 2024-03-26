@@ -32,19 +32,20 @@
 #' # creates 1_fetch, 2_process, 3_summarize R scripts and directories
 #' tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\.(R|empty)$")
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
 #'
 #' # clean out tmp folder
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
 #'
-#' # different structure starting with 0_config and including "in/" dir in each phase
+#' # different structure starting with 0_config and including "in/" dir in each phase, but all phases will be defined in the _targets.R file rather than in their own .R scripts
 #' tar_init(home = tmp,
 #'          phase_names = c("config", "pull", "munge", "visualize"),
 #'          phase_nums = 0:3,
-#'          phase_subdirs = c("in", "src", "out"))
+#'          phase_subdirs = c("in", "src", "out"),
+#'          separate_phase_scripts = FALSE)
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\.(R|empty)$")
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
 #'
 #' @returns \code{NULL} invisibly
 #' @export
@@ -91,24 +92,27 @@ tar_init <- function(phase_names,
       phase_script_text <- glue::glue("source(\"{home}/{phase_nums}_{phase_names}.R\")") |>
         glue::glue_collapse(sep = "\n")
     }
+    else{
+      phase_script_text <- glue::glue("p{phase_nums}_targets_list <- list()") |>
+        glue::glue_collapse(sep = "\n")
+    }
 
     phase_target_text <- "list()"
-    if(separate_phase_scripts) {
+    # if(separate_phase_scripts) {
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
-      phase_target_text <- glue::glue("c({phase_targets})")
-    }
+
+    # }
+    phase_target_text <- glue::glue("c({phase_targets})")
 
     cat(
       glue::glue(
         "library(targets)
-#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders
-#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")
-#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)
-{phase_script_text}
 
 # set options here like `packages = c(\"tidyverse\",...)
 tar_option_set()
 
+#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders
+{phase_script_text}
 
 {phase_target_text}",
 

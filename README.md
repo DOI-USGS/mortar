@@ -24,7 +24,10 @@ creation of [`targets`](https://books.ropensci.org/targets/) pipelines
 using our branch’s best practices, manage package dependencies using
 [`renv`](https://rstudio.github.io/renv/index.html), and other
 functionality (eventually, hopefully) contributed by users who want to
-standardize their workflows across DaSB projects/collaborators.
+standardize their workflows across DaSB projects/collaborators. Refer to
+the [Get
+started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html)
+for more information on the package’s usage.
 
 The package name has multiple meanings. It mixes water (😉) with
 structural ingredients to form a foundation upon which our pipelines can

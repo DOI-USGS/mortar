@@ -17,7 +17,7 @@ tar_init(
 \item{phase_names}{chr vector, names of target phases like "fetch",
 "process", etc.}
 
-\item{phase_nums}{int vector, numbers to prepend to phase_names like
+\item{phase_nums}{chr or int vector, numbers to prepend to phase_names like
 \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
 1:length(phase_names)}
 
@@ -55,18 +55,19 @@ dir.create(tmp)
 # creates 1_fetch, 2_process, 3_summarize R scripts and directories
 tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))
 
-list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\\\.(R|empty)$")
+list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
 
 # clean out tmp folder
 unlink(tmp, recursive = TRUE, force = TRUE)
 dir.create(tmp)
 
-# different structure starting with 0_config and including "in/" dir in each phase
+# different structure starting with 0_config and including "in/" dir in each phase, but all phases will be defined in the _targets.R file rather than in their own .R scripts
 tar_init(home = tmp,
          phase_names = c("config", "pull", "munge", "visualize"),
          phase_nums = 0:3,
-         phase_subdirs = c("in", "src", "out"))
+         phase_subdirs = c("in", "src", "out"),
+         separate_phase_scripts = FALSE)
 
-list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\\\.(R|empty)$")
+list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
 
 }
