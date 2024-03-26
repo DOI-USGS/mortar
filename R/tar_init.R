@@ -10,7 +10,7 @@
 #'
 #' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
-#' @param phase_nums int vector, numbers to prepend to phase_names like
+#' @param phase_nums chr or int vector, numbers to prepend to phase_names like
 #'   \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
 #'   1:length(phase_names)
 #' @param home chr, root directory of targets project. Defaults to current
@@ -56,11 +56,11 @@ tar_init <- function(phase_names,
                      overwrite = FALSE){
 
   # some arg checkers here.
-  if(any(!is.character(phase_names))) cli::cli_abort(c("x" = "{.arg phase_names} is not a character vector"))
+  if(!is.character(phase_names)) cli::cli_abort(c("x" = "{.arg phase_names} is not a character vector"))
   if(any(phase_nums %% 1 != 0)) cli::cli_abort(c("x" = "{.arg phase_nums} is not an integer vector"))
   if(!dir.exists(home)) cli::cli_abort(c("x" = "{.arg home} is not a path to a directory that exists"))
   if(!is.logical(separate_phase_scripts)) cli::cli_abort(c("x" = "{.arg separate_phase_scripts} is not logical"))
-  if(any(!is.character(phase_subdirs))) cli::cli_abort(c("x" = "{.arg phase_subdirs} is not a character vector"))
+  if(!is.character(phase_subdirs)) cli::cli_abort(c("x" = "{.arg phase_subdirs} is not a character vector"))
   if(!is.logical(overwrite)) cli::cli_abort(c("x" = "{.arg overwrite} is not logical"))
 
   if(length(phase_names) != length(phase_nums)) cli::cli_abort(c("x" = "{.arg phase_nums} is not the same length as {.arg phase_names}"))
@@ -103,7 +103,7 @@ tar_option_set()
       ifelse(!separate_phase_scripts,
              paste0(purrr::map_chr(phase_nums,~ paste0("p",.x,"_targets_list <- list()")),collapse = "\n"),
              ""),'
-list(',paste0(purrr::map_chr(phase_nums,~ paste0("p",.x,"_targets_list")),collapse = ", "),')'),
+c(',paste0(purrr::map_chr(phase_nums,~ paste0("p",.x,"_targets_list")),collapse = ", "),')'),
       file = file.path(home,"_targets.R"))
   }
 
