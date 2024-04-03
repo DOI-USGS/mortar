@@ -213,9 +213,13 @@ vignettes/*.pdf
 !.vscode/extensions.json
 *.code-workspace
 
+# End of https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode
+
 ### targets ###
 _targets
 */out/*
 !*.empty
 
-# End of https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode
+### vim ###
+.*.swp
+.swp
