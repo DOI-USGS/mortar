@@ -219,3 +219,7 @@ _targets
 !*.empty
 
 # End of https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode
+
+### vim ###
+.*.swp
+.swp
