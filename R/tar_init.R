@@ -55,15 +55,49 @@ tar_init <- function(phase_names,
                      phase_subdirs = c("src","out"),
                      overwrite = FALSE){
 
-  # some arg checkers here.
-  if(!is.character(phase_names)) cli::cli_abort(c("x" = "{.arg phase_names} is not a character vector"))
-  if(any(phase_nums %% 1 != 0)) cli::cli_abort(c("x" = "{.arg phase_nums} is not an integer vector"))
-  if(!dir.exists(home)) cli::cli_abort(c("x" = "{.arg home} is not a path to a directory that exists"))
-  if(!is.logical(separate_phase_scripts)) cli::cli_abort(c("x" = "{.arg separate_phase_scripts} is not logical"))
-  if(!is.character(phase_subdirs)) cli::cli_abort(c("x" = "{.arg phase_subdirs} is not a character vector"))
-  if(!is.logical(overwrite)) cli::cli_abort(c("x" = "{.arg overwrite} is not logical"))
+  # Check arguments ----
+  if(!is.character(phase_names)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_names} must be a character vector, not class {.cls {class(phase_names)}}."
+    ))
+  }
 
-  if(length(phase_names) != length(phase_nums)) cli::cli_abort(c("x" = "{.arg phase_nums} is not the same length as {.arg phase_names}"))
+  if(any(phase_nums %% 1 != 0)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_nums} must be an integer vector, not class {.cls {class(phase_nums)}}."
+    ))
+  }
+
+  if(!dir.exists(home)) {
+    cli::cli_abort(c(
+      "x" = "{.arg home} must be a path to a directory that exists."
+    ))
+  }
+
+  if(!is.logical(separate_phase_scripts)) {
+    cli::cli_abort(c(
+      "x" = "{.arg separate_phase_scripts} must be logical, not class {.cls {class(separate_phase_scripts)}}."
+    ))
+  }
+
+  if(!is.character(phase_subdirs)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_subdirs} must be a character vector not class {.cls {class(phase_subdirs)}}."
+    ))
+  }
+
+  if(!is.logical(overwrite)) {
+    cli::cli_abort(c(
+      "x" = "{.arg overwrite} must be logical, not class {.cls {class(overwrite)}}."
+    ))
+  }
+
+  if(length(phase_names) != length(phase_nums)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_nums} must be the same length as {.arg phase_names}.",
+      "!" = "{.arg phase_nums} has a length of {length(phase_nums)} and {.arg phase_names} has a length of {length(phase_names)}."
+    ))
+  }
 
   # create "#_phase" R files and directories, adding phase_subdirs and .empty
   # files in each
