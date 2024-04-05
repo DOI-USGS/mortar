@@ -159,9 +159,15 @@ tar_init <- function(phase_names,
 
 }
 
-# helper function that creates a directory if it doesn't exist and writes a
-# .empty to file in it
-dir_setup <- function(dir_path,overwrite){
+#' Internal: create a directory (with .empty file) if it doesn't exist
+#'
+#' @param dir_path chr; path to directory to create
+#' @param overwrite lgl; if directory exists, should it be overwritten?
+#'
+#' @return lgl; did file creation succeed
+#' @noRd
+#'
+dir_setup <- function(dir_path, overwrite){
   if(!dir.exists(dir_path) | overwrite){
     unlink(dir_path,recursive = TRUE)
     dir.create(dir_path, recursive = TRUE)

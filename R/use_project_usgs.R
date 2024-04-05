@@ -22,7 +22,7 @@
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 #'
 #' @export
-
+#'
 use_gitignore_usgs <- function(home = ".", additions = NULL){
 
   use_file_usgs(inst_file = "gitignore.txt",
@@ -34,9 +34,18 @@ use_gitignore_usgs <- function(home = ".", additions = NULL){
 
 }
 
-#' internal function to be used in other use_*_usgs functions, which all have
+#' Internal: core function used in other use_*_usgs functions, which all have
 #' the same basic structure
+#'
+#' @param inst_file chr; template file to be included
+#' @param out_file chr; path to location of output file
+#' @param home chr, root directory of project. Defaults to current working
+#'   directory
+#' @param additions chr; additional lines to add to the template file
+#'
+#' @return NULL, invisibly
 #' @noRd
+#'
 use_file_usgs <- function(inst_file,
                           out_file = stringr::str_remove(inst_file, "\\.txt"),
                           home = ".",
