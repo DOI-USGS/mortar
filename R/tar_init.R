@@ -24,7 +24,8 @@
 #'   that already exist? Defaults to FALSE
 #'
 #' @examples
-#' # temporary directories in which targets project is initialized (you can skip this part if creating your own project)
+#' # temporary directories in which targets project is initialized (you can skip
+#' # this part if creating your own project)
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
@@ -32,19 +33,21 @@
 #' # creates 1_fetch, 2_process, 3_summarize R scripts and directories
 #' tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\.(R|empty)$")
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
+#'            pattern = "\\.(R|empty)$")
 #'
 #' # clean out tmp folder
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
 #'
-#' # different structure starting with 0_config and including "in/" dir in each phase
+#' # different structure starting with 0_config and including "in/" dir in eachphase
 #' tar_init(home = tmp,
 #'          phase_names = c("config", "pull", "munge", "visualize"),
 #'          phase_nums = 0:3,
 #'          phase_subdirs = c("in", "src", "out"))
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE, pattern = "\\.(R|empty)$")
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
+#'            pattern = "\\.(R|empty)$")
 #'
 #' @returns \code{NULL} invisibly
 #' @export
