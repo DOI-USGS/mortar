@@ -50,6 +50,30 @@ use_file_usgs <- function(inst_file,
                           out_file = stringr::str_remove(inst_file, "\\.txt"),
                           home = ".",
                           additions = NULL){
+  # Check arguments ----
+  rlang::arg_match(
+    inst_file,
+    list.files(system.file("template_files", package = "mortar"))
+  )
+
+  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
+    cli::cli_abort(c(
+      "x" = "{.arg home} must be a path to a directory that exists."
+    ))
+  }
+
+  if(! rlang::is_scalar_character(out_file)) {
+    cli::cli_abort(c(
+      "x" = "{.arg out_file} must be a character vector, not class {.cls {class(out_file)}}."
+    ))
+  }
+
+  if(!is.character(additions)) {
+    cli::cli_abort(c(
+      "x" = "{.arg additions} must be a character vector, not class {.cls {class(additions)}}."
+    ))
+  }
+
   cli::cli_inform(c("i" = "Using {.file {out_file}} from {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"))
 
   out_file_path <- file.path(home, out_file)

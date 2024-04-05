@@ -62,19 +62,19 @@ tar_init <- function(phase_names,
     ))
   }
 
-  if(any(phase_nums %% 1 != 0)) {
+  if(rlang::is_integerish(as.numeric(phase_nums))) {
     cli::cli_abort(c(
-      "x" = "{.arg phase_nums} must be an integer vector, not class {.cls {class(phase_nums)}}."
+      "x" = "{.arg phase_nums} must be an integer-like vector, not class {.cls {class(phase_nums)}}."
     ))
   }
 
-  if(!dir.exists(home)) {
+  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
     cli::cli_abort(c(
       "x" = "{.arg home} must be a path to a directory that exists."
     ))
   }
 
-  if(!is.logical(separate_phase_scripts)) {
+  if(!rlang::is_scalar_logical(separate_phase_scripts)) {
     cli::cli_abort(c(
       "x" = "{.arg separate_phase_scripts} must be logical, not class {.cls {class(separate_phase_scripts)}}."
     ))
@@ -86,7 +86,7 @@ tar_init <- function(phase_names,
     ))
   }
 
-  if(!is.logical(overwrite)) {
+  if(!rlang::is_scalar_logical(overwrite)) {
     cli::cli_abort(c(
       "x" = "{.arg overwrite} must be logical, not class {.cls {class(overwrite)}}."
     ))
