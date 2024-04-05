@@ -99,25 +99,29 @@ tar_init <- function(phase_names,
     ))
   }
 
+  # Create phase R files and directories ----
   # create "#_phase" R files and directories, adding phase_subdirs and .empty
   # files in each
-  purrr::walk2(phase_nums,phase_names,
-               function(phaseNum,phaseName){
 
-                 purrr::walk(paste0("/",c("",phase_subdirs)),
-                             function(subdir){
-                               dir_setup(file.path(home,paste0(phaseNum,"_",phaseName,subdir)),
-                                         overwrite = overwrite)
+  ## Create subdirectories ----
+  subdir_paths <- expand.grid(
+    dir = glue::glue("{home}/{phase_nums}_{phase_names}"),
+    subdir = phase_subdirs
+  ) |>
+    glue::glue_data("{dir}/{subdir}")
 
-                             })
-                 if(separate_phase_scripts & (!file.exists(paste0(home,"/",phaseNum,"_",phaseName,".R")) | overwrite)){
-                   file.create(paste0(home,"/",phaseNum,"_",phaseName,".R"))
+  purrr::walk(subdir_paths, ~ dir_setup(.x, overwrite = overwrite))
 
-                   cat(paste0("#source('",home,"/",phaseNum,"_",phaseName,"/src/script.R')\n"),
-                       paste0("p",phaseNum,"_targets_list <- list()"),
-                       file = paste0(home,"/",phaseNum,"_",phaseName,".R"))
-                 }
-               })
+  ## Create phase scripts (if applicable) ----
+  phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
+
+  if(separate_phase_scripts & (!file.exists(phase_files) | overwrite)) {
+    phase_file_text <- glue::glue(
+      "#source(\"{home}/{phase_nums}_{phase_names}/src/script.R\")\n",
+      " p{phase_nums}_targets_list <- list()"
+    )
+    purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
+  }
 
   if(!file.exists("_targets.R") | overwrite){
     phase_script_text <- ""
@@ -161,7 +165,7 @@ tar_option_set()
 dir_setup <- function(dir_path,overwrite){
   if(!dir.exists(dir_path) | overwrite){
     unlink(dir_path,recursive = TRUE)
-    dir.create(dir_path)
+    dir.create(dir_path, recursive = TRUE)
   }
 
   file.create(paste0(dir_path,"/.empty"))
