@@ -114,7 +114,6 @@ tar_init <- function(phase_names,
 
   ## Create phase scripts (if applicable) ----
   phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
-
   if(separate_phase_scripts & (!file.exists(phase_files) | overwrite)) {
     phase_file_text <- glue::glue(
       "#source(\"{home}/{phase_nums}_{phase_names}/src/script.R\")\n",
@@ -123,33 +122,33 @@ tar_init <- function(phase_names,
     purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
   }
 
+  # Create targets file ----
   if(!file.exists("_targets.R") | overwrite){
-    phase_script_text <- ""
     if(separate_phase_scripts) {
       phase_script_text <- glue::glue("source(\"{home}/{phase_nums}_{phase_names}.R\")") |>
         glue::glue_collapse(sep = "\n")
+    } else {
+      phase_script_text <- ""
     }
 
-    phase_target_text <- "list()"
     if(separate_phase_scripts) {
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
       phase_target_text <- glue::glue("c({phase_targets})")
+    } else {
+      phase_target_text <- "list()"
     }
+
 
     cat(
       glue::glue(
-        "library(targets)
-#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders
-#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")
-#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)
-{phase_script_text}
-
-# set options here like `packages = c(\"tidyverse\",...)
-tar_option_set()
-
-
-{phase_target_text}",
-
+        "library(targets)",
+        "#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders",
+        "#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")",
+        "#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)\n",
+        "{phase_script_text}\n",
+        "# set options here like `packages = c(\"tidyverse\",...)",
+        "tar_option_set()\n\n",
+        "{phase_target_text}",
         .sep = "\n"
       ),
       file = "_targets.R"
