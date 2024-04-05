@@ -4,28 +4,29 @@ Title: Standardize data science workflows
 Version: 0.1.0
 Authors@R:
     c(
-    person("Joseph","Zemmels",,email="jzemmels@usgs.gov",role = c("aut","cre")),
-    person("Anthony","Martinez",role = c("aut","ctb"))
+    person("Joseph","Zemmels",email="jzemmels@usgs.gov",role = c("aut","cre"),comment = c(ORCID = "0009-0008-1463-6313")),
+    person("Anthony","Martinez",email="ajmartinez@usgs.gov",role = c("aut","ctb"),comment = c(ORCID = "0000-0002-4295-0261"))
     )
 Maintainer: Joseph Zemmels <jzemmels@usgs.gov>
 Description: Helper functions to standardize common workflows in the USGS Water 
     Mission Area Data Science Branch.
-License: What license is it under?
+License: CC0
 Encoding: UTF-8
 LazyData: true
 Imports: 
     cli,
     glue,
     purrr,
-    rlang,
-    renv,
-    tarchetypes,
-    targets
+    rlang
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
     knitr,
+    renv,
     rmarkdown,
+    stringr,
+    tarchetypes,
+    targets,
     testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Config/testthat/edition: 3
