@@ -62,7 +62,7 @@ tar_init <- function(phase_names,
     ))
   }
 
-  if(rlang::is_integerish(as.numeric(phase_nums))) {
+  if(! rlang::is_integerish(as.numeric(phase_nums))) {
     cli::cli_abort(c(
       "x" = "{.arg phase_nums} must be an integer-like vector, not class {.cls {class(phase_nums)}}."
     ))
@@ -70,13 +70,13 @@ tar_init <- function(phase_names,
 
   if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
     cli::cli_abort(c(
-      "x" = "{.arg home} must be a path to a directory that exists."
+      "x" = "{.arg home} must be a character path (length 1) to a directory that exists."
     ))
   }
 
   if(!rlang::is_scalar_logical(separate_phase_scripts)) {
     cli::cli_abort(c(
-      "x" = "{.arg separate_phase_scripts} must be logical, not class {.cls {class(separate_phase_scripts)}}."
+      "x" = "{.arg separate_phase_scripts} must be logical (length 1), not class {.cls {class(separate_phase_scripts)}} (length {length(separate_phase_scripts)})."
     ))
   }
 
@@ -88,7 +88,7 @@ tar_init <- function(phase_names,
 
   if(!rlang::is_scalar_logical(overwrite)) {
     cli::cli_abort(c(
-      "x" = "{.arg overwrite} must be logical, not class {.cls {class(overwrite)}}."
+      "x" = "{.arg overwrite} must be logical (length 1), not class {.cls {class(overwrite)}} (length {length(overwrite)})."
     ))
   }
 
@@ -114,7 +114,7 @@ tar_init <- function(phase_names,
 
   ## Create phase scripts (if applicable) ----
   phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
-  if(separate_phase_scripts & (!file.exists(phase_files) | overwrite)) {
+  if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
     phase_file_text <- glue::glue(
       "#source(\"{home}/{phase_nums}_{phase_names}/src/script.R\")\n",
       " p{phase_nums}_targets_list <- list()"
