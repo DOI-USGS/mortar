@@ -24,7 +24,8 @@
 #'   that already exist? Defaults to FALSE
 #'
 #' @examples
-#' # temporary directories in which targets project is initialized (you can skip this part if creating your own project)
+#' # temporary directories in which targets project is initialized (you can skip
+#' # this part if creating your own project)
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
@@ -32,20 +33,22 @@
 #' # creates 1_fetch, 2_process, 3_summarize R scripts and directories
 #' tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
+#'            pattern = "\\.(R|empty)$")
 #'
 #' # clean out tmp folder
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
 #'
-#' # different structure starting with 0_config and including "in/" dir in each phase, but all phases will be defined in the _targets.R file rather than in their own .R scripts
+#' # different structure starting with 0_config and including "in/" dir in eachphase
 #' tar_init(home = tmp,
 #'          phase_names = c("config", "pull", "munge", "visualize"),
 #'          phase_nums = 0:3,
 #'          phase_subdirs = c("in", "src", "out"),
 #'          separate_phase_scripts = FALSE)
 #'
-#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE)
+#' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
+#'            pattern = "\\.(R|empty)$")
 #'
 #' @returns \code{NULL} invisibly
 #' @export
@@ -56,66 +59,103 @@ tar_init <- function(phase_names,
                      phase_subdirs = c("src","out"),
                      overwrite = FALSE){
 
-  # some arg checkers here.
-  if(!is.character(phase_names)) cli::cli_abort(c("x" = "{.arg phase_names} is not a character vector"))
-  if(any(phase_nums %% 1 != 0)) cli::cli_abort(c("x" = "{.arg phase_nums} is not an integer vector"))
-  if(!dir.exists(home)) cli::cli_abort(c("x" = "{.arg home} is not a path to a directory that exists"))
-  if(!is.logical(separate_phase_scripts)) cli::cli_abort(c("x" = "{.arg separate_phase_scripts} is not logical"))
-  if(!is.character(phase_subdirs)) cli::cli_abort(c("x" = "{.arg phase_subdirs} is not a character vector"))
-  if(!is.logical(overwrite)) cli::cli_abort(c("x" = "{.arg overwrite} is not logical"))
+  # Check arguments ----
+  if(!is.character(phase_names)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_names} must be a character vector, not class {.cls {class(phase_names)}}."
+    ))
+  }
 
-  if(length(phase_names) != length(phase_nums)) cli::cli_abort(c("x" = "{.arg phase_nums} is not the same length as {.arg phase_names}"))
+  if(! rlang::is_integerish(as.numeric(phase_nums))) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_nums} must be an integer-like vector, not class {.cls {class(phase_nums)}}."
+    ))
+  }
 
+  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
+    cli::cli_abort(c(
+      "x" = "{.arg home} must be a character path (length 1) to a directory that exists."
+    ))
+  }
+
+  if(!rlang::is_scalar_logical(separate_phase_scripts)) {
+    cli::cli_abort(c(
+      "x" = "{.arg separate_phase_scripts} must be logical (length 1), not class {.cls {class(separate_phase_scripts)}} (length {length(separate_phase_scripts)})."
+    ))
+  }
+
+  if(!is.character(phase_subdirs)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_subdirs} must be a character vector not class {.cls {class(phase_subdirs)}}."
+    ))
+  }
+
+  if(!rlang::is_scalar_logical(overwrite)) {
+    cli::cli_abort(c(
+      "x" = "{.arg overwrite} must be logical (length 1), not class {.cls {class(overwrite)}} (length {length(overwrite)})."
+    ))
+  }
+
+  if(length(phase_names) != length(phase_nums)) {
+    cli::cli_abort(c(
+      "x" = "{.arg phase_nums} must be the same length as {.arg phase_names}.",
+      "!" = "{.arg phase_nums} has a length of {length(phase_nums)} and {.arg phase_names} has a length of {length(phase_names)}."
+    ))
+  }
+
+  # Create phase R files and directories ----
   # create "#_phase" R files and directories, adding phase_subdirs and .empty
   # files in each
-  purrr::walk2(phase_nums,phase_names,
-               function(phaseNum,phaseName){
 
-                 purrr::walk(paste0("/",c("",phase_subdirs)),
-                             function(subdir){
-                               dir_setup(file.path(home,paste0(phaseNum,"_",phaseName,subdir)),
-                                         overwrite = overwrite)
+  ## Create subdirectories ----
+  subdir_paths <- expand.grid(
+    dir = glue::glue("{home}/{phase_nums}_{phase_names}"),
+    subdir = phase_subdirs
+  ) |>
+    glue::glue_data("{dir}/{subdir}")
 
-                             })
-                 if(separate_phase_scripts & (!file.exists(paste0(home,"/",phaseNum,"_",phaseName,".R")) | overwrite)){
-                   file.create(paste0(home,"/",phaseNum,"_",phaseName,".R"))
+  purrr::walk(subdir_paths, ~ dir_setup(.x, overwrite = overwrite))
 
-                   cat(paste0("#source('",home,"/",phaseNum,"_",phaseName,"/src/script.R')\n"),
-                       paste0("p",phaseNum,"_targets_list <- list()"),
-                       file = paste0(home,"/",phaseNum,"_",phaseName,".R"))
-                 }
-               })
+  ## Create phase scripts (if applicable) ----
+  phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
+  if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
+    phase_file_text <- glue::glue(
+      "#source(\"{home}/{phase_nums}_{phase_names}/src/script.R\")\n",
+      " p{phase_nums}_targets_list <- list()"
+    )
+    purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
+  }
 
+  # Create targets file ----
   if(!file.exists("_targets.R") | overwrite){
-    phase_script_text <- ""
     if(separate_phase_scripts) {
       phase_script_text <- glue::glue("source(\"{home}/{phase_nums}_{phase_names}.R\")") |>
         glue::glue_collapse(sep = "\n")
+    } else {
+      phase_script_text <- ""
     }
     else{
       phase_script_text <- glue::glue("p{phase_nums}_targets_list <- list()") |>
         glue::glue_collapse(sep = "\n")
     }
 
-    phase_target_text <- "list()"
-    # if(separate_phase_scripts) {
+    if(separate_phase_scripts) {
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
-
-    # }
-    phase_target_text <- glue::glue("c({phase_targets})")
+      phase_target_text <- glue::glue("c({phase_targets})")
+    } else {
+      phase_target_text <- "list()"
+    }
 
     cat(
       glue::glue(
-        "library(targets)
-
-# set options here like `packages = c(\"tidyverse\",...)
-tar_option_set()
-
-#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders
-{phase_script_text}
-
-{phase_target_text}",
-
+        "library(targets)",
+        "#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders",
+        "#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")",
+        "#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)\n",
+        "{phase_script_text}\n",
+        "# set options here like `packages = c(\"tidyverse\",...)",
+        "tar_option_set()\n\n",
+        "{phase_target_text}",
         .sep = "\n"
       ),
       file = "_targets.R"
@@ -126,12 +166,18 @@ tar_option_set()
 
 }
 
-# helper function that creates a directory if it doesn't exist and writes a
-# .empty to file in it
-dir_setup <- function(dir_path,overwrite){
+#' Internal: create a directory (with .empty file) if it doesn't exist
+#'
+#' @param dir_path chr; path to directory to create
+#' @param overwrite lgl; if directory exists, should it be overwritten?
+#'
+#' @return lgl; did file creation succeed
+#' @noRd
+#'
+dir_setup <- function(dir_path, overwrite){
   if(!dir.exists(dir_path) | overwrite){
     unlink(dir_path,recursive = TRUE)
-    dir.create(dir_path)
+    dir.create(dir_path, recursive = TRUE)
   }
 
   file.create(paste0(dir_path,"/.empty"))

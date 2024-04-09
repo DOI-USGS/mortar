@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mortar
+# mortar <img src="man/figures/logo.png" align="right" />
 
 <!-- badges: start -->
 <!-- badges: end -->
