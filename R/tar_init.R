@@ -142,6 +142,7 @@ tar_init <- function(phase_names,
       phase_target_text <- "list()"
     }
 
+
     cat(
       glue::glue(
         "library(targets)",
