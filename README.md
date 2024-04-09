@@ -108,51 +108,6 @@ Refer to the [Get
 started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html)
 for more information on the package’s usage.
 
-## Package Development 101
-
-This section discusses the basic workflow of writing R packages. It will
-probably go in a CONTRIBUTING file later. See [this cheat
-sheet](https://rstudio.github.io/cheatsheets/package-development.pdf)
-for more information.
-
-1.  Make an informatively named branch off of the main branch of this
-    repo.
-
-2.  Make your desired change(s).
-
-- If writing a new function, make sure you thoroughly document the
-  function using [`roxygen2`](https://roxygen2.r-lib.org/) style. If you
-  want this function to be exported with the package, add an `@export`
-  tab somewhere in the documentation (I prefer at the very end)
-
-- If you’re changing a function that is already documented, make sure to
-  update any aspects of the documentation your changes make outdated.
-
-- Write some tests to verify the function works/breaks when it should
-  (e.g., throws an error when incorrect arguments are passed). See the
-  [testthat](https://testthat.r-lib.org/) package documentation for
-  information on writing good unit tests.
-
-3.  Re-compile the documentation with
-    [`devtools::document()`](https://devtools.r-lib.org/reference/document.html).
-    This will print warnings/errors if there’s anything wrong with the
-    documentation. This will update/create an `.Rd` file in the `man`
-    folder.
-
-- Bonus: re-build the package website with
-  [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html).
-  This will update the contents of the `docs` folder.
-
-4.  Re-build the package with `CTRL/CMD + SHIFT + B`. Wait for the
-    session to restart and the package to load.
-
-5.  Run your function (in the console or wherever) and verify it works
-    as expected.
-
-6.  Stage, commit, and push your changes to the `mortar` GitLab repo.
-    Open a merge request and add someone appropriate (e.g., the package
-    maintainer) as a reviewer.
-
 ## TODO
 
 Here are some ideas of potential functionality we can add to the
@@ -162,7 +117,7 @@ package.
   - Add an automatic `renv::status()` check in a `_targets.R` file as
     detailed
     [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723).
-- Initialize/update .gitignore with an opinionated list of files we
+- [x] Initialize/update .gitignore with an opinionated list of files we
   often want ignored (`.Renviron`, for example)
 - Function(s) for locally saving credentials (ScienceBase, Google
   Analytics, etc.) using `.Renviron` file as is done
@@ -178,8 +133,8 @@ package.
   [`reticulate`](https://rstudio.github.io/reticulate/) R package.
 - Function(s) for setting up a `gitlab-ci.yml` file easily and/or
   invoking GitLab runners within a project
-- A function to add the front matter needed to make a repo public (i.e.,
-  license, readme, see the [IWAAs Standard template
+- [x] A function to add the front matter needed to make a repo public
+  (i.e., license, readme, see the [IWAAs Standard template
   repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
 - We may want to create a helper function that modifies existing files.
   For example, it would be cool to be able to have the ability to add
