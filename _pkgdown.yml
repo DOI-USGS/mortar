@@ -3,4 +3,5 @@ reference:
     desc: "Initialize elements of a USGS project directory"
     contents:
       - tar_init
+      - use_project_usgs
       - starts_with("use_")
