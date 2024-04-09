@@ -84,6 +84,30 @@ Using this method, you only need the PAT to re-install the package. You
 will want to somehow save this PAT since you can’t view it after it’s
 created.
 
+## Basic Usage
+
+Use the `use_*_usgs()` functions to add common project files to a
+directory such as a `.gitignore`, `README.md`, etc. Use
+`use_project_usgs()` to add all of these files at once.
+
+``` r
+library(mortar)
+
+use_project_usgs(home = ".")
+```
+
+If you’re specifically setting up a `targets` pipeline project, you can
+**also** run `tar_init()` to set up the `targets` directory structure we
+commonly use in the Data Science Branch
+
+``` r
+tar_init(phase_names = c("fetch", "process", "visualize"))
+```
+
+Refer to the [Get
+started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html)
+for more information on the package’s usage.
+
 ## Package Development 101
 
 This section discusses the basic workflow of writing R packages. It will

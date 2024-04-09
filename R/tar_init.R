@@ -134,10 +134,6 @@ tar_init <- function(phase_names,
     } else {
       phase_script_text <- ""
     }
-    else{
-      phase_script_text <- glue::glue("p{phase_nums}_targets_list <- list()") |>
-        glue::glue_collapse(sep = "\n")
-    }
 
     if(separate_phase_scripts) {
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
