@@ -73,7 +73,7 @@ Use `use_project_usgs()` to add all of these files at once.
 ```{r eval=FALSE}
 library(mortar)
 
-use_project_usgs(home = ".")
+use_project_usgs()
 ```
 
 If you're specifically setting up a `targets` pipeline project, you can **also** run `tar_init()` to set up the `targets` directory structure we commonly use in the Data Science Branch

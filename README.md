@@ -93,7 +93,7 @@ directory such as a `.gitignore`, `README.md`, etc. Use
 ``` r
 library(mortar)
 
-use_project_usgs(home = ".")
+use_project_usgs()
 ```
 
 If you’re specifically setting up a `targets` pipeline project, you can
