@@ -62,3 +62,4 @@ If you don't like the contents of these template files, you're welcome to edit t
 use_gitignore_usgs()
 ```
 
+
