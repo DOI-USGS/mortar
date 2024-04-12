@@ -113,12 +113,17 @@ for more information on the package’s usage.
 Here are some ideas of potential functionality we can add to the
 package.
 
+- [x] Initialize/update .gitignore with an opinionated list of files we
+  often want ignored (`.Renviron`, for example)
+- [x] A function to add the front matter needed to make a repo public
+  (i.e., license, readme, see the [IWAAs Standard template
+  repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
 - Initialize `renv` with some pre-loaded packages (`targets`, etc.)
   - Add an automatic `renv::status()` check in a `_targets.R` file as
     detailed
     [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723).
-- [x] Initialize/update .gitignore with an opinionated list of files we
-  often want ignored (`.Renviron`, for example)
+  - Use `targets::tar_renv()` to automatically create a
+    \_targets_packages.R file containing pipeline package dependencies.
 - Function(s) for locally saving credentials (ScienceBase, Google
   Analytics, etc.) using `.Renviron` file as is done
   [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/blob/main/00_config/src/sb_cache.R?ref_type=heads)
@@ -126,19 +131,23 @@ package.
   package as done
   [here](https://code.usgs.gov/wma/iidd/analytics/waterlogged/-/blob/main/R/saml2aws_login.R?ref_type=heads).
   - Option to encrypt these credentials using the user’s local SSH key
-- Linting functions to check code against DaSB’s best practices using
-  the [`lintr`](https://lintr.r-lib.org/) package or others
-- Functions to provide more user-friendly set up and management of conda
-  environments using the
-  [`reticulate`](https://rstudio.github.io/reticulate/) R package.
-- Function(s) for setting up a `gitlab-ci.yml` file easily and/or
-  invoking GitLab runners within a project
-- [x] A function to add the front matter needed to make a repo public
-  (i.e., license, readme, see the [IWAAs Standard template
-  repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
 - We may want to create a helper function that modifies existing files.
   For example, it would be cool to be able to have the ability to add
   the renv status check code under the `library()` lines of the
   *\_targets.R* file. It would probably require `readLines()` to read
   the file, `match()` to find the line to write after, `[` and `c()` to
   reconstruct the lines, and `writeLines()` to write it again.
+- Function(s) for setting up a `gitlab-ci.yml` file easily and/or
+  invoking GitLab runners within a project
+- Functions to provide more user-friendly set up and management of conda
+  environments using the
+  [`reticulate`](https://rstudio.github.io/reticulate/) R package.
+
+These ideas can go in another package. Maybe a package focused on
+“securing” a pipeline (`fasteneR`/`fastenR`, `clamp`, `rivet`/`rivetR`,
+`bracket`).
+
+- Linting/styling functions to check code against DaSB’s best practices
+  using [`lintr`](https://lintr.r-lib.org/),
+  [`styler`](https://styler.r-lib.org/), etc.
+  - Check whether any PII is exposed in the code
