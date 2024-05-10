@@ -67,7 +67,8 @@ dir.create(tmp)
 tar_init(home = tmp,
          phase_names = c("config", "pull", "munge", "visualize"),
          phase_nums = 0:3,
-         phase_subdirs = c("in", "src", "out"))
+         phase_subdirs = c("in", "src", "out"),
+         separate_phase_scripts = FALSE)
 
 list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
            pattern = "\\\\.(R|empty)$")

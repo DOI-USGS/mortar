@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mortar
+# mortar <img src="man/figures/logo.png" width="20%" align="right" />
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -24,7 +24,10 @@ creation of [`targets`](https://books.ropensci.org/targets/) pipelines
 using our branch’s best practices, manage package dependencies using
 [`renv`](https://rstudio.github.io/renv/index.html), and other
 functionality (eventually, hopefully) contributed by users who want to
-standardize their workflows across DaSB projects/collaborators.
+standardize their workflows across DaSB projects/collaborators. Refer to
+the [Get
+started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html)
+for more information on the package’s usage.
 
 The package name has multiple meanings. It mixes water (😉) with
 structural ingredients to form a foundation upon which our pipelines can
@@ -81,62 +84,46 @@ Using this method, you only need the PAT to re-install the package. You
 will want to somehow save this PAT since you can’t view it after it’s
 created.
 
-## Package Development 101
+## Basic Usage
 
-This section discusses the basic workflow of writing R packages. It will
-probably go in a CONTRIBUTING file later. See [this cheat
-sheet](https://rstudio.github.io/cheatsheets/package-development.pdf)
-for more information.
+Use the `use_*_usgs()` functions to add common project files to a
+directory such as a `.gitignore`, `README.md`, etc. Use
+`use_project_usgs()` to add all of these files at once.
 
-1.  Make an informatively named branch off of the main branch of this
-    repo.
+``` r
+library(mortar)
 
-2.  Make your desired change(s).
+use_project_usgs()
+```
 
-- If writing a new function, make sure you thoroughly document the
-  function using [`roxygen2`](https://roxygen2.r-lib.org/) style. If you
-  want this function to be exported with the package, add an `@export`
-  tab somewhere in the documentation (I prefer at the very end)
+If you’re specifically setting up a `targets` pipeline project, you can
+**also** run `tar_init()` to set up the `targets` directory structure we
+commonly use in the Data Science Branch
 
-- If you’re changing a function that is already documented, make sure to
-  update any aspects of the documentation your changes make outdated.
+``` r
+tar_init(phase_names = c("fetch", "process", "visualize"))
+```
 
-- Write some tests to verify the function works/breaks when it should
-  (e.g., throws an error when incorrect arguments are passed). See the
-  [testthat](https://testthat.r-lib.org/) package documentation for
-  information on writing good unit tests.
-
-3.  Re-compile the documentation with
-    [`devtools::document()`](https://devtools.r-lib.org/reference/document.html).
-    This will print warnings/errors if there’s anything wrong with the
-    documentation. This will update/create an `.Rd` file in the `man`
-    folder.
-
-- Bonus: re-build the package website with
-  [`pkgdown::build_site()`](https://pkgdown.r-lib.org/reference/build_site.html).
-  This will update the contents of the `docs` folder.
-
-4.  Re-build the package with `CTRL/CMD + SHIFT + B`. Wait for the
-    session to restart and the package to load.
-
-5.  Run your function (in the console or wherever) and verify it works
-    as expected.
-
-6.  Stage, commit, and push your changes to the `mortar` GitLab repo.
-    Open a merge request and add someone appropriate (e.g., the package
-    maintainer) as a reviewer.
+Refer to the [Get
+started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html)
+for more information on the package’s usage.
 
 ## TODO
 
 Here are some ideas of potential functionality we can add to the
 package.
 
+- [x] Initialize/update .gitignore with an opinionated list of files we
+  often want ignored (`.Renviron`, for example)
+- [x] A function to add the front matter needed to make a repo public
+  (i.e., license, readme, see the [IWAAs Standard template
+  repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
 - Initialize `renv` with some pre-loaded packages (`targets`, etc.)
   - Add an automatic `renv::status()` check in a `_targets.R` file as
     detailed
     [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723).
-- Initialize/update .gitignore with an opinionated list of files we
-  often want ignored (`.Renviron`, for example)
+  - Use `targets::tar_renv()` to automatically create a
+    \_targets_packages.R file containing pipeline package dependencies.
 - Function(s) for locally saving credentials (ScienceBase, Google
   Analytics, etc.) using `.Renviron` file as is done
   [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/blob/main/00_config/src/sb_cache.R?ref_type=heads)
@@ -144,19 +131,23 @@ package.
   package as done
   [here](https://code.usgs.gov/wma/iidd/analytics/waterlogged/-/blob/main/R/saml2aws_login.R?ref_type=heads).
   - Option to encrypt these credentials using the user’s local SSH key
-- Linting functions to check code against DaSB’s best practices using
-  the [`lintr`](https://lintr.r-lib.org/) package or others
-- Functions to provide more user-friendly set up and management of conda
-  environments using the
-  [`reticulate`](https://rstudio.github.io/reticulate/) R package.
-- Function(s) for setting up a `gitlab-ci.yml` file easily and/or
-  invoking GitLab runners within a project
-- A function to add the front matter needed to make a repo public (i.e.,
-  license, readme, see the [IWAAs Standard template
-  repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
 - We may want to create a helper function that modifies existing files.
   For example, it would be cool to be able to have the ability to add
   the renv status check code under the `library()` lines of the
   *\_targets.R* file. It would probably require `readLines()` to read
   the file, `match()` to find the line to write after, `[` and `c()` to
   reconstruct the lines, and `writeLines()` to write it again.
+- Function(s) for setting up a `gitlab-ci.yml` file easily and/or
+  invoking GitLab runners within a project
+- Functions to provide more user-friendly set up and management of conda
+  environments using the
+  [`reticulate`](https://rstudio.github.io/reticulate/) R package.
+
+These ideas can go in another package. Maybe a package focused on
+“securing” a pipeline (`fasteneR`/`fastenR`, `clamp`, `rivet`/`rivetR`,
+`bracket`).
+
+- Linting/styling functions to check code against DaSB’s best practices
+  using [`lintr`](https://lintr.r-lib.org/),
+  [`styler`](https://styler.r-lib.org/), etc.
+  - Check whether any PII is exposed in the code

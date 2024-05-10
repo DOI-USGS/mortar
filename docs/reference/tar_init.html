@@ -135,16 +135,15 @@ that already exist? Defaults to FALSE</p></dd>
 <span class="r-in"><span><span class="fu">tar_init</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span>,</span></span>
 <span class="r-in"><span>         phase_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"pull"</span>, <span class="st">"munge"</span>, <span class="st">"visualize"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>         phase_nums <span class="op">=</span> <span class="fl">0</span><span class="op">:</span><span class="fl">3</span>,</span></span>
-<span class="r-in"><span>         phase_subdirs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"in"</span>, <span class="st">"src"</span>, <span class="st">"out"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>         phase_subdirs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"in"</span>, <span class="st">"src"</span>, <span class="st">"out"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>         separate_phase_scripts <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp</span>, full.names <span class="op">=</span> <span class="cn">FALSE</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span>, all.files <span class="op">=</span> <span class="cn">TRUE</span>,</span></span>
 <span class="r-in"><span>           pattern <span class="op">=</span> <span class="st">"\\.(R|empty)$"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "0_config.R"             "0_config/in/.empty"     "0_config/out/.empty"   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "0_config/src/.empty"    "1_pull.R"               "1_pull/in/.empty"      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "1_pull/out/.empty"      "1_pull/src/.empty"      "2_munge.R"             </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "2_munge/in/.empty"      "2_munge/out/.empty"     "2_munge/src/.empty"    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "3_visualize.R"          "3_visualize/in/.empty"  "3_visualize/out/.empty"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [16] "3_visualize/src/.empty"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "0_config/in/.empty"     "0_config/out/.empty"    "0_config/src/.empty"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "1_pull/in/.empty"       "1_pull/out/.empty"      "1_pull/src/.empty"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "2_munge/in/.empty"      "2_munge/out/.empty"     "2_munge/src/.empty"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "3_visualize/in/.empty"  "3_visualize/out/.empty" "3_visualize/src/.empty"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
