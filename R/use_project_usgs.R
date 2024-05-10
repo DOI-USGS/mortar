@@ -7,11 +7,11 @@
 #'   directory
 #' @param gitignore_additions chr vector, other files/directories to be added to
 #'   .gitignore
-#' @param readme_rmd lgl, should a README.Rmd file be created? If not, them a
-#'   README.md is created.
-#' @param disclaimer_approved lgl, should this project contain an approved
-#'   disclaimer statement? If not, then a provisional disclaimer statement is
-#'   created.
+#' @param readme_rmd lgl, should a README.Rmd file be created? If not (default),
+#'   then a README.md is created.
+##' @param disclaimer_approved lgl, should this project contain an approved
+#'   disclaimer statement? If not (default), then a provisional disclaimer
+#'   statement is created.
 #'
 #' @examples
 #' tmp <- tempdir()
