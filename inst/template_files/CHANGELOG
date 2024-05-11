@@ -17,11 +17,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - items changed
 
+### Deprecated
+
+- soon-to-be-removed items or features
+
+### Removed
+
+- for now removed features
+
 ### Fixed
 
 - items fixed
 
+### Security
 
+- in case of vulnerabilities
 
 > starting here, all releases are listed, with respective changes listed by category
 
@@ -42,6 +52,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Deprecated
 
 - items deprecated
-
-
-

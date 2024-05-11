@@ -5,7 +5,8 @@ Version: 0.1.0
 Authors@R:
     c(
     person("Joseph","Zemmels",email="jzemmels@usgs.gov",role = c("aut","cre"),comment = c(ORCID = "0009-0008-1463-6313")),
-    person("Anthony","Martinez",email="ajmartinez@usgs.gov",role = c("aut","ctb"),comment = c(ORCID = "0000-0002-4295-0261"))
+    person("Anthony","Martinez",email="ajmartinez@usgs.gov",role = c("aut","ctb"),comment = c(ORCID = "0000-0002-4295-0261")),
+    person("Jesse","Ross",role = c("ctb"))
     )
 Maintainer: Joseph Zemmels <jzemmels@usgs.gov>
 Description: Helper functions to standardize common workflows in the USGS Water 
@@ -15,9 +16,11 @@ Encoding: UTF-8
 LazyData: true
 Imports: 
     cli,
+    gert,
     glue,
     purrr,
-    rlang
+    rlang,
+    usethis
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
