@@ -76,7 +76,10 @@ cat(readLines(tmpfile),sep = "\n")
 # string and return a single boolean. You can use it with the match argument
 # for some interesting interactions. Here, we change every line containing
 # the word "is" to uppercase
-file_edit(file = tmpfile, txt = toupper, match = ~ stringr::str_detect(.x, " is "), append = FALSE)
+file_edit(file = tmpfile,
+          txt = toupper,
+          match = ~ stringr::str_detect(.x, " is "),
+          append = FALSE)
 cat(readLines(tmpfile),sep = "\n")
 
 # strings containing carriage returns are preserved. Here, we use the readLines
@@ -86,6 +89,9 @@ multiline <-
 Here is a string
 that takes up multiple lines"
 
-file_edit(file = tmpfile, txt = multiline, match = length(readLines(tmpfile)), append = TRUE)
+file_edit(file = tmpfile,
+          txt = multiline,
+          match = length(readLines(tmpfile)),
+          append = TRUE)
 cat(readLines(tmpfile),sep = "\n")
 }
