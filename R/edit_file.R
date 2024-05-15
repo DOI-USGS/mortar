@@ -62,7 +62,7 @@
 #' cat(readLines(tmpfile),sep = "\n")
 #'
 #' # The match argument can also be a  function. It just needs to accept a single
-#' # string and return a single boolean. You can use it with the match argument
+#' # string and return a single boolean. You can use it with the txt argument
 #' # for some interesting interactions. Here, we change every line containing
 #' # the word "is" to uppercase
 #' file_edit(file = tmpfile,
