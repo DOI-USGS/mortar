@@ -1,7 +1,8 @@
 #' Edit a text file programmatically
 #'
-#' Insert or transform (`txt` argument) one or more lines in a file specified either by
-#' line number or a boolean function (`match` argument).
+#' Insert or transform (`txt` argument) one or more lines in a file specified
+#' either by line number or a boolean function (`match` argument). Any file that
+#' can be read with the \code{readLines()} function should be compatible.
 #'
 #' @param file chr, path to a file
 #' @param txt chr or chr fun, either a single character string to insert into
@@ -13,7 +14,7 @@
 #' @param match num vector or lgl fun, either a numeric vector indicating line
 #'   indices in the file or a function that returns a logical indicating lines
 #'   to change. If supplying a function, the first argument of the function must
-#'   accept a single string and it mustreturn a logical vector. The function
+#'   accept a single string and it must return a logical vector. The function
 #'   will be applied independently to each line in the file. Supports anonymous
 #'   functions. See examples.
 #' @param append lgl, if TRUE the text will be added as a new line after the
