@@ -5,3 +5,4 @@ reference:
       - tar_init
       - use_project_usgs
       - starts_with("use_")
+      - file_edit
