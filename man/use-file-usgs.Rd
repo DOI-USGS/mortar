@@ -11,6 +11,7 @@
 \alias{use_code_of_conduct_usgs}
 \alias{use_contributing_usgs}
 \alias{use_changelog_usgs}
+\alias{use_gitlab_mr_template}
 \title{Add individual USGS project files to a directory}
 \usage{
 use_gitignore_usgs(home = ".", additions = NULL)
@@ -30,6 +31,8 @@ use_code_of_conduct_usgs(home = ".")
 use_contributing_usgs(home = ".")
 
 use_changelog_usgs(home = ".")
+
+use_gitlab_mr_template(home = ".")
 }
 \arguments{
 \item{home}{chr, root directory of project. Defaults to current working

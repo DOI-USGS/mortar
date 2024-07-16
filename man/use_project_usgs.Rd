@@ -8,7 +8,8 @@ use_project_usgs(
   home = ".",
   gitignore_additions = NULL,
   readme_rmd = FALSE,
-  disclaimer_approved = FALSE
+  disclaimer_approved = FALSE,
+  use_mr_template = TRUE
 )
 }
 \arguments{
@@ -18,12 +19,15 @@ directory}
 \item{gitignore_additions}{chr vector, other files/directories to be added to
 .gitignore}
 
-\item{readme_rmd}{lgl, should a README.Rmd file be created? If not, them a
-README.md is created.}
+\item{readme_rmd}{lgl, should a README.Rmd file be created? If not (default),
+then a README.md is created.}
 
 \item{disclaimer_approved}{lgl, should this project contain an approved
-disclaimer statement? If not, then a provisional disclaimer statement is
-created.}
+disclaimer statement? If not (default), then a provisional disclaimer
+statement is created.}
+
+\item{use_mr_template}{lgl, should this project contain the file necessary
+to have a default GitLab Merge Request template? It is included by default.}
 }
 \description{
 Wraps the other \code{use_*_usgs} functions to initialize
