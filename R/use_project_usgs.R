@@ -243,6 +243,24 @@ use_changelog_usgs <- function(home = "."){
 
 }
 
+#' @rdname use-file-usgs
+#' @export
+use_gitlab_mr_template <- function(home = "."){
+
+  if(! dir.exists(".gitlab/merge_request_templates")) {
+    dir.create(".gitlab/merge_request_templates", recursive = TRUE)
+  }
+
+  use_file_usgs(inst_file = "mr_template",
+                out_file = ".gitlab/merge_request_templates/Default.md",
+                home = home,
+                additions = NULL,
+                source_message = FALSE)
+
+  return(invisible(NULL))
+
+}
+
 #' Internal: core function used in other use_*_usgs functions, which all have
 #' the same basic structure
 #'
