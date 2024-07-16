@@ -274,9 +274,12 @@ use_gitlab_mr_template <- function(home = "."){
 #'
 #' @param inst_file chr; template file to be included
 #' @param out_file chr; path to location of output file
-#' @param home chr, root directory of project. Defaults to current working
+#' @param home chr; root directory of project. Defaults to current working
 #'   directory
 #' @param additions chr; additional lines to add to the template file
+#' @param source_message lgl; should a console message be printed, informing
+#'   user that the default files comes from the Trends and Drivers repo. The
+#'   default is to include the message.
 #'
 #' @return NULL, invisibly
 #' @noRd
