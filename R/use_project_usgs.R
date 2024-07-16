@@ -9,9 +9,11 @@
 #'   .gitignore
 #' @param readme_rmd lgl, should a README.Rmd file be created? If not (default),
 #'   then a README.md is created.
-##' @param disclaimer_approved lgl, should this project contain an approved
+#' @param disclaimer_approved lgl, should this project contain an approved
 #'   disclaimer statement? If not (default), then a provisional disclaimer
 #'   statement is created.
+#' @param use_mr_template lgl, should this project contain the file necessary
+#'   to have a default GitLab Merge Request template? It is included by default.
 #'
 #' @examples
 #' tmp <- tempdir()
@@ -36,7 +38,8 @@
 use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
                              readme_rmd = FALSE,
-                             disclaimer_approved = FALSE){
+                             disclaimer_approved = FALSE,
+                             use_mr_template = TRUE){
   # README file
   if(readme_rmd){
     use_readme_rmd_usgs(home)
@@ -64,6 +67,11 @@ use_project_usgs <- function(home = ".",
 
   # .gitignore
   use_gitignore_usgs(home, gitignore_additions)
+
+  # Gitlab Merge Request template
+  if(use_mr_template) {
+    use_gitlab_mr_template(home)
+  }
 }
 
 #' Add individual USGS project files to a directory
