@@ -117,11 +117,13 @@
 </h2>
 <p>Here are some ideas of potential functionality we can add to the package.</p>
 <ul>
-<li><label><input type="checkbox" checked>Initialize/update .gitignore with an opinionated list of files we often want ignored (<code>.Renviron</code>, for example)</label></li>
-<li><label><input type="checkbox" checked>A function to add the front matter needed to make a repo public (i.e., license, readme, see the <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">IWAAs Standard template repository</a>).</label></li>
+<li>
+<input type="checkbox" checked>Initialize/update .gitignore with an opinionated list of files we often want ignored (<code>.Renviron</code>, for example)</li>
+<li>
+<input type="checkbox" checked>A function to add the front matter needed to make a repo public (i.e., license, readme, see the <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">IWAAs Standard template repository</a>).</li>
 <li>Initialize <code>renv</code> with some pre-loaded packages (<code>targets</code>, etc.)
 <ul>
-<li>Add an automatic <code>renv::status()</code> check in a <code>_targets.R</code> file as detailed <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723" class="external-link">here</a>.</li>
+<li>Add an automatic <code><a href="https://rstudio.github.io/renv/reference/status.html" class="external-link">renv::status()</a></code> check in a <code>_targets.R</code> file as detailed <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723" class="external-link">here</a>.</li>
 <li>Use <code><a href="https://docs.ropensci.org/targets/reference/tar_renv.html" class="external-link">targets::tar_renv()</a></code> to automatically create a _targets_packages.R file containing pipeline package dependencies.</li>
 </ul>
 </li>

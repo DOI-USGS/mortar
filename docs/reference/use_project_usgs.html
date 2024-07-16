@@ -53,7 +53,8 @@ multiple files in one directory.</p>
 <span>  home <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>  gitignore_additions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  readme_rmd <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  disclaimer_approved <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  disclaimer_approved <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  use_mr_template <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -70,14 +71,19 @@ directory</p></dd>
 
 
 <dt>readme_rmd</dt>
-<dd><p>lgl, should a README.Rmd file be created? If not, them a
-README.md is created.</p></dd>
+<dd><p>lgl, should a README.Rmd file be created? If not (default),
+then a README.md is created.</p></dd>
 
 
 <dt>disclaimer_approved</dt>
 <dd><p>lgl, should this project contain an approved
-disclaimer statement? If not, then a provisional disclaimer statement is
-created.</p></dd>
+disclaimer statement? If not (default), then a provisional disclaimer
+statement is created.</p></dd>
+
+
+<dt>use_mr_template</dt>
+<dd><p>lgl, should this project contain the file necessary
+to have a default GitLab Merge Request template? It is included by default.</p></dd>
 
 </dl></div>
     <div id="see-also">
@@ -92,17 +98,17 @@ created.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">use_project_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/README.md"><span style="color: #0000BB;">README.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">README.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/DISCLAIMER_PROVISIONAL.md"><span style="color: #0000BB;">DISCLAIMER_PROVISIONAL.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_PROVISIONAL.md"><span style="color: #0000BB;">DISCLAIMER_PROVISIONAL.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CHANGELOG.md"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CONTRIBUTING.md"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CODE_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/.gitignore"><span style="color: #0000BB;">.gitignore</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">.gitignore</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CHANGELOG.md"              "CODE_OF_CONDUCT.md"       </span>
@@ -115,18 +121,19 @@ created.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># creates README.Rmd and DISCLAIMER_APPROVED instead</span></span></span>
 <span class="r-in"><span><span class="fu">use_project_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span>, readme_rmd <span class="op">=</span> <span class="cn">TRUE</span>, disclaimer_approved <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/README.Rmd"><span style="color: #0000BB;">README.Rmd</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">README.Rmd</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to <span style="color: #0000BB;">'REDACTED FILE PATH - DOI/OneDrive_Documents/mortar'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/DISCLAIMER_APPROVED.md"><span style="color: #0000BB;">DISCLAIMER_APPROVED.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Writing <span style="color: #0000BB;">'.git/hooks/pre-commit'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_APPROVED.md"><span style="color: #0000BB;">DISCLAIMER_APPROVED.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CHANGELOG.md"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CONTRIBUTING.md"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/CODE_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/mortar/docs/reference/.gitignore"><span style="color: #0000BB;">.gitignore</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">.gitignore</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CHANGELOG.md"           "CODE_OF_CONDUCT.md"     "CONTRIBUTING.md"       </span>
