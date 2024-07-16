@@ -258,7 +258,8 @@ use_changelog_usgs <- function(home = "."){
 use_file_usgs <- function(inst_file,
                           out_file = stringr::str_remove(inst_file, "\\.txt"),
                           home = ".",
-                          additions = NULL){
+                          additions = NULL,
+                          source_message = TRUE){
   # Check arguments ----
   rlang::arg_match(
     inst_file,
@@ -283,7 +284,9 @@ use_file_usgs <- function(inst_file,
     ))
   }
 
-  cli::cli_inform(c("i" = "Using {.file {out_file}} from {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"))
+  if(source_message) {
+    cli::cli_inform(c("i" = "Using {.file {out_file}} from {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"))
+  }
 
   out_file_path <- file.path(home, out_file)
 
