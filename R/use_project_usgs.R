@@ -260,14 +260,16 @@ use_file_usgs <- function(inst_file,
                           home = ".",
                           additions = NULL){
 
-
+  # Write file ----
   use_file(
-    inst_path = file.path("template_files", inst_file),
+    inst_file,
+    inst_subdir = "template_files",
     out_file = out_file,
     home = home,
     additions = additions
   )
 
+  # Inform user of source ----
   cli::cli_inform(c(
     "i" = "Using {.file {out_file}} from
     {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"

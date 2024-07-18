@@ -10,46 +10,51 @@
 #' @return NULL, invisibly
 #' @noRd
 #'
-use_file <- function(inst_path,
+use_file <- function(inst_file,
+                     inst_subdir = "",
                      out_file = stringr::str_remove(inst_file, "\\.txt"),
                      home = ".",
-                     additions = NULL){
+                     additions = NULL) {
   # Check arguments ----
   rlang::arg_match(
     inst_file,
-    list.files(system.file(dirname(inst_path), package = "mortar"))
+    list.files(system.file(inst_subdir, package = "mortar"))
   )
 
-  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
+  if (!all(rlang::is_scalar_character(home), dir.exists(home))) {
     cli::cli_abort(c(
       "x" = "{.arg home} must be a path to a directory that exists."
     ))
   }
 
-  if(! rlang::is_scalar_character(out_file)) {
+  if (!rlang::is_scalar_character(out_file)) {
     cli::cli_abort(c(
       "x" = "{.arg out_file} must be a character vector, not class {.cls {class(out_file)}}."
     ))
   }
 
-  if(!(is.character(additions) | is.null(additions))) {
+  if (!(is.character(additions) | is.null(additions))) {
     cli::cli_abort(c(
       "x" = "{.arg additions} must be a character vector or {.code NULL}, not class {.cls {class(additions)}}."
     ))
   }
 
-
+  # Write file ----
   out_file_path <- file.path(home, out_file)
 
-  if(!file.exists(out_file_path)) file.create(out_file_path)
+  if (!file.exists(out_file_path)) file.create(out_file_path)
+
+  inst_file_path <- file.path(inst_subdir, inst_file)
 
   cat(
     c(
-      readLines(system.file(inst_path, package = "mortar")),
-      additions),
+      readLines(system.file(inst_file_path, package = "mortar")),
+      additions
+    ),
     file = out_file_path,
     sep = "\n",
-    fill = FALSE)
+    fill = FALSE
+  )
 
   return(invisible(NULL))
 }
