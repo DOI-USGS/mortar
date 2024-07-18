@@ -18,12 +18,12 @@ directory}
 \item{gitignore_additions}{chr vector, other files/directories to be added to
 .gitignore}
 
-\item{readme_rmd}{lgl, should a README.Rmd file be created? If not, them a
-README.md is created.}
+\item{readme_rmd}{lgl, should a README.Rmd file be created? If not (default),
+then a README.md is created.}
 
 \item{disclaimer_approved}{lgl, should this project contain an approved
-disclaimer statement? If not, then a provisional disclaimer statement is
-created.}
+disclaimer statement? If not (default), then a provisional disclaimer
+statement is created.}
 }
 \description{
 Wraps the other \code{use_*_usgs} functions to initialize
