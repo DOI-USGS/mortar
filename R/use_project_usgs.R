@@ -259,44 +259,19 @@ use_file_usgs <- function(inst_file,
                           out_file = stringr::str_remove(inst_file, "\\.txt"),
                           home = ".",
                           additions = NULL){
-  # Check arguments ----
-  rlang::arg_match(
-    inst_file,
-    list.files(system.file("template_files", package = "mortar"))
+
+
+  use_file(
+    inst_path = file.path("template_files", inst_file),
+    out_file = out_file,
+    home = home,
+    additions = additions
   )
 
-  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
-    cli::cli_abort(c(
-      "x" = "{.arg home} must be a path to a directory that exists."
-    ))
-  }
-
-  if(! rlang::is_scalar_character(out_file)) {
-    cli::cli_abort(c(
-      "x" = "{.arg out_file} must be a character vector, not class {.cls {class(out_file)}}."
-    ))
-  }
-
-  if(!(is.character(additions) | is.null(additions))) {
-    cli::cli_abort(c(
-      "x" = "{.arg additions} must be a character vector or {.code NULL}, not class {.cls {class(additions)}}."
-    ))
-  }
-
-  cli::cli_inform(c("i" = "Using {.file {out_file}} from {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"))
-
-  out_file_path <- file.path(home, out_file)
-
-  if(!file.exists(out_file_path)) file.create(out_file_path)
-
-  cat(
-    c(
-    readLines(system.file(file.path("template_files",inst_file),
-                          package = "mortar")),
-    additions),
-      file = out_file_path,
-      sep = "\n",
-      fill = FALSE)
+  cli::cli_inform(c(
+    "i" = "Using {.file {out_file}} from
+    {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"
+  ))
 
   return(invisible(NULL))
 }
