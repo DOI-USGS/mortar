@@ -16,6 +16,12 @@ use_file <- function(inst_file,
                      home = ".",
                      additions = NULL) {
   # Check arguments ----
+  if(! dir.exists(system.file(inst_subdir, package = "mortar"))) {
+    cli::cli_abort(c(
+      "x" = "{.arg inst_subdir} must be a subdirectory of inst that exists."
+    ))
+  }
+
   rlang::arg_match(
     inst_file,
     list.files(system.file(inst_subdir, package = "mortar"))
