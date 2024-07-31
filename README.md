@@ -37,10 +37,7 @@ provide **mor**e **tar**gets functions than those available in the
 
 ## Installation
 
-The easiest installation method is to clone this repository locally and
-install the package yourself. For this, you only need to have read
-access to this repository (which you should have if you’re reading this
-README).
+Following are the steps to install mortar locally:
 
 1.  Clone the repo the usual way like
     `git clone git@code.usgs.gov:wma/iidd/analytics/mortar.git` if using
