@@ -6,6 +6,7 @@
 #' @param home chr, root directory of project. Defaults to current working
 #'   directory
 #' @param additions chr; additional lines to add to the template file
+#' @param open lgl; whether to open the file for interactive editing
 #'
 #' @return NULL, invisibly
 #' @noRd
@@ -14,7 +15,8 @@ use_file <- function(inst_file,
                      inst_subdir = "",
                      out_file = stringr::str_remove(inst_file, "\\.txt"),
                      home = ".",
-                     additions = NULL) {
+                     additions = NULL,
+                     open = rlang::is_interactive()) {
   # Check arguments ----
   if(! dir.exists(system.file(inst_subdir, package = "mortar"))) {
     cli::cli_abort(c(
@@ -61,6 +63,10 @@ use_file <- function(inst_file,
     sep = "\n",
     fill = FALSE
   )
+
+  # Open file ----
+  usethis::edit_file(path = out_file_path,
+                     open = open)
 
   return(invisible(NULL))
 }

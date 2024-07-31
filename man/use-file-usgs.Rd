@@ -13,23 +13,27 @@
 \alias{use_changelog_usgs}
 \title{Add individual USGS project files to a directory}
 \usage{
-use_gitignore_usgs(home = ".", additions = NULL)
+use_gitignore_usgs(
+  home = ".",
+  additions = NULL,
+  open = rlang::is_interactive()
+)
 
-use_readme_usgs(home = ".")
+use_readme_usgs(home = ".", open = rlang::is_interactive())
 
-use_readme_rmd_usgs(home = ".")
+use_readme_rmd_usgs(home = ".", open = rlang::is_interactive())
 
-use_license_usgs(home = ".")
+use_license_usgs(home = ".", open = rlang::is_interactive())
 
-use_disclaimer_provisional_usgs(home = ".")
+use_disclaimer_provisional_usgs(home = ".", open = rlang::is_interactive())
 
-use_disclaimer_approved_usgs(home = ".")
+use_disclaimer_approved_usgs(home = ".", open = rlang::is_interactive())
 
-use_code_of_conduct_usgs(home = ".")
+use_code_of_conduct_usgs(home = ".", open = rlang::is_interactive())
 
-use_contributing_usgs(home = ".")
+use_contributing_usgs(home = ".", open = rlang::is_interactive())
 
-use_changelog_usgs(home = ".")
+use_changelog_usgs(home = ".", open = rlang::is_interactive())
 }
 \arguments{
 \item{home}{chr, root directory of project. Defaults to current working
@@ -37,6 +41,8 @@ directory}
 
 \item{additions}{chr vector, other files/directories to be added to
 .gitignore}
+
+\item{open}{lgl; whether to open the file for interactive editing}
 }
 \description{
 Creates common project files like .gitignore, README.md. LICENSE.md,

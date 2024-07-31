@@ -51,23 +51,27 @@ etc. based on the templates here:
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_gitignore_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, additions <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_gitignore_usgs</span><span class="op">(</span></span>
+<span>  home <span class="op">=</span> <span class="st">"."</span>,</span>
+<span>  additions <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_readme_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_readme_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_readme_rmd_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_readme_rmd_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_license_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_license_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_disclaimer_provisional_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_disclaimer_provisional_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_disclaimer_approved_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_disclaimer_approved_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_code_of_conduct_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_code_of_conduct_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_contributing_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span>
+<span><span class="fu">use_contributing_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">use_changelog_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">use_changelog_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="st">"."</span>, open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -81,6 +85,10 @@ directory</p></dd>
 <dd><p>chr vector, other files/directories to be added to
 .gitignore</p></dd>
 
+
+<dt>open</dt>
+<dd><p>lgl; whether to open the file for interactive editing</p></dd>
+
 </dl></div>
 
     <div id="ref-examples">
@@ -91,199 +99,33 @@ directory</p></dd>
 <span class="r-in"><span>                   additions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"excluded_file.R"</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">"excluded_dir"</span>,</span></span>
 <span class="r-in"><span>                                 <span class="st">"*excluded_pattern*"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">.gitignore</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/.gitignore"><span style="color: #0000BB;">.gitignore</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># here are the contents of the .gitignore:</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>,<span class="st">".gitignore"</span><span class="op">)</span><span class="op">)</span>, sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # **NOTE: this is a template created using the `mortar` package. The contents below are for illustrative purposes and should be edited to reflect your use case. This message can be deleted in acknowledgement that you've added this file to your project.**</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Copied from https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/-/blob/master/.gitignore?ref_type=heads</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Created by https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Edit at https://www.toptal.com/developers/gitignore?templates=r,python,jupyternotebooks,vscode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ### JupyterNotebooks ###</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # gitignore template for Jupyter Notebooks</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # website: http://jupyter.org/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .ipynb_checkpoints</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> */.ipynb_checkpoints/*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # IPython</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> profile_default/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ipython_config.py</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Remove previous ipynb_checkpoints</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #   git rm -r .ipynb_checkpoints/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ### Python ###</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Byte-compiled / optimized / DLL files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> __pycache__/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.py[cod]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *$py.class</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # C extensions</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.so</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Distribution / packaging</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .Python</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> build/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> develop-eggs/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dist/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> downloads/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> eggs/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .eggs/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> parts/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> sdist/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> var/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> wheels/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pip-wheel-metadata/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> share/python-wheels/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.egg-info/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .installed.cfg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.egg</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MANIFEST</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # PyInstaller</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #  Usually these files are written by a python script from a template</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #  before PyInstaller builds the exe, so as to inject date/other infos into it.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.manifest</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.spec</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Installer logs</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pip-log.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pip-delete-this-directory.txt</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Unit test / coverage reports</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> htmlcov/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .tox/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .nox/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .coverage</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .coverage.*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .cache</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> nosetests.xml</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> coverage.xml</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.cover</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.py,cover</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .hypothesis/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .pytest_cache/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pytestdebug.log</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Translations</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.mo</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.pot</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Django stuff:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.log</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> local_settings.py</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> db.sqlite3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> db.sqlite3-journal</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Flask stuff:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> instance/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .webassets-cache</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Scrapy stuff:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .scrapy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Sphinx documentation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> docs/_build/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> doc/_build/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # PyBuilder</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> target/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Jupyter Notebook</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # IPython</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # pyenv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .python-version</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # pipenv</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #   However, in case of collaboration, if having platform-specific dependencies or dependencies</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #   having no cross-platform support, pipenv may install dependencies that don't work, or not</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #   install all needed dependencies.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #Pipfile.lock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # poetry</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> #poetry.lock</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # PEP 582; used by e.g. github.com/David-OConnor/pyflow</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> __pypackages__/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Celery stuff</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> celerybeat-schedule</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> celerybeat.pid</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # SageMath parsed files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.sage.py</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Environments</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # .env</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .env/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .venv/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> env/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> venv/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ENV/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> env.bak/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> venv.bak/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> pythonenv*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Spyder project settings</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .spyderproject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .spyproject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Rope project settings</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .ropeproject</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # mkdocs documentation</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /site</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # mypy</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .mypy_cache/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .dmypy.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> dmypy.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Pyre type checker</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .pyre/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # pytype static type analyzer</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .pytype/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # operating system-related files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.DS_Store #file properties cache/storage on macOS</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Thumbs.db #thumbnail cache on Windows</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # profiling data</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .prof</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ### R ###</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # R Environment Variables</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .Renviron</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ### targets ###</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> _targets</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> */out/*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> */in/*</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> !*.empty</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # History files</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> .Rhistory</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> .Rapp.history</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Session Data files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .RData</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # User-specific files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .Ruserdata</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Example code in package build process</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *-Ex.R</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Output files from R CMD build</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /*.tar.gz</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # Output files from R CMD check</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /*.Rcheck/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # RStudio files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .Rproj.user/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # produced vignettes</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vignettes/*.html</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> vignettes/*.pdf</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .RData # Session Data files</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .Ruserdata # User-specific files</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> .Rproj.user/ # RStudio files</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> .httr-oauth</span>
@@ -295,29 +137,6 @@ directory</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # Temporary files created by R markdown</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *.utf8.md</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> *.knit.md</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # R Environment Variables</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .Renviron</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ### R.Bookdown Stack ###</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # R package: bookdown caching files</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> /*_files/</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ### vscode ###</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> .vscode/*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> !.vscode/settings.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> !.vscode/tasks.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> !.vscode/launch.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> !.vscode/extensions.json</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> *.code-workspace</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> # End of https://www.toptal.com/developers/gitignore/api/r,python,jupyternotebooks,vscode</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ### targets ###</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> _targets</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> */out/*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> */in/*</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> !*.empty</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ### vim ###</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> .*.swp</span>
