@@ -1,31 +1,57 @@
 #' Initialize renv in a USGS project
 #'
-#' @param project chr; The project directory. When NULL (the default), the
-#'   current working directory will be used. The R working directory will be
-#'   changed to match the requested project directory.
-#' @param profile chr; The profile to be activated. See vignette("profiles",
-#'   package = "renv") for more information.
-#' @param settings list; 	A list of settings to be used with the
-#'   newly-initialized project
-#' @param bare lgl; Boolean; initialize the project without attempting to
-#'   discover and install R package dependencies?
-#' @param force lgl; Boolean; force initialization? By default, renv will refuse
-#'   to initialize the home directory as a project, to defend against accidental
-#'   mis-usages of init().
-#' @param repos chr; The R repositories to be used in this project. See
-#'   Repositories for more details.
-#' @param bioconductor chr; The version of Bioconductor to be used with this
-#'   project. Setting this may be appropriate if renv is unable to determine
-#'   that your project depends on a package normally available from
-#'   Bioconductor. Set this to TRUE to use the default version of Bioconductor
-#'   recommended by the BiocManager package.
-#' @param load lgl; Boolean; should the project be loaded after it is
-#'   initialized?
-#' @param restart lgl; Boolean; attempt to restart the R session after
-#'   initializing the project? A session restart will be attempted if the
+#' This function is intended to ease the process of setting up renv for package
+#' version control. You should only run this function once in a project if you
+#' are a primary developer of that project.
+#'
+#' @param project chr; (argument of renv::init) The project directory. When NULL
+#'   (the default), the current working directory will be used. The R working
+#'   directory will be changed to match the requested project directory.
+#' @param profile chr; (argument of renv::init) The profile to be activated. See
+#'   vignette("profiles", package = "renv") for more information.
+#' @param settings list; 	(argument of renv::init) A list of settings to be used
+#'   with the newly-initialized project
+#' @param bare lgl; (argument of renv::init) initialize the project without
+#'   attempting to discover and install R package dependencies?
+#' @param force lgl; (argument of renv::init) force initialization? By default,
+#'   renv will refuse to initialize the home directory as a project, to defend
+#'   against accidental mis-usages of init().
+#' @param repos chr; (argument of renv::init) The R repositories to be used in
+#'   this project. See Repositories for more details.
+#' @param bioconductor chr; (argument of renv::init) The version of Bioconductor
+#'   to be used with this project. Setting this may be appropriate if renv is
+#'   unable to determine that your project depends on a package normally
+#'   available from Bioconductor. Set this to TRUE to use the default version of
+#'   Bioconductor recommended by the BiocManager package.
+#' @param load lgl; (argument of renv::init) should the project be loaded after
+#'   it is initialized?
+#' @param restart lgl; (argument of renv::init) attempt to restart the R session
+#'   after initializing the project? A session restart will be attempted if the
 #'   "restart" R option is set by the frontend embedding R.
 #' @param restore_args list; arguments to be passed to the renv::restore()
-#'   function whenever the project is out of sync with the renv.lock file.
+#'   function whenever a user's project is out of sync with the renv.lock file.
+#'
+#' @note This function performs two tasks:
+#'
+#'   1. adds lines to the project's .Rprofile that will check if renv is set up
+#'   and up-to-date every time a new R session is started.
+#'
+#'   2. Runs `renv::init` for the initial set up of renv.
+#'
+#'   The lines added to the project's .Rprofile execute the following steps:
+#'
+#'   1. Check that an renv.lock file exists in the project. If not, it will
+#'   prompt the user to take a snapshot of the project's packages with
+#'   `renv::snapshot()`.
+#'
+#'   2. Check that the project is synchronized to the renv.lock file with
+#'   `renv::status()`. If not, it will ask the user if they want to update their
+#'   project with the renv.lock file.
+#'
+#'   2.1 If the user selects "Yes" then run `renv::restore()`
+#'
+#'   2.2 If the users selects "No" then run `renv::deactivate()` to deactivate
+#'   renv
 #'
 #' @export
 renv_init_usgs <-
@@ -38,7 +64,8 @@ renv_init_usgs <-
            bioconductor = NULL,
            load = TRUE,
            restart = rlang::is_interactive(),
-           restore_args = list(project = project,library = NULL,
+           restore_args = list(project = project,
+                               library = NULL,
                                lockfile = NULL,
                                packages = NULL,
                                exclude = NULL,
@@ -52,32 +79,38 @@ renv_init_usgs <-
     renv_status_text <-
       glue::glue(
         "#####",
-        "# This was automatically generated by mortar. Edit at your own risk!",
+        "# This code was automatically generated by the mortar package. Edit at your own risk!",
         paste0("if(!file.exists('",file.path(project,"renv.lock"),"')){{"),
         "  if(interactive()){{",
         "    setup_selection <- menu(c('Yes', 'No'),",
-        "                            title = '\nIt looks like you are setting up this project to use renv for the first time. Would you like to `renv::snapshot()` to save your currently loaded packages?')",
+        "                            title = '\nIt looks like you are setting up this project to use renv for the first time. Would you like to run `renv::snapshot()` to save your currently loaded packages?')",
         "  }} else{{",
         "     setup_selection <- 1",
         "  }}",
         "  if(setup_selection == 1){{",
         "     renv::snapshot()",
+        "     message('Snapshot successful. Re-run `renv::snapshot()` in this project any time you want to update the list of packages.')",
         "  }}",
         "}}",
         "if(!renv::status()$synchronized){{",
         "  if(interactive()){{",
         "    sync_selection <- menu(c('Yes', 'No'),",
-        "                      title = '\nThis project uses the renv package to manage package history.",
-        "Your version project is currently not synchronized to the renv.lock file.",
-        "Would you like to synchronize to the renv.lock file?",
-        "If not, renv will be deactivated until you restart your R session.')",
+        "                      title = '\nThis project uses the renv package to manage package versions.",
+        "Renv creates a project-specific R installation that is isolated from other versions you have installed on your computer.",
+        "This means anyone who runs code in this project is using the same R and R package versions, which is necessary for reproducibility.",
+        "The renv.lock file contains information on the R and R package versions used in this project.",
+        "",
+        "Your copy of the project is currently not synchronized to the renv.lock file.",
+        "Would you like to run `renv::restore()` to synchronize to the renv.lock file?",
+        "If yes, R and R packages will be installed into the renv/ folder of this project with no impact to your other R/package installations.",
+        "If no, renv will be deactivated until you restart your R session.')",
         "  }} else {{",
         "  sync_selection <- 1",
         "  }}",
         "  if(sync_selection == 1){{",
         paste0("    do.call(renv::restore,",deparse1(restore_args),")"),
         "  }} else{{",
-        "    message('Your project was not synchronized. Run renv::status() for more information.')",
+        "    message('Your project was not synchronized. If this was a mistake, run `renv::activate(); renv::restore()` to reactivate and sync your project.')",
         "    renv::deactivate()",
         "  }}",
         "}}",
@@ -106,3 +139,15 @@ renv_init_usgs <-
     )
 
   }
+
+# renv_is_activated <- function(project = "."){
+#
+#   # first check .Rprofile file exists, otherwise readLines throws an error
+#   if(file.exists(file.path(project,".Rprofile"))){
+#     # then check if .Rprofile contains code for activating renv
+#     return(any(startsWith(x = readLines(".Rprofile"), prefix = 'source("activate.R")')))
+#   }
+#   else{
+#     return(FALSE)
+#   }
+# }

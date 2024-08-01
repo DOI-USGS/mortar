@@ -5,7 +5,7 @@
 \title{Initialize renv in a USGS project}
 \usage{
 renv_init_usgs(
-  project = NULL,
+  project = ".",
   profile = NULL,
   settings = NULL,
   bare = TRUE,
@@ -14,47 +14,73 @@ renv_init_usgs(
   bioconductor = NULL,
   load = TRUE,
   restart = rlang::is_interactive(),
-  restore_args = list(library = NULL, lockfile = NULL, packages = NULL, exclude = NULL,
-    rebuild = FALSE, repos = NULL, clean = FALSE, prompt = rlang::is_interactive())
+  restore_args = list(project = project, library = NULL, lockfile = NULL, packages =
+    NULL, exclude = NULL, rebuild = FALSE, repos = NULL, clean = FALSE, prompt =
+    rlang::is_interactive())
 )
 }
 \arguments{
-\item{project}{chr; The project directory. When NULL (the default), the
-current working directory will be used. The R working directory will be
-changed to match the requested project directory.}
+\item{project}{chr; (argument of renv::init) The project directory. When NULL
+(the default), the current working directory will be used. The R working
+directory will be changed to match the requested project directory.}
 
-\item{profile}{chr; The profile to be activated. See vignette("profiles",
-package = "renv") for more information.}
+\item{profile}{chr; (argument of renv::init) The profile to be activated. See
+vignette("profiles", package = "renv") for more information.}
 
-\item{settings}{list;     A list of settings to be used with the
-newly-initialized project}
+\item{settings}{list;     (argument of renv::init) A list of settings to be used
+with the newly-initialized project}
 
-\item{bare}{lgl; Boolean; initialize the project without attempting to
-discover and install R package dependencies?}
+\item{bare}{lgl; (argument of renv::init) initialize the project without
+attempting to discover and install R package dependencies?}
 
-\item{force}{lgl; Boolean; force initialization? By default, renv will refuse
-to initialize the home directory as a project, to defend against accidental
-mis-usages of init().}
+\item{force}{lgl; (argument of renv::init) force initialization? By default,
+renv will refuse to initialize the home directory as a project, to defend
+against accidental mis-usages of init().}
 
-\item{repos}{chr; The R repositories to be used in this project. See
-Repositories for more details.}
+\item{repos}{chr; (argument of renv::init) The R repositories to be used in
+this project. See Repositories for more details.}
 
-\item{bioconductor}{chr; The version of Bioconductor to be used with this
-project. Setting this may be appropriate if renv is unable to determine
-that your project depends on a package normally available from
-Bioconductor. Set this to TRUE to use the default version of Bioconductor
-recommended by the BiocManager package.}
+\item{bioconductor}{chr; (argument of renv::init) The version of Bioconductor
+to be used with this project. Setting this may be appropriate if renv is
+unable to determine that your project depends on a package normally
+available from Bioconductor. Set this to TRUE to use the default version of
+Bioconductor recommended by the BiocManager package.}
 
-\item{load}{lgl; Boolean; should the project be loaded after it is
-initialized?}
+\item{load}{lgl; (argument of renv::init) should the project be loaded after
+it is initialized?}
 
-\item{restart}{lgl; Boolean; attempt to restart the R session after
-initializing the project? A session restart will be attempted if the
+\item{restart}{lgl; (argument of renv::init) attempt to restart the R session
+after initializing the project? A session restart will be attempted if the
 "restart" R option is set by the frontend embedding R.}
 
 \item{restore_args}{list; arguments to be passed to the renv::restore()
-function whenever the project is out of sync with the renv.lock file.}
+function whenever a user's project is out of sync with the renv.lock file.}
 }
 \description{
-Initialize renv in a USGS project
+This function is intended to ease the process of setting up renv for package
+version control. You should only need to run this function once in a project
+if you are a developer.
+}
+\note{
+This function performs two tasks:
+\enumerate{
+\item adds lines to the project's .Rprofile that will check if renv is set up
+and up-to-date every time a new R session is started.
+\item Runs \code{renv::init} for the initial set up of renv.
+}
+
+The lines added to the project's .Rprofile execute the following steps:
+\enumerate{
+\item Check that an renv.lock file exists in the project. If not, it will
+prompt the user to take a snapshot of the project's packages with
+\code{renv::snapshot()}.
+\item Check that the project is synchronized to the renv.lock file with
+\code{renv::status()}. If not, it will ask the user if they want to update their
+project with the renv.lock file.
+}
+
+2.1 If the user selects "Yes" then run \code{renv::restore()}
+
+2.2 If the users selects "No" then run \code{renv::deactivate()} to deactivate
+renv
 }
