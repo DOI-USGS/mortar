@@ -1,0 +1,21 @@
+## Context
+[Describe why you are writing this MR.]
+
+## Summary of changes
+[List the significant changes made by this MR.]
+
+## Expected results
+[State the expectations of the repo after the changes.]
+
+## Verification of results
+[Describe how should the reviewer verify that the expectations are met.]
+
+## Requested review
+[Explicitly state what you want the reviewer to do. Example below.]
+1. Switch to the relevant branch with `git fetch` then `git switch branch-name`.
+2. Run x code.
+3. Ensure results meet the expectations by running the code in **Verification of results**.
+4. Review code changes in diffs. I'm looking for particular feedback on x.
+
+## Next steps
+[Optionally, let the reviewer know where you are headed. This is particularly useful if you are leaving loose ends.]

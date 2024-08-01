@@ -13,6 +13,8 @@
 #' @param disclaimer_approved lgl, should this project contain an approved
 #'   disclaimer statement? If not (default), then a provisional disclaimer
 #'   statement is created.
+#' @param mr_template lgl, should this project contain the file necessary
+#'   to have a default GitLab Merge Request template? It is included by default.
 #' @param open lgl; whether to open the files for interactive editing
 #'
 #' @examples
@@ -40,6 +42,7 @@ use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
                              readme_rmd = FALSE,
                              disclaimer_approved = FALSE,
+                             mt_template = TRUE,
                              open = rlang::is_interactive()){
   # README file
   if(readme_rmd){
@@ -68,6 +71,11 @@ use_project_usgs <- function(home = ".",
 
   # .gitignore
   use_gitignore_usgs(home, gitignore_additions, open = open)
+
+  # Gitlab Merge Request template
+  if(use_mr_template) {
+    use_gitlab_mr_template(home, open = open)
+  }
 }
 
 #' Add individual USGS project files to a directory
@@ -257,6 +265,30 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
   return(invisible(NULL))
 
 }
+
+#' @rdname use-file-usgs
+#' @export
+use_gitlab_mr_template <- function(home = ".", open = FALSE){
+
+  dir_path <- file.path(".gitlab", "merge_request_templates")
+
+  if(! dir.exists(file.path(home, dir_path))) {
+    dir.create(file.path(home, dir_path), recursive = TRUE)
+  }
+
+  use_file(
+    inst_file = "MR_TEMPLATE",
+    inst_subdir = "template_files",
+    out_file = file.path(dir_path, "Default.md"),
+    home = home,
+    additions = NULL,
+    open = open
+  )
+
+  return(invisible(NULL))
+
+}
+
 
 #' Internal: core function used in other use_*_usgs functions, which all have
 #' the same basic structure
