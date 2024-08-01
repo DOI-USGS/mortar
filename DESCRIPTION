@@ -20,13 +20,13 @@ Imports:
     glue,
     purrr,
     R.utils,
+    renv,
     rlang,
     usethis
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
 Suggests: 
     knitr,
-    renv,
     rmarkdown,
     stringr,
     tarchetypes,
