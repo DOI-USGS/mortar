@@ -54,6 +54,7 @@ multiple files in one directory.</p>
 <span>  gitignore_additions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  readme_rmd <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  disclaimer_approved <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  mt_template <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -83,7 +84,12 @@ statement is created.</p></dd>
 
 
 <dt>open</dt>
-<dd><p>lgl; whether to open the file for interactive editing</p></dd>
+<dd><p>lgl; whether to open the files for interactive editing</p></dd>
+
+
+<dt>mr_template</dt>
+<dd><p>lgl, should this project contain the file necessary
+to have a default GitLab Merge Request template? It is included by default.</p></dd>
 
 </dl></div>
     <div id="see-also">
@@ -98,24 +104,25 @@ statement is created.</p></dd>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">use_project_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/README.md"><span style="color: #0000BB;">README.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/README.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">README.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH_PROVISIONAL.md'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/DISCLAIMER_PROVISIONAL.md"><span style="color: #0000BB;">DISCLAIMER_PROVISIONAL.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/DISCLAIMER_PROVISIONAL.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_PROVISIONAL.md"><span style="color: #0000BB;">DISCLAIMER_PROVISIONAL.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CHANGELOG.md"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CHANGELOG.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CONTRIBUTING.md"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CONTRIBUTING.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH_OF_CONDUCT.md'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CODE_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CODE_OF_CONDUCT.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/.gitignore"><span style="color: #0000BB;">.gitignore</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/.gitignore'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">.gitignore</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in use_project_usgs(home = tmp):</span> object 'use_mr_template' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CHANGELOG.md"              "CODE_OF_CONDUCT.md"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [3] "CONTRIBUTING.md"           "DISCLAIMER_PROVISIONAL.md"</span>
@@ -127,25 +134,26 @@ statement is created.</p></dd>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># creates README.Rmd and DISCLAIMER_APPROVED instead</span></span></span>
 <span class="r-in"><span><span class="fu">use_project_usgs</span><span class="op">(</span>home <span class="op">=</span> <span class="va">tmp</span>, readme_rmd <span class="op">=</span> <span class="cn">TRUE</span>, disclaimer_approved <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/README.Rmd"><span style="color: #0000BB;">README.Rmd</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/README.Rmd'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">README.Rmd</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to <span style="color: #0000BB;">'REDACTED FILE PATH - DOI/OneDrive_Documents/comptools/R packages/mortar'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH_APPROVED.md'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/DISCLAIMER_APPROVED.md"><span style="color: #0000BB;">DISCLAIMER_APPROVED.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BB00;">✔</span> Setting active project to <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/DISCLAIMER_APPROVED.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_APPROVED.md"><span style="color: #0000BB;">DISCLAIMER_APPROVED.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CHANGELOG.md"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CHANGELOG.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CHANGELOG.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CONTRIBUTING.md"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CONTRIBUTING.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">CONTRIBUTING.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH_OF_CONDUCT.md'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/CODE_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/CODE_OF_CONDUCT.md'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH_OF_CONDUCT.md"><span style="color: #0000BB;">CODE_OF_CONDUCT.md</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH'</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH%20-%20DOI/OneDrive_Documents/comptools/R%20packages/mortar/docs/reference/.gitignore"><span style="color: #0000BB;">.gitignore</span></a> from</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">•</span> Edit <span style="color: #0000BB;">'REDACTED FILE PATH~2/AppData/Local/Temp/1/RtmpeKx6bb/.gitignore'</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Using <a href="file://REDACTED FILE PATH"><span style="color: #0000BB;">.gitignore</span></a> from</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   <span style="color: #0000BB; font-style: italic;">&lt;</span><a href="https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/" class="external-link"><span style="color: #0000BB; font-style: italic;">https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/</span></a><span style="color: #0000BB; font-style: italic;">&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in use_project_usgs(home = tmp, readme_rmd = TRUE, disclaimer_approved = TRUE):</span> object 'use_mr_template' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="va">tmp</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "CHANGELOG.md"           "CODE_OF_CONDUCT.md"     "CONTRIBUTING.md"       </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [4] "DISCLAIMER_APPROVED.md" "README.Rmd"            </span>

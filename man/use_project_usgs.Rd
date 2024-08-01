@@ -9,6 +9,7 @@ use_project_usgs(
   gitignore_additions = NULL,
   readme_rmd = FALSE,
   disclaimer_approved = FALSE,
+  mt_template = TRUE,
   open = rlang::is_interactive()
 )
 }
@@ -27,7 +28,10 @@ will allow you to include R code and output in your README.md.}
 disclaimer statement? If not (default), then a provisional disclaimer
 statement is created.}
 
-\item{open}{lgl; whether to open the file for interactive editing}
+\item{open}{lgl; whether to open the files for interactive editing}
+
+\item{mr_template}{lgl, should this project contain the file necessary
+to have a default GitLab Merge Request template? It is included by default.}
 }
 \description{
 Wraps the other \code{use_*_usgs} functions to initialize

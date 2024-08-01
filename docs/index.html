@@ -83,7 +83,7 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>The easiest installation method is to clone this repository locally and install the package yourself. For this, you only need to have read access to this repository (which you should have if you’re reading this README).</p>
+<p>Following are the steps to install mortar locally:</p>
 <ol style="list-style-type: decimal">
 <li><p>Clone the repo the usual way like <code>git clone git@code.usgs.gov:wma/iidd/analytics/mortar.git</code> if using ssh or <code>git clone https://code.usgs.gov/wma/iidd/analytics/mortar.git</code> if using https.</p></li>
 <li><p>Open the <code>mortar.Rproj</code> file to open this package’s project in RStudio.</p></li>
@@ -117,8 +117,10 @@
 </h2>
 <p>Here are some ideas of potential functionality we can add to the package.</p>
 <ul>
-<li><label><input type="checkbox" checked>Initialize/update .gitignore with an opinionated list of files we often want ignored (<code>.Renviron</code>, for example)</label></li>
-<li><label><input type="checkbox" checked>A function to add the front matter needed to make a repo public (i.e., license, readme, see the <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">IWAAs Standard template repository</a>).</label></li>
+<li>
+<input type="checkbox" checked>Initialize/update .gitignore with an opinionated list of files we often want ignored (<code>.Renviron</code>, for example)</li>
+<li>
+<input type="checkbox" checked>A function to add the front matter needed to make a repo public (i.e., license, readme, see the <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">IWAAs Standard template repository</a>).</li>
 <li>Initialize <code>renv</code> with some pre-loaded packages (<code>targets</code>, etc.)
 <ul>
 <li>Add an automatic <code><a href="https://rstudio.github.io/renv/reference/status.html" class="external-link">renv::status()</a></code> check in a <code>_targets.R</code> file as detailed <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723" class="external-link">here</a>.</li>
