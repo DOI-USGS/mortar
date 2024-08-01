@@ -10,20 +10,21 @@ file_edit(file, txt, match, append = TRUE)
 \item{file}{chr, path to a file}
 
 \item{txt}{chr or chr fun, either a single character string to insert into
-the file or a function that transforms a character string. Note that the
-first argument of the function must accept a single string and it must
-return a single string. The function will be applied independently to each
-line in the file that matches the match argument. Supports anonymous
-functions.}
+the file or a function that transforms a character string. If supplying a
+function, the first argument of the function must accept a single string
+and it must return a single string. The function will be applied
+independently to each line in the file that matches the match argument.
+Supports anonymous functions. See examples.}
 
 \item{match}{num vector or lgl fun, either a numeric vector indicating line
-indices in the file or a function that returns a logical. Note that the
-first argument of the function must accept a single string and it must
-return a single logical. The function will be applied independently to each
-line in the file. Supports anonymous functions.}
+indices in the file or a function that returns a logical indicating lines
+to change. If supplying a function, the first argument of the function must
+accept a single string and it must return a logical vector. The function
+will be applied independently to each line in the file. Supports anonymous
+functions. See examples.}
 
-\item{append}{lgl, if TRUE then the text will be added as a new line after
-the line(s) specified in the match argument. If FALSE, then the text will
+\item{append}{lgl, if TRUE the text will be added as a new line after the
+line(s) specified in the match argument. If FALSE, then the text will
 replace the lines specified in the match argument}
 }
 \value{
@@ -31,8 +32,9 @@ replace the lines specified in the match argument}
 argument and TRUE otherwise
 }
 \description{
-Insert or transform one or more lines in a file specified either by line
-number or a boolean function.
+Insert or transform (\code{txt} argument) one or more lines in a file specified
+either by line number or a boolean function (\code{match} argument). Any file that
+can be read with the \code{readLines()} function should be compatible.
 }
 \examples{
 tmpfile <- tempfile()
@@ -73,7 +75,7 @@ file_edit(file = tmpfile,
 cat(readLines(tmpfile),sep = "\n")
 
 # The match argument can also be a  function. It just needs to accept a single
-# string and return a single boolean. You can use it with the match argument
+# string and return a single boolean. You can use it with the txt argument
 # for some interesting interactions. Here, we change every line containing
 # the word "is" to uppercase
 file_edit(file = tmpfile,
