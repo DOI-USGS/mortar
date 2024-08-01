@@ -8,7 +8,8 @@ use_project_usgs(
   home = ".",
   gitignore_additions = NULL,
   readme_rmd = FALSE,
-  disclaimer_approved = FALSE
+  disclaimer_approved = FALSE,
+  open = rlang::is_interactive()
 )
 }
 \arguments{
@@ -18,12 +19,15 @@ directory}
 \item{gitignore_additions}{chr vector, other files/directories to be added to
 .gitignore}
 
-\item{readme_rmd}{lgl, should a README.Rmd file be created? If not (default),
-then a README.md is created.}
+\item{readme_rmd}{lgl, should a README.Rmd file be created? If not
+(default), then a README.md is created. Using an Rmd file
+will allow you to include R code and output in your README.md.}
 
 \item{disclaimer_approved}{lgl, should this project contain an approved
 disclaimer statement? If not (default), then a provisional disclaimer
 statement is created.}
+
+\item{open}{lgl; whether to open the file for interactive editing}
 }
 \description{
 Wraps the other \code{use_*_usgs} functions to initialize
