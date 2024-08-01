@@ -19,6 +19,7 @@ Imports:
     gert,
     glue,
     purrr,
+    R.utils,
     rlang,
     usethis
 Roxygen: list(markdown = TRUE)
