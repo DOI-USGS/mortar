@@ -50,8 +50,8 @@
 #'
 #'   2.1 If the user selects "Yes" then run `renv::restore()`
 #'
-#'   2.2 If the users selects "No" then run `renv::deactivate()` to deactivate
-#'   renv
+#'   2.2 If the users selects "No" then a message prints saying how to restore
+#'   if the user changes their mind.
 #'
 #' @export
 renv_init_usgs <-
@@ -112,7 +112,7 @@ renv_init_usgs <-
         paste0("      do.call(renv::restore,",deparse1(restore_args),")"),
         "    }} else{{",
         "      message('Your project was not synchronized. If this was a mistake, run `renv::activate(); renv::restore()` to reactivate and sync your project.')",
-        "      renv::deactivate()",
+        #"      renv::deactivate()",
         "    }}",
         "  }}",
         "}}",
