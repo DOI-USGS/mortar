@@ -124,10 +124,16 @@ tar_init <- function(phase_names,
     phase_nums
   )
 
+  # Normalize home directory
+  if(home == ".") {
+    home <- ""
+  } else if(!endsWith(home, "/")) {
+    home <- paste0(home, "/")
+  }
 
   ## Create subdirectories ----
   subdir_paths <- expand.grid(
-    dir = glue::glue("{home}/{phase_nums_files}_{phase_names}"),
+    dir = glue::glue("{home}{phase_nums_files}_{phase_names}"),
     subdir = phase_subdirs
   ) |>
     glue::glue_data("{dir}/{subdir}")
@@ -135,8 +141,8 @@ tar_init <- function(phase_names,
   purrr::walk(subdir_paths, ~ dir_setup(.x, overwrite = overwrite))
 
   ## Create phase scripts (if applicable) ----
-  phase_files <- glue::glue("{home}/{phase_nums_files}_{phase_names}.R")
-  phase_dirs <- glue::glue("{home}/{phase_nums_files}_{phase_names}")
+  phase_files <- glue::glue("{home}{phase_nums_files}_{phase_names}.R")
+  phase_dirs <- glue::glue("{home}{phase_nums_files}_{phase_names}")
   if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
     phase_file_text <- glue::glue("p{phase_nums_targets}_targets_list <- list()")
     purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
@@ -180,7 +186,7 @@ tar_init <- function(phase_names,
         "\n",
         .sep = "\n"
       ),
-      file = "_targets_new.R"
+      file = "_targets.R"
     )
   }
 
