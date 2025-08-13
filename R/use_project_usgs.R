@@ -42,7 +42,7 @@ use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
                              readme_rmd = FALSE,
                              disclaimer_approved = FALSE,
-                             mt_template = TRUE,
+                             mr_template = TRUE,
                              open = rlang::is_interactive()){
   # README file
   if(readme_rmd){
