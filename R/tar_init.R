@@ -120,7 +120,7 @@ tar_init <- function(phase_names,
   phase_nums_targets <- phase_nums
   phase_nums_files <- ifelse(
     use_leading_zeros,
-    paste0("0", phase_nums),
+    sprintf("%02d", phase_nums),
     phase_nums
   )
 
