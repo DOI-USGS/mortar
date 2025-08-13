@@ -6,6 +6,7 @@
 \alias{use_readme_usgs}
 \alias{use_readme_rmd_usgs}
 \alias{use_license_usgs}
+\alias{use_code_json_usgs}
 \alias{use_disclaimer_provisional_usgs}
 \alias{use_disclaimer_approved_usgs}
 \alias{use_code_of_conduct_usgs}
@@ -24,6 +25,8 @@ use_readme_usgs(home = ".", open = rlang::is_interactive())
 use_readme_rmd_usgs(home = ".", open = rlang::is_interactive())
 
 use_license_usgs(home = ".", open = rlang::is_interactive())
+
+use_code_json_usgs(home = ".", open = rlang::is_interactive())
 
 use_disclaimer_provisional_usgs(home = ".", open = rlang::is_interactive())
 
@@ -50,13 +53,14 @@ etc. based on the templates here:
 \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}.
 }
 \examples{
+\dontrun{
 tmp <- tempdir()
 
 use_gitignore_usgs(home = tmp,
                    additions = c("excluded_file.R",
                                  "excluded_dir",
                                  "*excluded_pattern*"))
-
+}
 # here are the contents of the .gitignore:
 cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 }

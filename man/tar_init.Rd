@@ -10,6 +10,7 @@ tar_init(
   home = ".",
   separate_phase_scripts = TRUE,
   phase_subdirs = c("src", "out"),
+  use_leading_zeros = FALSE,
   overwrite = FALSE
 )
 }
@@ -31,6 +32,9 @@ lists will be initialized in _targets.R file. Defaults to TRUE}
 \item{phase_subdirs}{chr vector, subdirectories within each phase. Defaults
 to "src", "out"}
 
+\item{use_leading_zeros}{lgl, should "0" be used in front of phase numbers in
+file and directory names?}
+
 \item{overwrite}{lgl, should the initialization overwrite files and folders
 that already exist? Defaults to FALSE}
 }
@@ -47,6 +51,7 @@ for more information on our naming conventions and
 for an example targets project).
 }
 \examples{
+\dontrun{
 # temporary directories in which targets project is initialized (you can skip
 # this part if creating your own project)
 tmp <- tempdir()
@@ -63,7 +68,7 @@ list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
 unlink(tmp, recursive = TRUE, force = TRUE)
 dir.create(tmp)
 
-# different structure starting with 0_config and including "in/" dir in eachphase
+# different structure starting with 0_config and including "in/" dir in each phase
 tar_init(home = tmp,
          phase_names = c("config", "pull", "munge", "visualize"),
          phase_nums = 0:3,
@@ -72,5 +77,5 @@ tar_init(home = tmp,
 
 list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
            pattern = "\\\\.(R|empty)$")
-
+}
 }

@@ -27,13 +27,14 @@ will allow you to include R code and output in your README.md.}
 disclaimer statement? If not (default), then a provisional disclaimer
 statement is created.}
 
-\item{open}{lgl; whether to open the file for interactive editing}
+\item{open}{lgl; whether to open the files for interactive editing}
 }
 \description{
 Wraps the other \code{use_*_usgs} functions to initialize
 multiple files in one directory.
 }
 \examples{
+\dontrun{
 tmp <- tempdir()
 unlink(tmp, recursive = TRUE, force = TRUE)
 dir.create(tmp)
@@ -48,6 +49,7 @@ dir.create(tmp)
 # creates README.Rmd and DISCLAIMER_APPROVED instead
 use_project_usgs(home = tmp, readme_rmd = TRUE, disclaimer_approved = TRUE)
 list.files(tmp)
+}
 
 }
 \seealso{
