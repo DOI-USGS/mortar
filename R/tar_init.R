@@ -40,7 +40,7 @@
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
 #'
-#' # different structure starting with 0_config and including "in/" dir in eachphase
+#' # different structure starting with 0_config and including "in/" dir in each phase
 #' tar_init(home = tmp,
 #'          phase_names = c("config", "pull", "munge", "visualize"),
 #'          phase_nums = 0:3,
@@ -118,44 +118,51 @@ tar_init <- function(phase_names,
 
   ## Create phase scripts (if applicable) ----
   phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
+  phase_dirs <- glue::glue("{home}/{phase_nums}_{phase_names}")
   if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
-    phase_file_text <- glue::glue(
-      "#source(\"{home}/{phase_nums}_{phase_names}/src/script.R\")\n",
-      " p{phase_nums}_targets_list <- list()"
-    )
+    phase_file_text <- glue::glue("p{phase_nums}_targets_list <- list()")
     purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
   }
 
   # Create targets file ----
   if(!file.exists("_targets.R") | overwrite){
     if(separate_phase_scripts) {
-      phase_script_text <- glue::glue("source(\"{home}/{phase_nums}_{phase_names}.R\")") |>
-        glue::glue_collapse(sep = "\n")
-    } else {
-      phase_script_text <- ""
-    }
-
-    if(separate_phase_scripts) {
+      phase_function_text <- glue::glue(
+        "# tar_source({glue::glue_collapse(glue::double_quote(phase_dirs), sep = \", \")})"
+      )
+      phase_script_text <- glue::glue(
+        "# Load target list files\n",
+        "tar_source({glue::glue_collapse(glue::double_quote(phase_files),",
+        "sep = \", \")})\n\n"
+      )
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
       phase_target_text <- glue::glue("c({phase_targets})")
-    } else {
-      phase_target_text <- "list()"
-    }
 
+    } else {
+      phase_script_text <- ""
+      phase_target_text <- "list()"
+      phase_function_text <- glue::glue("# tar_source(\"{home}\")")
+    }
 
     cat(
       glue::glue(
-        "library(targets)",
-        "#source scripts within {phase_nums[1]}_{phase_names[1]}, etc. folders",
-        "#scripts <- list.files(\"{home}\",recursive = TRUE,full.names = TRUE,pattern = \"\\\\.R$\")",
-        "#purrr::walk(scripts[stringr::str_detect(scripts,\"[0-9]{{1}}_\")],source)\n",
-        "{phase_script_text}\n",
-        "# set options here like `packages = c(\"tidyverse\",...)",
-        "tar_option_set()\n\n",
+        "# Load packages used to define the pipeline itself",
+        "library(targets)\n",
+
+        "# Set options here like `packages = c(\"dplyr\")",
+        "tar_option_set()\n",
+
+        "# Load function definition scripts",
+        "{phase_function_text}\n",
+
+        "{phase_script_text}",
+
+        "# Define pipeline",
         "{phase_target_text}",
+        "\n",
         .sep = "\n"
       ),
-      file = "_targets.R"
+      file = "_targets_new.R"
     )
   }
 
