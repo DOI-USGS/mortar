@@ -20,6 +20,8 @@
 #'   lists will be initialized in _targets.R file. Defaults to TRUE
 #' @param phase_subdirs chr vector, subdirectories within each phase. Defaults
 #'   to "src", "out"
+#' @param use_leading_zeros lgl, should "0" be used in front of phase numbers in
+#'   file and directory names?
 #' @param overwrite lgl, should the initialization overwrite files and folders
 #'   that already exist? Defaults to FALSE
 #'
@@ -57,6 +59,7 @@ tar_init <- function(phase_names,
                      home = ".",
                      separate_phase_scripts = TRUE,
                      phase_subdirs = c("src","out"),
+                     use_leading_zeros = FALSE,
                      overwrite = FALSE){
 
   # Check arguments ----
@@ -96,6 +99,12 @@ tar_init <- function(phase_names,
     ))
   }
 
+  if(!rlang::is_scalar_logical(use_leading_zeros)) {
+    cli::cli_abort(c(
+      "x" = "{.arg use_leading_zeros} must be logical (length 1), not class {.cls {class(use_leading_zeros)}} (length {length(use_leading_zeros)})."
+    ))
+  }
+
   if(length(phase_names) != length(phase_nums)) {
     cli::cli_abort(c(
       "x" = "{.arg phase_nums} must be the same length as {.arg phase_names}.",
@@ -107,9 +116,18 @@ tar_init <- function(phase_names,
   # create "#_phase" R files and directories, adding phase_subdirs and .empty
   # files in each
 
+  # Add leading zeros (if applicable)
+  phase_nums_targets <- phase_nums
+  phase_nums_files <- ifelse(
+    use_leading_zeros,
+    paste0("0", phase_nums),
+    phase_nums
+  )
+
+
   ## Create subdirectories ----
   subdir_paths <- expand.grid(
-    dir = glue::glue("{home}/{phase_nums}_{phase_names}"),
+    dir = glue::glue("{home}/{phase_nums_files}_{phase_names}"),
     subdir = phase_subdirs
   ) |>
     glue::glue_data("{dir}/{subdir}")
@@ -117,10 +135,10 @@ tar_init <- function(phase_names,
   purrr::walk(subdir_paths, ~ dir_setup(.x, overwrite = overwrite))
 
   ## Create phase scripts (if applicable) ----
-  phase_files <- glue::glue("{home}/{phase_nums}_{phase_names}.R")
-  phase_dirs <- glue::glue("{home}/{phase_nums}_{phase_names}")
+  phase_files <- glue::glue("{home}/{phase_nums_files}_{phase_names}.R")
+  phase_dirs <- glue::glue("{home}/{phase_nums_files}_{phase_names}")
   if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
-    phase_file_text <- glue::glue("p{phase_nums}_targets_list <- list()")
+    phase_file_text <- glue::glue("p{phase_nums_targets}_targets_list <- list()")
     purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
   }
 
@@ -135,7 +153,7 @@ tar_init <- function(phase_names,
         "tar_source({glue::glue_collapse(glue::double_quote(phase_files),",
         "sep = \", \")})\n\n"
       )
-      phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums}_targets_list"), sep = ", ")
+      phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums_targets}_targets_list"), sep = ", ")
       phase_target_text <- glue::glue("c({phase_targets})")
 
     } else {
