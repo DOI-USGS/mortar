@@ -16,6 +16,7 @@
 #' @param open lgl; whether to open the files for interactive editing
 #'
 #' @examples
+#' \dontrun{
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
@@ -30,12 +31,12 @@
 #' # creates README.Rmd and DISCLAIMER_APPROVED instead
 #' use_project_usgs(home = tmp, readme_rmd = TRUE, disclaimer_approved = TRUE)
 #' list.files(tmp)
+#' }
 #'
 #' @seealso
 #' \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}
 #'
 #' @export
-
 use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
                              readme_rmd = FALSE,
@@ -97,7 +98,6 @@ use_project_usgs <- function(home = ".",
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 #' @name use-file-usgs
-
 #' @rdname use-file-usgs
 #' @export
 use_gitignore_usgs <- function(home = ".", additions = NULL, open = rlang::is_interactive()){
