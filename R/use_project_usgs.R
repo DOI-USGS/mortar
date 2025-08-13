@@ -15,6 +15,9 @@
 #'   provisional software disclaimer statement or "approved" for the approved
 #'   disclaimer statement. It is important to only include the approved
 #'   disclaimer statement if your software is an approved software release.
+#' @param repo_url chr, URL to Git repository. If `NULL` (default) a generic
+#'   URL will be provided as a link to the repository in CONTRIBUTING.md.
+#'   Otherwise, the issue page for `repo_url` will be used as the link.
 #' @param open lgl; whether to open the files for interactive editing.
 #'
 #' @examples
@@ -43,6 +46,7 @@ use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
                              readme_type = c("md", "rmd"),
                              disclaimer_type = c("provisional", "approved"),
+                             repo_url = get_usgs_gitlab_url("origin"),
                              open = rlang::is_interactive()){
   disclaimer_type <- rlang::arg_match(disclaimer_type)
   readme_type <- rlang::arg_match(readme_type)
@@ -68,7 +72,7 @@ use_project_usgs <- function(home = ".",
   use_changelog_usgs(home, open = open)
 
   # CONTRIBUTING
-  use_contributing_usgs(home, open = open)
+  use_contributing_usgs(home, repo_url = repo_url, open = open)
 
   # CODE OF CONDUCT
   use_code_of_conduct_usgs(home, open = open)
@@ -251,15 +255,32 @@ use_code_of_conduct_usgs <- function(home = ".", open = rlang::is_interactive())
 
 }
 
+#' @param repo_url chr, URL to Git repository. If `NULL` (default) a generic
+#'   URL will be provided as a link to the repository in CONTRIBUTING.md.
+#'   Otherwise, the issue page for `repo_url` will be used as the link.
 #' @rdname use-file-usgs
 #' @export
-use_contributing_usgs <- function(home = ".", open = rlang::is_interactive()){
+use_contributing_usgs <- function(home = ".", repo_url = NULL,
+                                  open = rlang::is_interactive()){
 
   use_file_usgs(inst_file = "CONTRIBUTING",
                 out_file = "CONTRIBUTING.md",
                 home = home,
                 additions = NULL,
-                open = open)
+                open = FALSE)
+
+  # Add repo issue link if applicable
+  if(!is.null(repo_url)) {
+    file_edit(
+      file = file.path(home, "CONTRIBUTING.md"),
+      txt = ~ glue::glue("[1]: {repo_url}/-/issues"),
+      match = 16,
+      append = FALSE
+    )
+  }
+
+  # Open file ----
+  usethis::edit_file(path = file.path(home, "CONTRIBUTING.md"), open = open)
 
   return(invisible(NULL))
 
@@ -278,6 +299,45 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
   return(invisible(NULL))
 
 }
+
+#' Get the HTTPS URL for the git remote of a repo at code.usgs.gov
+#'
+#' @param remote_name chr; name of the git remote. The default is "origin".
+#'
+#' @return a character sting of the HTTPS URL to the remote repo
+#' @export
+#'
+#' @examples
+#' get_usgs_gitlab_url("origin")
+#'
+get_usgs_gitlab_url <- function(remote_name = "origin") {
+  remote_url <- usethis::git_remotes()
+
+  # Ensure remote name is valid
+  if(! remote_name %in% names(remote_url)) {
+    cli::cli_abort("{.arg {remote_name}} is not an existing remote.")
+  }
+
+  remote_url <- remote_url[[remote_name]]
+
+  # Ensure remote is from code.usgs.gov
+  if(! grepl(x = remote_url, pattern = "code.usgs.gov")) {
+    cli::cli_abort(c(
+      "x" = "The git remote was expecting a remote from {.url https://code.usgs.gov}.",
+      "i" = "The remote URL is {.url {remote_url}}"
+    ))
+  }
+
+  # Convert SSH URL to HTTPS URL
+  if(grepl(x = remote_url, pattern = "^git@")) {
+    remote_url <- remote_url |>
+      gsub(x = _, pattern = ".git$", replacement = "") |>
+      gsub(x = _, pattern = "^git@code.usgs.gov:", replacement = "https://code.usgs.gov/")
+  }
+
+  return(remote_url)
+}
+
 
 #' Internal: core function used in other use_*_usgs functions, which all have
 #' the same basic structure
