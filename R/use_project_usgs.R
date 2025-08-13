@@ -57,6 +57,9 @@ use_project_usgs <- function(home = ".",
     use_disclaimer_provisional_usgs(home, open = open)
   }
 
+  # code.json
+  use_code_json_usgs(home, open = open)
+
   # CHANGELOG
   use_changelog_usgs(home, open = open)
 
@@ -180,6 +183,20 @@ use_license_usgs <- function(home = ".", open = rlang::is_interactive()){
 
   use_file_usgs(inst_file = "LICENSE",
                 out_file = "LICENSE.md",
+                home = home,
+                additions = NULL,
+                open = open)
+
+  return(invisible(NULL))
+
+}
+
+#' @rdname use-file-usgs
+#' @export
+use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()){
+
+  use_file_usgs(inst_file = "CODE_JSON",
+                out_file = "code.json",
                 home = home,
                 additions = NULL,
                 open = open)
