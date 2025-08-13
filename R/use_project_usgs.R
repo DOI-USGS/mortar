@@ -88,13 +88,14 @@ use_project_usgs <- function(home = ".",
 #' @param open lgl; whether to open the file for interactive editing
 #'
 #' @examples
+#' \dontrun{
 #' tmp <- tempdir()
 #'
 #' use_gitignore_usgs(home = tmp,
 #'                    additions = c("excluded_file.R",
 #'                                  "excluded_dir",
 #'                                  "*excluded_pattern*"))
-#'
+#' }
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 #' @name use-file-usgs

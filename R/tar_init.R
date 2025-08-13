@@ -26,6 +26,7 @@
 #'   that already exist? Defaults to FALSE
 #'
 #' @examples
+#' \dontrun{
 #' # temporary directories in which targets project is initialized (you can skip
 #' # this part if creating your own project)
 #' tmp <- tempdir()
@@ -51,7 +52,7 @@
 #'
 #' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
 #'            pattern = "\\.(R|empty)$")
-#'
+#' }
 #' @returns \code{NULL} invisibly
 #' @export
 tar_init <- function(phase_names,
