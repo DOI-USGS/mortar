@@ -274,8 +274,8 @@ use_contributing_usgs <- function(home = ".", repo_url = NULL,
   if(!is.null(repo_url)) {
     file_edit(
       file = file.path(home, "CONTRIBUTING.md"),
-      txt = ~ glue::glue("[1]: {repo_url}/-/issues"),
-      match = 16,
+      txt = glue::glue("[1]: {repo_url}/-/issues"),
+      match = ~ grepl("\\[1]: https://gitlab.com/namespace/repo/-/issues", .x),
       append = FALSE
     )
   }
