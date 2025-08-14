@@ -1,13 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mortar <img src="man/figures/logo.png" width="20%" align="right" />
+# mortar <img src="man/figures/logo.png" width="20%" align="right" alt="Hex logo for mortar package. Shows a partially filled water pipe coming out of a brick wall where there is generous amounts of mortar between bricks." />
 
 <!-- badges: start -->
+
 <!-- badges: end -->
+
 <!-- > *Mortar: a plastic building material (such as a mixture of cement, -->
+
 <!-- > lime, or gypsum plaster with sand and water) that hardens and is used -->
+
 <!-- > in masonry or plastering* -->
+
 <!-- > ([source](https://www.merriam-webster.com/dictionary/mortar)) -->
 
 > *“If you need to copy + paste the same code more than once, write a

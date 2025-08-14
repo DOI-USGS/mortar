@@ -1,3 +1,8 @@
+url: https://water.code-pages.usgs.gov/computational-tools/mortar/
+
+template:
+  bootstrap: 5
+
 reference:
   - title: "Project Setup"
     desc: "Initialize elements of a USGS project directory"

@@ -3,6 +3,7 @@
 export(file_edit)
 export(tar_init)
 export(use_changelog_usgs)
+export(use_code_json_usgs)
 export(use_code_of_conduct_usgs)
 export(use_contributing_usgs)
 export(use_disclaimer_approved_usgs)

@@ -4,18 +4,21 @@
 #'   multiple files in one directory.
 #'
 #' @param home chr, root directory of project. Defaults to current working
-#'   directory
+#'   directory.
 #' @param gitignore_additions chr vector, other files/directories to be added to
-#'   .gitignore
-#' @param readme_rmd lgl, should a README.Rmd file be created? If not
-#'   (default), then a README.md is created. Using an Rmd file
-#'   will allow you to include R code and output in your README.md.
-#' @param disclaimer_approved lgl, should this project contain an approved
-#'   disclaimer statement? If not (default), then a provisional disclaimer
-#'   statement is created.
-#' @param open lgl; whether to open the files for interactive editing
+#'   .gitignore or `NULL` (default) for no additions.
+#' @param readme_type chr, either "md" to create README as a markdown file
+#'   (README.md; default) or "rmd" to create it as an R markdown file
+#'   (README.Rmd). Using an Rmd file will allow you to include R code and output
+#'   in your README.md.
+#' @param disclaimer_type chr, either "provisional" (default) to include the
+#'   provisional software disclaimer statement or "approved" for the approved
+#'   disclaimer statement. It is important to only include the approved
+#'   disclaimer statement if your software is an approved software release.
+#' @param open lgl; whether to open the files for interactive editing.
 #'
 #' @examples
+#' \dontrun{
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
@@ -28,34 +31,38 @@
 #' dir.create(tmp)
 #'
 #' # creates README.Rmd and DISCLAIMER_APPROVED instead
-#' use_project_usgs(home = tmp, readme_rmd = TRUE, disclaimer_approved = TRUE)
+#' use_project_usgs(home = tmp, readme_type = "rmd", disclaimer_type = "approved")
 #' list.files(tmp)
+#' }
 #'
 #' @seealso
 #' \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}
 #'
 #' @export
-
 use_project_usgs <- function(home = ".",
                              gitignore_additions = NULL,
-                             readme_rmd = FALSE,
-                             disclaimer_approved = FALSE,
+                             readme_type = c("md", "rmd"),
+                             disclaimer_type = c("provisional", "approved"),
                              open = rlang::is_interactive()){
+  disclaimer_type <- rlang::arg_match(disclaimer_type)
+  readme_type <- rlang::arg_match(readme_type)
+
   # README file
-  if(readme_rmd){
+  if(readme_type == "rmd"){
     use_readme_rmd_usgs(home, open = open)
-  }
-  else{
+  } else {
     use_readme_usgs(home, open = open)
   }
 
   # DISCLAIMER file
-  if(disclaimer_approved){
+  if(disclaimer_type == "approved"){
     use_disclaimer_approved_usgs(home, open = open)
-  }
-  else{
+  } else {
     use_disclaimer_provisional_usgs(home, open = open)
   }
+
+  # code.json
+  use_code_json_usgs(home, open = open)
 
   # CHANGELOG
   use_changelog_usgs(home, open = open)
@@ -84,17 +91,17 @@ use_project_usgs <- function(home = ".",
 #' @param open lgl; whether to open the file for interactive editing
 #'
 #' @examples
+#' \dontrun{
 #' tmp <- tempdir()
 #'
 #' use_gitignore_usgs(home = tmp,
 #'                    additions = c("excluded_file.R",
 #'                                  "excluded_dir",
 #'                                  "*excluded_pattern*"))
-#'
+#' }
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
 #' @name use-file-usgs
-
 #' @rdname use-file-usgs
 #' @export
 use_gitignore_usgs <- function(home = ".", additions = NULL, open = rlang::is_interactive()){
@@ -180,6 +187,20 @@ use_license_usgs <- function(home = ".", open = rlang::is_interactive()){
 
   use_file_usgs(inst_file = "LICENSE",
                 out_file = "LICENSE.md",
+                home = home,
+                additions = NULL,
+                open = open)
+
+  return(invisible(NULL))
+
+}
+
+#' @rdname use-file-usgs
+#' @export
+use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()){
+
+  use_file_usgs(inst_file = "CODE_JSON",
+                out_file = "code.json",
                 home = home,
                 additions = NULL,
                 open = open)
