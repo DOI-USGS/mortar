@@ -158,16 +158,17 @@ file_edit <- function(file, txt, match, append = TRUE){
     return(invisible(FALSE))
   }
 
-  if(all(length(txt) > 1, length(txt) != length(matched_lines))) {
-    cli::cli_abort(c(
-      "The length of {.arg txt} must be equal to 1 or the number of matches identified by {.arg match}.",
-      "i" = "{.arg match} resulted in {length(matched_lines)} matched line{?s} and {.arg txt} has a length of {length(txt)}."
-    ))
-    return(invisible(FALSE))
-  }
-
   # either txt is a string or it's a function that returns another string
   if(all(is.character(txt))){
+    if(all(length(txt) > 1, length(txt) != length(matched_lines))) {
+      cli::cli_abort(c(
+        "The length of {.arg txt} must be equal to 1 or the number of matches identified by {.arg match}.",
+        "i" = "{.arg match} resulted in {length(matched_lines)} matched line{?s} and {.arg txt} has a length of {length(txt)}."
+      ))
+      return(invisible(FALSE))
+    }
+
+
     new_txt <- txt
   } else {
     txt <- rlang::as_function(txt)
@@ -212,4 +213,3 @@ file_edit <- function(file, txt, match, append = TRUE){
   writeLines(lines, con = file)
   return(invisible(TRUE))
 }
-

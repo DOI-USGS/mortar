@@ -102,9 +102,10 @@ use_project_usgs <- function(home = ".",
 #'                    additions = c("excluded_file.R",
 #'                                  "excluded_dir",
 #'                                  "*excluded_pattern*"))
-#' }
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
+#' }
+#'
 #' @name use-file-usgs
 #' @rdname use-file-usgs
 #' @export
@@ -308,8 +309,9 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' get_usgs_gitlab_url("origin")
-#'
+#' }
 get_usgs_gitlab_url <- function(remote_name = "origin") {
   remote_url <- usethis::git_remotes()
 
