@@ -1,5 +1,6 @@
 # Simple tests to make sure that errors work as expected.
-testthat::test_that("Errors thrown in `tar_init()`", {
+testthat::test_that(
+  "Errors thrown in `tar_init()`", {
   # Set temporary working directory and removal instructions
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
@@ -37,7 +38,8 @@ testthat::test_that("Errors thrown in `tar_init()`", {
 #  - exact/ordered content expectations inside _targets.R for both modes:
 #       * separate_phase_scripts = TRUE
 #       * separate_phase_scripts = FALSE
-test_that("tar_init creates expected structure with separate_phase_scripts = TRUE", {
+testthat::test_that(
+  "tar_init creates expected structure with separate_phase_scripts = TRUE", {
   # Set temporary working directory and removal instructions
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
@@ -90,7 +92,8 @@ test_that("tar_init creates expected structure with separate_phase_scripts = TRU
   )
 })
 
-test_that("tar_init in non-phase mode (separate_phase_scripts = FALSE) uses list()", {
+testthat::test_that(
+  "tar_init in non-phase mode (separate_phase_scripts = FALSE) uses list()", {
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
   on.exit(setwd(old), add = TRUE)
