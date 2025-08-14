@@ -119,7 +119,7 @@ tar_init <- function(phase_names,
 
   # Add leading zeros (if applicable)
   phase_nums_targets <- phase_nums
-  phase_nums_files <- ifelse(
+  phase_nums_files <- Vectorize(ifelse)(
     use_leading_zeros,
     sprintf("%02d", phase_nums),
     phase_nums
