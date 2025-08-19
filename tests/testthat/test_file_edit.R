@@ -90,13 +90,19 @@ testthat::test_that(
 
     # The implementation treats numeric 'match' as literal indices. If index is
     # 0, it will insert the text before the first line.
-    testthat::expect_invisible(
-      file_edit(file = tmp, txt = "ADDED_AFTER_LINE0", match = 0, append = TRUE)
+    testthat::expect_message(
+      file_edit(file = tmp, txt = "ADDED_AFTER_LINE0", match = 0, append = TRUE),
+      "`match` == 0 which will result in text being prepended to the beginning of the file."
     )
 
     testthat::expect_equal(
       readLines(tmp),
       c("ADDED_AFTER_LINE0", "line1", "line2", "line3")
+    )
+
+    testthat::expect_error(
+      file_edit(file = tmp, txt = "ADDED_AFTER_LINE0", match = 0, append = FALSE),
+      "If `match` equals 0, then `append` must be TRUE."
     )
 
     # Negative index values are not valid.
