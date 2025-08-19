@@ -187,7 +187,7 @@ tar_init <- function(phase_names,
         "\n",
         .sep = "\n"
       ),
-      file = "_targets.R"
+      file = glue::glue("{home}_targets.R")
     )
   }
 
