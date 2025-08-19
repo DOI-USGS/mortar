@@ -112,6 +112,20 @@ file_edit <- function(file, txt, match, append = TRUE){
       ))
     }
 
+    if(any(match == 0) & !append) {
+      cli::cli_abort(c(
+        "If {.arg match} equals 0, then {.arg append} must be TRUE.",
+        i = "When {.arg match} equals 0, it adds text to the beginning of the file.",
+        x = "If {.arg append} is FALSE, nothing is appended."
+      ))
+    }
+
+    if(any(match == 0)) {
+      cli::cli_inform(c(
+        "{.arg match} == 0 which will result in text being prepended to the beginning of the file."
+      ))
+    }
+
     if(!rlang::is_integerish(match)) {
       cli::cli_abort(c(
         "{.arg match} cannot contain non-integer(ish) numbers.",
