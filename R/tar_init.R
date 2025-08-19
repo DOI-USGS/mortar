@@ -153,12 +153,12 @@ tar_init <- function(phase_names,
   if(!file.exists("_targets.R") | overwrite){
     if(separate_phase_scripts) {
       phase_function_text <- glue::glue(
-        "# tar_source({glue::glue_collapse(glue::double_quote(phase_dirs), sep = \", \")})"
+        "# tar_source(c({glue::glue_collapse(glue::double_quote(phase_dirs), sep = \", \")}))"
       )
       phase_script_text <- glue::glue(
         "# Load target list files\n",
-        "tar_source({glue::glue_collapse(glue::double_quote(phase_files),",
-        "sep = \", \")})\n\n"
+        "tar_source(c({glue::glue_collapse(glue::double_quote(phase_files),",
+        "sep = \", \")}))\n\n"
       )
       phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums_targets}_targets_list"), sep = ", ")
       phase_target_text <- glue::glue("c({phase_targets})")

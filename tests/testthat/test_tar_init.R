@@ -83,7 +83,7 @@ testthat::test_that(
   line_after_phase <- txt[idx_phase + 1]
   testthat::expect_match(
     line_after_phase,
-    'tar_source\\(\\"1_fetch.R\", \\"2_process.R\\")'
+    'tar_source\\(c\\("1_fetch.R\", \\"2_process.R\\"))'
   )
 
   # pipeline definition aggregates the phase list objects
