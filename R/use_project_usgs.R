@@ -102,9 +102,10 @@ use_project_usgs <- function(home = ".",
 #'                    additions = c("excluded_file.R",
 #'                                  "excluded_dir",
 #'                                  "*excluded_pattern*"))
-#' }
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
+#' }
+#'
 #' @name use-file-usgs
 #' @rdname use-file-usgs
 #' @export
@@ -273,8 +274,8 @@ use_contributing_usgs <- function(home = ".", repo_url = NULL,
   if(!is.null(repo_url)) {
     file_edit(
       file = file.path(home, "CONTRIBUTING.md"),
-      txt = ~ glue::glue("[1]: {repo_url}/-/issues"),
-      match = 16,
+      txt = glue::glue("[1]: {repo_url}/-/issues"),
+      match = ~ grepl("\\[1]: https://gitlab.com/namespace/repo/-/issues", .x),
       append = FALSE
     )
   }
@@ -308,8 +309,9 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' get_usgs_gitlab_url("origin")
-#'
+#' }
 get_usgs_gitlab_url <- function(remote_name = "origin") {
   remote_url <- usethis::git_remotes()
 

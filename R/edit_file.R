@@ -104,10 +104,39 @@ file_edit <- function(file, txt, match, append = TRUE){
 
   # either match is a numeric vector
   if(all(is.numeric(match))){
+    if(any(match < 0)) {
+      cli::cli_abort(c(
+        "{.arg match} cannot contain negative numbers.",
+        x = "Negative indices are not valid.",
+        i = "If {.arg match} is numeric, it is treated as indices of line numbers."
+      ))
+    }
+
+    if(any(match == 0) & !append) {
+      cli::cli_abort(c(
+        "If {.arg match} equals 0, then {.arg append} must be TRUE.",
+        i = "When {.arg match} equals 0, it adds text to the beginning of the file.",
+        x = "If {.arg append} is FALSE, nothing is appended."
+      ))
+    }
+
+    if(any(match == 0)) {
+      cli::cli_inform(c(
+        "{.arg match} == 0 which will result in text being prepended to the beginning of the file."
+      ))
+    }
+
+    if(!rlang::is_integerish(match)) {
+      cli::cli_abort(c(
+        "{.arg match} cannot contain non-integer(ish) numbers.",
+        x = "Non-integer indices are not valid.",
+        i = "If {.arg match} is numeric, it is treated as indices of line numbers."
+      ))
+    }
+
+
     matched_lines <- match
-  }
-  # or its a function that returns a boolean
-  else{
+  } else {   # or its a function that returns a boolean
     match <- rlang::as_function(match)
 
     if(!rlang::is_function(match)){
@@ -116,12 +145,20 @@ file_edit <- function(file, txt, match, append = TRUE){
     }
 
     # determine lines for which match returns TRUE
-    matched_lines <- purrr::map_lgl(lines, match)
-
-    if(!all(is.logical(matched_lines)) | length(matched_lines) != length(lines)){
-      cli::cli_abort("Invalid argument {.arg match}. This function must return
-                     a single logical value.")
+    matched_lines_list <- purrr::map(lines, match)
+    if(!all(
+      purrr::map_lgl(matched_lines_list, is.logical),
+      sum(lengths(matched_lines_list)) == length(matched_lines_list)
+    )) {
+      cls_out <- as.character(unique(purrr::map(matched_lines_list, class)))
+      cli::cli_abort(c(
+        "{.arg match} must return a single logical value for each line.",
+        i = "If {.arg match} is a function, it is used to perform a logical subset on lines based on string matches.",
+        x = "The function provided output(s) in the following class{?es}: {cls_out}.",
+        x = "The function provided {sum(lengths(matched_lines_list))} output{?s} for {length(lines)} line{?s}."
+      ))
     }
+    matched_lines <- as.logical(matched_lines_list)
 
     # we just need the indices of the lines
     matched_lines <- which(matched_lines)
@@ -137,6 +174,15 @@ file_edit <- function(file, txt, match, append = TRUE){
 
   # either txt is a string or it's a function that returns another string
   if(all(is.character(txt))){
+    if(all(length(txt) > 1, length(txt) != length(matched_lines))) {
+      cli::cli_abort(c(
+        "The length of {.arg txt} must be equal to 1 or the number of matches identified by {.arg match}.",
+        "i" = "{.arg match} resulted in {length(matched_lines)} matched line{?s} and {.arg txt} has a length of {length(txt)}."
+      ))
+      return(invisible(FALSE))
+    }
+
+
     new_txt <- txt
   } else {
     txt <- rlang::as_function(txt)
@@ -147,12 +193,23 @@ file_edit <- function(file, txt, match, append = TRUE){
     }
 
     # apply the transformation to the matched lines
-    new_txt <- purrr::map_chr(lines[matched_lines], txt)
+    new_txt <- purrr::map(lines[matched_lines], txt)
 
-    if(!all(is.character(new_txt)) | length(new_txt) != length(matched_lines)){
-      cli::cli_abort("Invalid argument {.arg txt}. This function must return
-                     a single character string.")
+    if(any(
+      purrr::map_chr(new_txt, class) != "character",
+      sum(lengths(new_txt)) != length(matched_lines)
+    )){
+      cls_out <- as.character(unique(purrr::map(new_txt, class)))
+
+      cli::cli_abort(c(
+        "{.arg txt} must return a single character string for a single input.",
+        x = "If {.arg txt} is a function, it is used to transform a character to another character.",
+        i = "The function provided output(s) in the following class{?es}: {cls_out}.",
+        i = "The function provided {sum(lengths(new_txt))} output{?s} for {length(matched_lines)} matched line{?s}."
+      ))
     }
+
+    new_txt <- as.character(new_txt)
   }
 
   # replace the matched lines if append = FALSE
@@ -170,4 +227,3 @@ file_edit <- function(file, txt, match, append = TRUE){
   writeLines(lines, con = file)
   return(invisible(TRUE))
 }
-

@@ -10,9 +10,9 @@
 #'
 #' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
-#' @param phase_nums chr or int vector, numbers to prepend to phase_names like
+#' @param phase_nums int vector, numbers to prepend to phase_names like
 #'   \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
-#'   1:length(phase_names)
+#'   seq_along(phase_names)
 #' @param home chr, root directory of targets project. Defaults to current
 #'   working directory "."
 #' @param separate_phase_scripts lgl, should a different R script be created for
