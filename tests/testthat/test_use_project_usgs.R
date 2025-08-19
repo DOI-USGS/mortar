@@ -1,14 +1,48 @@
 testthat::test_that(
   "use_project_usgs() validates its arguments", {
+    # Set temporary working directory and removal instructions
+    tmp <- withr::local_tempdir()
+    old <- setwd(tmp)
+    on.exit(setwd(old), add = TRUE)
+
+    # Invalid home directory
+    testthat::expect_error(
+      use_project_usgs(home = "this/dir/doesn't/exist", repo_url = NULL),
+      "`home` must be a path to a directory that exists."
+    )
+    # Invalid gitignore additions
+    testthat::expect_error(
+      use_project_usgs(gitignore_additions = TRUE, repo_url = NULL),
+      "`gitignore_additions` must be a character vector or `NULL`, not"
+    )
     # Invalid readme_type should result in an error mentioning the argument
     testthat::expect_error(
-      use_project_usgs(readme_type = "txt"),
+      use_project_usgs(readme_type = "txt", repo_url = NULL),
       '`readme_type` must be one of "md" or "rmd", not "txt"'
     )
     # Invalid disclaimer_type should result in an error mentioning the argument
     testthat::expect_error(
-      use_project_usgs(disclaimer_type = "final"),
+      use_project_usgs(disclaimer_type = "final", repo_url = NULL),
       '`disclaimer_type` must be one of "provisional" or "approved", not "final"'
+    )
+    # Invalid repo_url
+    testthat::expect_error(
+      use_project_usgs(repo_url = 4L),
+      "`repo_url` must be a character with length 1"
+    )
+    # Invalid use_mr_template
+    testthat::expect_error(
+      use_project_usgs(use_mr_template = 1234, repo_url = NULL),
+      "`use_mr_template` must be a logical with length 1"
+    )
+    # Invalid open
+    testthat::expect_error(
+      use_project_usgs(open = "TRUE", repo_url = NULL),
+      "`open` must be a logical with length 1"
+    )
+    # Valid options should not fail
+    testthat::expect_invisible(
+      suppressMessages(use_project_usgs(repo_url = NULL, open = FALSE))
     )
   }
 )
@@ -43,6 +77,7 @@ testthat::test_that(
         readme_type = "md",
         disclaimer_type = "provisional",
         repo_url = "https://code.usgs.gov/test/repo",
+        use_mr_template = TRUE,
         open = FALSE
       ))
     )
@@ -55,7 +90,8 @@ testthat::test_that(
       "CHANGELOG.md",
       "CONTRIBUTING.md",
       "CODE_OF_CONDUCT.md",
-      ".gitignore"
+      ".gitignore",
+      ".gitlab/merge_request_templates/Default.md"
     )
     # Make sure each of these files exists
     for (f in expected_files) {
@@ -85,6 +121,7 @@ testthat::test_that(
         readme_type = "rmd",
         disclaimer_type = "approved",
         repo_url = "https://code.usgs.gov/test/repo",
+        use_mr_template = FALSE,
         open = FALSE
       )
     ))
@@ -92,6 +129,9 @@ testthat::test_that(
     # Check that README.Rmd and the approved disclaimer exist.
     testthat::expect_true(file.exists(file.path(tmp, "README.Rmd")))
     testthat::expect_true(file.exists(file.path(tmp, "DISCLAIMER_APPROVED.md")))
+    testthat::expect_false(
+      file.exists(file.path(tmp, ".gitlab/merge_request_templates/Default.md"))
+    )
 
     # The README.Rmd file should start with a YAML header that sets
     # `output: github_document`.  We only look at the first few lines to

@@ -18,6 +18,8 @@
 #' @param repo_url chr, URL to Git repository. If `NULL` (default) a generic
 #'   URL will be provided as a link to the repository in CONTRIBUTING.md.
 #'   Otherwise, the issue page for `repo_url` will be used as the link.
+#' @param use_mr_template lgl, Should GitLab Merge Request template be included
+#'   in project repository. Default is `TRUE`.
 #' @param open lgl; whether to open the files for interactive editing.
 #'
 #' @examples
@@ -47,9 +49,33 @@ use_project_usgs <- function(home = ".",
                              readme_type = c("md", "rmd"),
                              disclaimer_type = c("provisional", "approved"),
                              repo_url = get_usgs_gitlab_url("origin"),
-                             open = rlang::is_interactive()){
+                             use_mr_template = TRUE,
+                             open = rlang::is_interactive()) {
   disclaimer_type <- rlang::arg_match(disclaimer_type)
   readme_type <- rlang::arg_match(readme_type)
+  if(!any(rlang::is_scalar_character(repo_url) | is.null(repo_url))) {
+    cli::cli_abort(c(
+      "{.arg repo_url} must be a character with length 1 or NULL.",
+      x = "You provided a class {.cls {class(repo_url)}} of length {length(repo_url)}."
+    ))
+  }
+  if(!rlang::is_scalar_logical(use_mr_template)) {
+    cli::cli_abort(c(
+      "{.arg use_mr_template} must be a logical with length 1.",
+      x = "You provided a class {.cls {class(use_mr_template)}} of length {length(use_mr_template)}."
+    ))
+  }
+  if(!rlang::is_scalar_logical(open)) {
+    cli::cli_abort(c(
+      "{.arg open} must be a logical with length 1.",
+      x = "You provided a class {.cls {class(open)}} of length {length(open)}."
+    ))
+  }
+  if (!(is.character(gitignore_additions) | is.null(gitignore_additions))) {
+    cli::cli_abort(c(
+      "x" = "{.arg gitignore_additions} must be a character vector or {.code NULL}, not class {.cls {class(gitignore_additions)}}."
+    ))
+  }
 
   # README file
   if(readme_type == "rmd"){
@@ -63,6 +89,10 @@ use_project_usgs <- function(home = ".",
     use_disclaimer_approved_usgs(home, open = open)
   } else {
     use_disclaimer_provisional_usgs(home, open = open)
+  }
+
+  if(use_mr_template) {
+    use_gitlab_mr_template_usgs(home = home, open = open)
   }
 
   # code.json
@@ -296,6 +326,29 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
                 home = home,
                 additions = NULL,
                 open = open)
+
+  return(invisible(NULL))
+
+}
+
+#' @rdname use-file-usgs
+#' @export
+use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE){
+
+  dir_path <- file.path(".gitlab", "merge_request_templates")
+
+  if(! dir.exists(file.path(home, dir_path))) {
+    dir.create(file.path(home, dir_path), recursive = TRUE)
+  }
+
+  use_file(
+    inst_file = "MR_TEMPLATE",
+    inst_subdir = "template_files",
+    out_file = file.path(dir_path, "Default.md"),
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
 
