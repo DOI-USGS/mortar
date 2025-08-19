@@ -1,0 +1,45 @@
+[
+  {
+    "name": "mortar",
+    "organization": "U.S. Geological Survey",
+    "description": "The goal of `mortar` is to standardize common workflows in the USGS Water Mission Area's Data Science Branch to produce more robust, reproducible pipelines.",
+    "version": "main",
+    "status": "Development",
+
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://code.usgs.gov/water/computational-tools/mortar/-/raw/main/LICENSE.md"
+        }
+      ]
+    },
+
+    "homepageURL": "https://code.usgs.gov/water/computational-tools/mortar",
+    "downloadURL": "https://code.usgs.gov/water/computational-tools/mortar/-/archive/main/r-package-main.zip",
+    "disclaimerURL": "https://code.usgs.gov/water/computational-tools/mortar/-/raw/main/DISCLAIMER.md",
+    "repositoryURL": "https://code.usgs.gov/water/computational-tools/mortar.git",
+    "vcs": "git",
+
+    "laborHours": 0,
+
+    "tags": [
+      "R",
+      "rstats"
+    ],
+
+    "languages": [
+      "R"
+    ],
+
+    "contact": {
+      "name": "Anthony Martinez",
+      "email": "ajamrtinez@usgs.gov"
+    },
+
+    "date": {
+      "metadataLastUpdated": "2025-08-19"
+    }
+  }
+]
