@@ -12,6 +12,7 @@
 \alias{use_code_of_conduct_usgs}
 \alias{use_contributing_usgs}
 \alias{use_changelog_usgs}
+\alias{use_gitlab_mr_template_usgs}
 \title{Add individual USGS project files to a directory}
 \usage{
 use_gitignore_usgs(
@@ -34,9 +35,15 @@ use_disclaimer_approved_usgs(home = ".", open = rlang::is_interactive())
 
 use_code_of_conduct_usgs(home = ".", open = rlang::is_interactive())
 
-use_contributing_usgs(home = ".", open = rlang::is_interactive())
+use_contributing_usgs(
+  home = ".",
+  repo_url = NULL,
+  open = rlang::is_interactive()
+)
 
 use_changelog_usgs(home = ".", open = rlang::is_interactive())
+
+use_gitlab_mr_template_usgs(home = ".", open = FALSE)
 }
 \arguments{
 \item{home}{chr, root directory of project. Defaults to current working
@@ -46,6 +53,10 @@ directory}
 .gitignore}
 
 \item{open}{lgl; whether to open the file for interactive editing}
+
+\item{repo_url}{chr, URL to Git repository. If \code{NULL} (default) a generic
+URL will be provided as a link to the repository in CONTRIBUTING.md.
+Otherwise, the issue page for \code{repo_url} will be used as the link.}
 }
 \description{
 Creates common project files like .gitignore, README.md. LICENSE.md,
@@ -60,7 +71,8 @@ use_gitignore_usgs(home = tmp,
                    additions = c("excluded_file.R",
                                  "excluded_dir",
                                  "*excluded_pattern*"))
-}
 # here are the contents of the .gitignore:
 cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
+}
+
 }

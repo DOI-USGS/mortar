@@ -9,6 +9,8 @@ use_project_usgs(
   gitignore_additions = NULL,
   readme_type = c("md", "rmd"),
   disclaimer_type = c("provisional", "approved"),
+  repo_url = get_usgs_gitlab_url("origin"),
+  use_mr_template = TRUE,
   open = rlang::is_interactive()
 )
 }
@@ -28,6 +30,13 @@ in your README.md.}
 provisional software disclaimer statement or "approved" for the approved
 disclaimer statement. It is important to only include the approved
 disclaimer statement if your software is an approved software release.}
+
+\item{repo_url}{chr, URL to Git repository. If \code{NULL} (default) a generic
+URL will be provided as a link to the repository in CONTRIBUTING.md.
+Otherwise, the issue page for \code{repo_url} will be used as the link.}
+
+\item{use_mr_template}{lgl, Should GitLab Merge Request template be included
+in project repository. Default is \code{TRUE}.}
 
 \item{open}{lgl; whether to open the files for interactive editing.}
 }

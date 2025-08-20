@@ -9,7 +9,7 @@ multiple files in one directory."><meta property="og:image" content="https://wat
 
     <a class="navbar-brand me-2" href="../index.html">mortar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,6 +19,7 @@ multiple files in one directory."><meta property="og:image" content="https://wat
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/mortar.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
       </ul></div>
@@ -45,6 +46,8 @@ multiple files in one directory.</p>
 <span>  gitignore_additions <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  readme_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"md"</span>, <span class="st">"rmd"</span><span class="op">)</span>,</span>
 <span>  disclaimer_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"provisional"</span>, <span class="st">"approved"</span><span class="op">)</span>,</span>
+<span>  repo_url <span class="op">=</span> <span class="fu"><a href="get_usgs_gitlab_url.html">get_usgs_gitlab_url</a></span><span class="op">(</span><span class="st">"origin"</span><span class="op">)</span>,</span>
+<span>  use_mr_template <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  open <span class="op">=</span> <span class="fu">rlang</span><span class="fu">::</span><span class="fu"><a href="https://rlang.r-lib.org/reference/is_interactive.html" class="external-link">is_interactive</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -75,6 +78,17 @@ in your README.md.</p></dd>
 provisional software disclaimer statement or "approved" for the approved
 disclaimer statement. It is important to only include the approved
 disclaimer statement if your software is an approved software release.</p></dd>
+
+
+<dt id="arg-repo-url">repo_url<a class="anchor" aria-label="anchor" href="#arg-repo-url"></a></dt>
+<dd><p>chr, URL to Git repository. If <code>NULL</code> (default) a generic
+URL will be provided as a link to the repository in CONTRIBUTING.md.
+Otherwise, the issue page for <code>repo_url</code> will be used as the link.</p></dd>
+
+
+<dt id="arg-use-mr-template">use_mr_template<a class="anchor" aria-label="anchor" href="#arg-use-mr-template"></a></dt>
+<dd><p>lgl, Should GitLab Merge Request template be included
+in project repository. Default is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-open">open<a class="anchor" aria-label="anchor" href="#arg-open"></a></dt>
