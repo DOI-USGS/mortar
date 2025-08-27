@@ -70,7 +70,7 @@ tar_init(
 Under the hood, `tar_init()` basically just repeatedly calls `dir.create()` and `file.create()` to accomplish the following tasks:
 
 1. Creates a `_targets.R` file in the project's root directory with some general starter code.
-2. Creates `.R` scripts and directories in the projects root directory for each phase of the pipeline like `1_fetch.R` and `1_fetch/`, etc.
+2. Creates `.R` scripts and directories in the projects root directory for each phase of the pipeline like `01_fetch.R` and `01_fetch/`, etc.
 3. For each phase directory, creates sub-directories therein, such as `src` and `out`.
 4. Adds a `.empty` file within each sub-directory so that it will be tracked by git.
 
