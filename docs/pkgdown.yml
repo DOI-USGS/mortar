@@ -3,7 +3,7 @@ pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
   mortar: mortar.html
-last_built: 2025-08-20T15:39Z
+last_built: 2025-08-27T21:59Z
 urls:
   reference: https://water.code-pages.usgs.gov/computational-tools/mortar/reference
   article: https://water.code-pages.usgs.gov/computational-tools/mortar/articles
