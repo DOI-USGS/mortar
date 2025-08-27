@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mortar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@
       <ul class="navbar-nav me-auto">
 <li class="active nav-item"><a class="nav-link" href="../articles/mortar.html">Get started</a></li>
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul>
 <ul class="navbar-nav">
 <li class="nav-item"><form class="form-inline" role="search">
@@ -62,14 +63,51 @@
 
     
     
-<p>The goal of <code>mortar</code> is to standardize how we in the IIDD
-Data Science Branch structure our collaborative projects. The package’s
-functionality focuses on setting up project directories using our
-branch’s conventions. Think of <code>mortar</code> as a collection of
-helper functions for creating files and folders we often use in our
-workflows.</p>
+<p>The goal of <code>mortar</code> is to standardize how we USGS Data
+Science Practitioners Community of Practice structure our collaborative
+projects. The package’s functionality focuses on setting up project
+directories using our branch’s conventions. Think of <code>mortar</code>
+as a collection of helper functions for creating files and folders we
+often use in our workflows.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://code.usgs.gov/water/computational-tools/mortar" class="external-link">mortar</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level2">
+<h2 id="set-up-a-usgs-git-repo-with-use_project_usgs">Set up a USGS git repo with <code>use_project_usgs()</code><a class="anchor" aria-label="anchor" href="#set-up-a-usgs-git-repo-with-use_project_usgs"></a>
+</h2>
+<p>You may want or need to include common files in a project’s git repo
+to adhere to coding conventions or standards. These include a
+<strong>README</strong> that summarizes basic information about a repo,
+a <strong>License</strong> that details how the contents of a repo can
+be used, and others (see <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository/" class="external-link">standard-template-repository</a>
+for more details).</p>
+<p>The <code>use_*_usgs()</code> family of functions create these sorts
+of files based on USGS-specific templates adapted from the <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">standard-template-repository</a>.
+These functions are heavily inspired by similar functions from the <a href="https://usethis.r-lib.org/" class="external-link"><code>usethis</code></a> R
+package.</p>
+<p>For example, you can add a .gitignore file to your repo with some
+pre-set (often forgotten) ignores using the following. If you don’t like
+the contents of these template files, you’re able to customize it using
+or <code>additions</code> argument or to edit them afterward to your
+needs.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/use-file-usgs.html">use_gitignore_usgs</a></span><span class="op">(</span>additions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"scratch*"</span>, <span class="st">"*/tmp/*"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>This creates the standard .gitignore with additional lines for
+<code>scratch*</code> and <code>*/tmp/*</code>. Run
+<code><a href="../reference/use-file-usgs.html">?mortar::`use-file-usgs`</a></code> to view the function family’s
+documentation and more examples.</p>
+<p><code><a href="../reference/use_project_usgs.html">use_project_usgs()</a></code> generates all the common files for
+your repository in one function call: CHANGELOG.md, code.json,
+CODE_OF_CONDUCT.md, CONTRIBUTING.md, DISCLAMER.md, .gitignore,
+LICENSE.md, and README.md.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/use_project_usgs.html">use_project_usgs</a></span><span class="op">(</span></span>
+<span>  gitignore_additions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"scratch*"</span>, <span class="st">"*/tmp/*"</span><span class="op">)</span>,</span>
+<span>  readme_rmd <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  disclaimer_approved <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Run <code><a href="../reference/use_project_usgs.html">?mortar::use_project_usgs</a></code> to view the function’s
+documentation and more examples.</p>
+</div>
 <div class="section level2">
 <h2 id="set-up-a-targets-project-with-tar_init">Set up a <code>targets</code> project with
 <code>tar_init()</code><a class="anchor" aria-label="anchor" href="#set-up-a-targets-project-with-tar_init"></a>
@@ -82,46 +120,28 @@ project to avoid manually setting up the project directory (and
 forgetting to add those pesky <code>.empty</code> files in each
 sub-directory).</p>
 <p>The call below illustrates how to use <code><a href="../reference/tar_init.html">tar_init()</a></code>.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/tar_init.html">tar_init</a></span><span class="op">(</span>phase_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fetch"</span>,<span class="st">"process"</span>,<span class="st">"summarize"</span><span class="op">)</span>,</span>
-<span>         phase_nums <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>,</span>
-<span>         phase_subdirs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"src"</span>,<span class="st">"out"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/tar_init.html">tar_init</a></span><span class="op">(</span></span>
+<span>  phase_names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"fetch"</span>,<span class="st">"process"</span>,<span class="st">"summarize"</span><span class="op">)</span>,</span>
+<span>  phase_subdirs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"src"</span>,<span class="st">"out"</span><span class="op">)</span>,</span>
+<span>  use_leading_zeros <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Under the hood, <code><a href="../reference/tar_init.html">tar_init()</a></code> basically just repeatedly
 calls <code><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create()</a></code> and <code><a href="https://rdrr.io/r/base/files.html" class="external-link">file.create()</a></code> to
 accomplish the following tasks:</p>
 <ol style="list-style-type: decimal">
-<li><p>Creates a <code>_targets.R</code> file in the project’s root
-directory with some general starter code</p></li>
-<li><p>Creates <code>.R</code> scripts and directories in the projects
-root directory for each phase of the pipeline like
-<code>1_fetch.R</code> and <code>1_fetch/</code>, etc.</p></li>
-<li><p>For each phase directory, creates sub-directories therein such as
-<code>src</code> and <code>out</code></p></li>
-<li><p>Adds a <code>.empty</code> file within each sub-directory so that
-it will be tracked by git</p></li>
+<li>Creates a <code>_targets.R</code> file in the project’s root
+directory with some general starter code.</li>
+<li>Creates <code>.R</code> scripts and directories in the projects root
+directory for each phase of the pipeline like <code>01_fetch.R</code>
+and <code>01_fetch/</code>, etc.</li>
+<li>For each phase directory, creates sub-directories therein, such as
+<code>src</code> and <code>out</code>.</li>
+<li>Adds a <code>.empty</code> file within each sub-directory so that it
+will be tracked by git.</li>
 </ol>
 <p>Run <code><a href="../reference/tar_init.html">?mortar::tar_init</a></code> to view the function’s
 documentation and more examples.</p>
-</div>
-<div class="section level2">
-<h2 id="set-up-a-usgs-git-repo-with-use__usgs">Set up a USGS git repo with <code>use_*_usgs()</code><a class="anchor" aria-label="anchor" href="#set-up-a-usgs-git-repo-with-use__usgs"></a>
-</h2>
-<p>You may want/need to include other common files in a project’s git
-repo to adhere to coding conventions or standards. These include a
-<strong>README</strong> that summarizes basic information about a repo,
-a <strong>License</strong> that details how the contents of a repo can
-be used, and others (see <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository/" class="external-link">here</a>
-for more details).</p>
-<p>The <code>use_*_usgs()</code> family of functions create these sorts
-of files based on USGS-specific templates available <a href="https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository" class="external-link">here</a>.
-These functions are heavily inspired by similar functions from the <a href="https://usethis.r-lib.org/" class="external-link"><code>usethis</code></a> R
-package.</p>
-<p>For example, you can add a .gitignore file to your repo with some
-pre-set (often forgotten) ignores using the following. If you don’t like
-the contents of these template files, you’re welcome to edit them
-afterward to your needs.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/use-file-usgs.html">use_gitignore_usgs</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

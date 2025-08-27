@@ -7,7 +7,8 @@ reference:
   - title: "Project Setup"
     desc: "Initialize elements of a USGS project directory"
     contents:
-      - tar_init
       - use_project_usgs
+      - tar_init
       - starts_with("use_")
       - file_edit
+      - get_usgs_gitlab_url

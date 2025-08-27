@@ -24,50 +24,40 @@ knitr::opts_chunk$set(
 <!-- > in masonry or plastering* -->
 <!-- > ([source](https://www.merriam-webster.com/dictionary/mortar)) -->
 
+## Overview
+
 > *"If you need to copy + paste the same code more than once, write a function. If you need to write the same function more than once, create a package."*
+> –DRY coding principle
 
-(^I know I've seen this quote before, but can't seem to track down the source)
+`mortar` was created to standardize common workflows in the USGS Water Mission Area's Data Science Branch to produce more robust, reproducible pipelines. It contains helper functions to standardize (1) the organization of project repositories and (2) the creation of [`targets`](https://books.ropensci.org/targets/) pipelines using the Data Science Practicioner's Community of Practice best practices. We draw upon community developed best practices as well as certain USGS-specific requirements. We welcome feedback and suggestions from the DSP community and beyond!
 
-The goal of `mortar` is to standardize common workflows in the USGS Water Mission Area's Data Science Branch to produce more robust, reproducible pipelines.
-It contains helper functions to standardize the creation of [`targets`](https://books.ropensci.org/targets/) pipelines using our branch's best practices, manage package dependencies using [`renv`](https://rstudio.github.io/renv/index.html), and other functionality (eventually, hopefully) contributed by users who want to standardize their workflows across DaSB projects/collaborators.
-Refer to the [Get started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html) for more information on the package's usage.
-
-The package name has multiple meanings. 
-It mixes water (😉) with structural ingredients to form a foundation upon which our pipelines can be more easily and efficiently built.
-It was also originally created to provide **mor**e **tar**gets functions than those available in the `targets` and `tarchetypes` packages.
+#### Where did the name come from?
+The package name has multiple meanings. The package mixes water (😉) with structural ingredients to form a foundation upon which our pipelines can be more easily and efficiently built. It was also initially conceptualized to provide **mor**e **tar**gets functions than those available in the `targets` and `tarchetypes` packages.
 
 ## Installation
+This package is hosted on code.usgs.gov (the USGS self-hosted instance of GitLab), so you must install it from the source code from GitLab.
 
-Following are the steps to install mortar locally:
+Until this package is publicly available, you must provide a Personal Access Token (PAT) to install this package. If you do not already have a GitLab PAT, you can follow the instructions [here](https://code.usgs.gov/water/templates/r-package#installation-instructions-when-repo-is-internal-facing).
 
-1.  Clone the repo the usual way like `git clone git@code.usgs.gov:wma/iidd/analytics/mortar.git` if using ssh or `git clone https://code.usgs.gov/wma/iidd/analytics/mortar.git` if using https.
+```r
+# Install the remotes package if you don't already have it
+#install.packages("remotes")
 
-2.  Open the `mortar.Rproj` file to open this package’s project in RStudio.
-
-3.  Install the package's dependencies by running `remotes::install_deps()` in the R Console (note: requires the [`remotes`](https://remotes.r-lib.org/) R package)
-
-4.  Once open, press `CTRL/CMD + SHIFT + B` to build and install the package. Alternatively, navigate to the “Build” tab in the same toolbar as “Environment” (usually the upper right-hand pane) - a quick way is to press `CTRL/CMD + SHIFT + F2`. Then press the “Install” button at the top.
-
-5.  Wait for package to install and for the session to restart. You should now be able to load the `mortar` package locally.
-
-The downside of this local install option is that you’ll need to pull and manually re-install the package each time changes are made to this repo. 
-Another option is to use a Personal Access Token to install the package using `remotes::install_gitlab()`. You’ll need to ask the author of this package (currently Joe Zemmels, [jzemmels\@usgs.gov](mailto:jzemmels@usgs.gov){.email}) for a Personal Access Token (PAT). 
-Once you have a PAT, you can install mortar with the following call, replacing "pat_here" with your personal access token.
-
-```{r eval = FALSE,echo = TRUE}
-remotes::install_gitlab( repo='wma/iidd/analytics/mortar', 
-                         auth_token = "pat_here", 
-                         host='code.usgs.gov', 
-                         quiet=FALSE, force=TRUE )
+remotes::install_gitlab(
+  "water/computational-tools/mortar",
+  host = "code.usgs.gov",
+  auth_token = "Paste in your Personal Access Token (PAT) here",
+  build_opts = c("--no-resave-data", "--no-manual"),
+  build_vignettes = TRUE
+)
 ```
 
-Using this method, you only need the PAT to re-install the package. 
-You will want to somehow save this PAT since you can’t view it after it’s created.
+## Usage
 
-## Basic Usage
+The main two functions in this package are `use_project_usgs()` and `tar_init()`. These build the structure of your projects and targets pipelines, removing much of the tedium of starting up a project and/or pipeline.
 
-Use the `use_*_usgs()` functions to add common project files to a directory such as a `.gitignore`, `README.md`, etc.
-Use `use_project_usgs()` to add all of these files at once.
+#### `use_project_usgs()`
+Use `use_project_usgs()` to setup your project repository. It will create all the metadata files necessary for a software release, with options to customize the files. These files can then be manually edited throughout the development process to keep metadata up to date.
 
 ```{r eval=FALSE}
 library(mortar)
@@ -75,31 +65,25 @@ library(mortar)
 use_project_usgs()
 ```
 
-If you're specifically setting up a `targets` pipeline project, you can **also** run `tar_init()` to set up the `targets` directory structure we commonly use in the Data Science Branch
+There are additional `use_*_usgs()` functions to add common project files to a directory such as a `.gitignore`, `README.md`, if you want to add them individually without setting up an entire project.
+
+#### `tar_init()`
+If you're setting up a `targets` pipeline project, you can **also** run `tar_init()` to set up the `targets` directory structure we commonly use in the DSP CoP. `tar_init()` generates the targets script file (`_targets.R`), split phase directories (optional; e.g., `01_fetch/`), and subdirectories (e.g., `02_process/src/`). 
 
 ```{r eval=FALSE}
-tar_init(phase_names = c("fetch", "process", "visualize"))
+tar_init(
+  phase_names = c("fetch", "process", "visualize"),
+  seperate_phase_scripts = TRUE,
+  phase_subdirs = c("in", "src", "out"),
+  use_leading_zeros = TRUE
+)
 ```
 
-Refer to the [Get started](https://wma.code-pages.usgs.gov/iidd/analytics/mortar/articles/mortar.html) for more information on the package's usage.
 
-## TODO
+Refer to the [Get started](https://water.code-pages.usgs.gov/computational-tools/mortar/articles/mortar.html) for more information using `mortar.`
 
-Here are some ideas of potential functionality we can add to the package.
+## Consider contributing
+Please consider reporting bugs, asking questions, or suggesting enhancements. This is a community developed package and we want it to be inclusive of the needs of our community. If considering contributing, please read [CONTRIBUTING.md]() for more information. Also, please read through [CONDUCT.md]() to ensure that we maintan a warm, welcoming, safe, and professional environment.
 
-- [x] Initialize/update .gitignore with an opinionated list of files we often want ignored (`.Renviron`, for example)
-- [x] A function to add the front matter needed to make a repo public (i.e., license, readme, see the [IWAAs Standard template repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository)).
-- Initialize `renv` with some pre-loaded packages (`targets`, etc.)
-  - Add an automatic `renv::status()` check in a `_targets.R` file as detailed [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/merge_requests/25#note_608723).
-  - Use `targets::tar_renv()` to automatically create a _targets_packages.R file containing pipeline package dependencies.
-- Function(s) for locally saving credentials (ScienceBase, Google Analytics, etc.) using `.Renviron` file as is done [here](https://code.usgs.gov/wma/national-iwaas/NWAA/wu-crosswalks/-/blob/main/00_config/src/sb_cache.R?ref_type=heads) or using the [`secret`](https://github.com/gaborcsardi/secret) R package as done [here](https://code.usgs.gov/wma/iidd/analytics/waterlogged/-/blob/main/R/saml2aws_login.R?ref_type=heads).
-  - Option to encrypt these credentials using the user's local SSH key
-- We may want to create a helper function that modifies existing files. For example, it would be cool to be able to have the ability to add the renv status check code under the `library()` lines of the _\_targets.R_ file. It would probably require `readLines()` to read the file, `match()` to find the line to write after,  `[` and `c()` to reconstruct the lines, and `writeLines()` to write it again.
-- Function(s) for setting up a `gitlab-ci.yml` file easily and/or invoking GitLab runners within a project
-- Functions to provide more user-friendly set up and management of conda environments using the [`reticulate`](https://rstudio.github.io/reticulate/) R package.
-
-These ideas can go in another package. Maybe a package focused on "securing" a pipeline (`fasteneR`/`fastenR`, `clamp`, `rivet`/`rivetR`, `bracket`).
-
-- Linting/styling functions to check code against DaSB's best practices using [`lintr`](https://lintr.r-lib.org/), [`styler`](https://styler.r-lib.org/), etc.
-  - Check whether any PII is exposed in the code
-
+## Disclaimer
+This software is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The software has not received final approval by the U.S. Geological Survey (USGS). No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. The software is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the software.

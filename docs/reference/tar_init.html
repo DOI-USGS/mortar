@@ -19,7 +19,7 @@ for an example targets project)."><meta property="og:image" content="https://wat
 
     <a class="navbar-brand me-2" href="../index.html">mortar</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,6 +29,7 @@ for an example targets project)."><meta property="og:image" content="https://wat
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/mortar.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
       </ul></div>
@@ -76,9 +77,9 @@ for an example targets project).</p>
 
 
 <dt id="arg-phase-nums">phase_nums<a class="anchor" aria-label="anchor" href="#arg-phase-nums"></a></dt>
-<dd><p>chr or int vector, numbers to prepend to phase_names like
+<dd><p>int vector, numbers to prepend to phase_names like
 <code>"1_fetch"</code>, <code>"2_process"</code>, etc. Defaults to
-1:length(phase_names)</p></dd>
+seq_along(phase_names)</p></dd>
 
 
 <dt id="arg-home">home<a class="anchor" aria-label="anchor" href="#arg-home"></a></dt>
