@@ -14,7 +14,7 @@ mortar 0.2.3
 
 mortar 0.2.2
 ===========
-- Stubtantially increase the number of unit tests
+- Substantially increase the number of unit tests
 - Add some additional assertion tests
 
 mortar 0.2.1

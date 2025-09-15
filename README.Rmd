@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 > *"If you need to copy + paste the same code more than once, write a function. If you need to write the same function more than once, create a package."*
 > –DRY coding principle
 
-`mortar` was created to standardize common workflows in the USGS Water Mission Area's Data Science Branch to produce more robust, reproducible pipelines. It contains helper functions to standardize (1) the organization of project repositories and (2) the creation of [`targets`](https://books.ropensci.org/targets/) pipelines using the Data Science Practicioner's Community of Practice best practices. We draw upon community developed best practices as well as certain USGS-specific requirements. We welcome feedback and suggestions from the DSP community and beyond!
+`mortar` was created to standardize common workflows in the USGS Water Mission Area's Data Science Branch to produce more robust, reproducible pipelines. It contains helper functions to standardize (1) the organization of project repositories and (2) the creation of [`targets`](https://books.ropensci.org/targets/) pipelines using the Data Science Practitioners Community of Practice best practices. We draw upon community developed best practices as well as certain USGS-specific requirements. We welcome feedback and suggestions from the DSP community and beyond!
 
 #### Where did the name come from?
 The package name has multiple meanings. The package mixes water (😉) with structural ingredients to form a foundation upon which our pipelines can be more easily and efficiently built. It was also initially conceptualized to provide **mor**e **tar**gets functions than those available in the `targets` and `tarchetypes` packages.
@@ -83,7 +83,7 @@ tar_init(
 Refer to the [Get started](https://water.code-pages.usgs.gov/computational-tools/mortar/articles/mortar.html) for more information using `mortar.`
 
 ## Consider contributing
-Please consider reporting bugs, asking questions, or suggesting enhancements. This is a community developed package and we want it to be inclusive of the needs of our community. If considering contributing, please read [CONTRIBUTING.md]() for more information. Also, please read through [CONDUCT.md]() to ensure that we maintan a warm, welcoming, safe, and professional environment.
+Please consider reporting bugs, asking questions, or suggesting enhancements. This is a community developed package and we want it to be inclusive of the needs of our community. If considering contributing, please read [CONTRIBUTING.md]() for more information. Also, please read through [CONDUCT.md]() to ensure that we maintain a warm, welcoming, safe, and professional environment.
 
 ## Disclaimer
 This software is preliminary or provisional and is subject to revision. It is being provided to meet the need for timely best science. The software has not received final approval by the U.S. Geological Survey (USGS). No warranty, expressed or implied, is made by the USGS or the U.S. Government as to the functionality of the software and related material nor shall the fact of release constitute any such warranty. The software is provided on the condition that neither the USGS nor the U.S. Government shall be held liable for any damages resulting from the authorized or unauthorized use of the software.
