@@ -17,7 +17,7 @@
     },
 
     "homepageURL": "https://code.usgs.gov/water/computational-tools/mortar",
-    "downloadURL": "https://code.usgs.gov/water/computational-tools/mortar/-/archive/main/r-package-main.zip",
+    "downloadURL": "https://code.usgs.gov/water/computational-tools/mortar/-/archive/main/mortar-main.zip",
     "disclaimerURL": "https://code.usgs.gov/water/computational-tools/mortar/-/raw/main/DISCLAIMER.md",
     "repositoryURL": "https://code.usgs.gov/water/computational-tools/mortar.git",
     "vcs": "git",
