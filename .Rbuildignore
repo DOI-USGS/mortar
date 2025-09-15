@@ -1,2 +1,15 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CONDUCT\.md$
+^CONTRIBUTING\.md$
+^DISCLAIMER\.md$
+^LICENSE\.md$
+^README\.Rmd$
+^_pkgdown\.yml$
+^code\.json$
+^docs/.*
+^pkgdown/.*
+^public/.*
+^renovate\.json$
+^\.gitlab-ci\.yml$
+^public/.*
