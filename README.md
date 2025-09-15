@@ -56,7 +56,6 @@ GitLab PAT, you can follow the instructions
 remotes::install_gitlab(
   "water/computational-tools/mortar",
   host = "code.usgs.gov",
-  auth_token = "Paste in your Personal Access Token (PAT) here",
   build_opts = c("--no-resave-data", "--no-manual"),
   build_vignettes = TRUE
 )
