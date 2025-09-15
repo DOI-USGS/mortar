@@ -26,10 +26,10 @@ Mission Area’s Data Science Branch to produce more robust, reproducible
 pipelines. It contains helper functions to standardize (1) the
 organization of project repositories and (2) the creation of
 [`targets`](https://books.ropensci.org/targets/) pipelines using the
-Data Science Practicioner’s Community of Practice best practices. We
-draw upon community developed best practices as well as certain
-USGS-specific requirements. We welcome feedback and suggestions from the
-DSP community and beyond!
+Data Science Practitioners Community of Practice best practices. We draw
+upon community developed best practices as well as certain USGS-specific
+requirements. We welcome feedback and suggestions from the DSP community
+and beyond!
 
 #### Where did the name come from?
 
@@ -113,7 +113,7 @@ Please consider reporting bugs, asking questions, or suggesting
 enhancements. This is a community developed package and we want it to be
 inclusive of the needs of our community. If considering contributing,
 please read [CONTRIBUTING.md]() for more information. Also, please read
-through [CONDUCT.md]() to ensure that we maintan a warm, welcoming,
+through [CONDUCT.md]() to ensure that we maintain a warm, welcoming,
 safe, and professional environment.
 
 ## Disclaimer
