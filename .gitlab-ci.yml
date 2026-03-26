@@ -1,9 +1,41 @@
+stages:
+  - deploy
+
+# This section has rules which determine whether a CI pipeline will run when
+# changes are committed or merge requests are created.
+#
+# Note also that in order for a CI pipeline to run on a given project, it also
+# needs to have a runner available  to it. Usually enabling shared runners in
+# Settings -> CI/CD -> Runners will be sufficient.
+workflow:
+  rules:
+    # Only generate pipelines for branches/tags (i.e., not for merge requests)
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+
+# The section below defines a job named "pages". Jobs with this name are
+# special; if the job has this name and leaves an artifact directory named
+# "public", the contents of that directory get deployed to GitLab Pages. This
+# could be adapted to anything which builds a website.
 pages:
+  stage: deploy
+  image: rocker/verse:latest
   script:
-    - cp -r docs/* public
+    - R -e 'install.packages(c("devtools", "pkgdown", "R.utils", "R.methodsS3", "R.oo"))'
+    - R -e 'devtools::build_readme()'
+    - R -e 'devtools::document()'
+    - R -e 'pkgdown::build_favicons()'
+    - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
   artifacts:
+    # The folder that contains the files to be exposed at the Pages URL. The
+    # name "public" is the only option if you want Pages to deploy the site.
     paths:
-      # The folder that contains the files to be exposed at the Page URL
       - public
-  only:
-    - main
+  #only: #use this to set only branch to build site from
+    #- main
+  #rules:
+    # This ensures that only pushes to the default branch will trigger
+    # a pages deploy. That is to say, we don't want to build the site for every
+    # branch which gets pushed up. Only when `main` changes, i.e. when a MR
+    # is merged, do we want to build the site.
+    #- if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
