@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# mortar <img src="man/figures/logo.png" width="20%" align="right" alt="Hex logo for mortar package. Shows a partially filled water pipe coming out of a brick wall where there is generous amounts of mortar between bricks." />
+# mortar <img src="man/figures/logo.svg" width="20%" align="right" alt="Hex logo for mortar package. Shows a partially filled water pipe coming out of a brick wall where there is generous amounts of mortar between bricks." />
 
 <!-- badges: start -->
 

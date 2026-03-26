@@ -2,6 +2,9 @@ url: https://water.code-pages.usgs.gov/computational-tools/mortar/
 
 template:
   bootstrap: 5
+  light-switch: true
+  theme: arrow-light
+  theme-dark: nord
 
 reference:
   - title: "Project Setup"
