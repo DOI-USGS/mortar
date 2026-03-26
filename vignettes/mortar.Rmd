@@ -30,6 +30,12 @@ These include a **README** that summarizes basic information about a repo, a **L
 The `use_*_usgs()` family of functions create these sorts of files based on USGS-specific templates adapted from the [standard-template-repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository).
 These functions are heavily inspired by similar functions from the [`usethis`](https://usethis.r-lib.org/) R package.
 
+At the top of each of these template files, the following message is included:
+
+> -**NOTE: this is a template created using the `mortar` package. The contents below are for illustrative purposes and should be edited to reflect your use case. This message can be deleted in acknowledgement that you've added this file to your project.**
+
+This acts as a nudge to the author to update the documentation to the specifics of the project. It also acts as a quality control measure, allowing code authors and reviewers to ensure that they have at least opened and looked at each of these files.
+
 For example, you can add a .gitignore file to your repo with some pre-set (often forgotten) ignores using the following.
 If you don't like the contents of these template files, you're able to customize it using or `additions` argument or to edit them afterward to your needs.
 

@@ -1,84 +1,98 @@
 **NOTE: this is a template created using the `mortar` package. The contents below are for illustrative purposes and should be edited to reflect your use case. This message can be deleted in acknowledgement that you've added this file to your project.**
 
-# Project Title
+# Project title
 
-Provide a  short, one or two sentence description of your repository here.
+**Authors**: First M. Last, Another M. Author.
 
-### Prerequisites
+**Point of contact**: First M. Last ([fmlast\@usgs.gov](mailto:fmlast@usgs.gov))
 
-What things you need to install the software and how to install them
+**Repository Type**: *R* and *Python* scripts supporting publication
 
-```
-Give examples
-```
-## Getting Started
+**Year of Origin**: 2026
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+**Year of Version**: 2026
 
-### Installing
+**Digital Object Identifier (DOI)**: <https://doi.org/10.5066/xxxxxxxx>
 
-A step by step series of examples that tell you have to get a development env running
+**USGS Information Product Data System (IPDS) no.**: IP-xxxxxx (internal agency tracking)
 
-Say what the step will be
+------------------------------------------------------------------------
 
-```
-Give the example
-```
+[Provide a  short, one or two sentence description of your repository.]
 
-And repeat
+## Purpose
 
-```
-until finished
-```
+[Short description of why this repository exists.]
+
+## Repository organization
+
+-   `.gitlab/` directory for files used by GitLab
+        - `merge_request_templates` directory containing templates for merge request descriptions.
+            - `Default.md` a file containing the suggested default merge request template.
+-   `.gitignore` file specifying which files should not be tracked in git repository.
+-   `CHANGELOG.md` description of changes to each versions of the software.
+-   `CODE_OF_CONDUCT.md` information on the contribution code of conduct.
+-   `code.json` metadata file containing information for code contained in this repository. Compliant with [USGS template](https://www.usgs.gov/products/software/software-management/distribution-usgs-code).
+-   `CONTRIBUTING.md` information on how to contribute to this repository.
+-   `DISCLAIMER.md` provisional USGS disclaimer of code in repository. Should be replaced with approved version when approved.
+-   `LICENSE.md` license information for code.
+-   `README.md` general information about the project.
+
+## Setup
+
+[A step by step series of examples that tell you have to get a development environment running.]
+
+## Running the code
+
+[Instructions describing how to run the code. May be used instead of or in addition to **Deployment** section below.]
 
 ## Building and testing
 
-Instructions go here.
+[Instructions go here.]
 
 ## Deployment
 
-Additional notes about how to deploy this on a server, if applicable. **Do not include any credentials, IP addresses, or other sensitive information**
+[Additional notes about how to deploy this on a server, if applicable. **Do not include any credentials, IP addresses, or other sensitive information.**]
+
+## Code runtime
+
+[Give a rough estimate for how long the code is expected to run, including a brief description of the setup the the runtime is estimated from.]
+
+## Expertise required
+
+[What sort of expertise must a user have to use code in this repository?]
 
 ## Built With
 
-* Provide a bulleted list of languages, frameworks, tools used, with link and use description. Below are examples.
-* [R](https://www.r-project.org/about.html) - statistical modeling
-* [Python](https://www.python.org/) - data parsing
-* [Jupyter Notebook](https://jupyter.org/) - documentation and sharing
+[Provide a bulleted list of languages, frameworks, tools used, with link and use description. Below are examples.]
+
+-   [R](https://www.r-project.org/about.html) - statistical modeling
+-   [Python](https://www.python.org/) - data parsing
+-   [Jupyter Notebook](https://jupyter.org/) - documentation and sharing
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on adhering by the [USGS Code of Scientific Conduct](https://www2.usgs.gov/fsp/fsp_code_of_scientific_conduct.asp).
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/-/tags).
-
-Advance the version when adding features, fixing bugs or making minor enhancement. Follow semver principles. To add tag in git, type git tag v{major}.{minor}.{patch}. Example: git tag v2.0.5
-
-To push tags to remote origin: `git push origin --tags`
-
-*Note that your alias for the remote origin may differ.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on the process for submitting pull requests to us. Please read [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md) for details on adhering by the [USGS Code of Scientific Conduct](https://www.usgs.gov/office-of-science-quality-and-integrity/fundamental-science-practices).
 
 ## Authors
 
-* **[Jordan Doe](PROFILE_PAGE_URL_HERE)**  - *Lead Developer* - [Upper Midwest Water Science Center](https://www.usgs.gov/centers/umid-water)
-* **[Jessie Smith](PROFILE_PAGE_URL_HERE)** - *Developer* -  [USGS Water Mission Area](https://www.usgs.gov/mission-areas/water-resources)
-
-See also the list of [contributors](https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/-/graphs/master) who participated in this project.
+-   [**First Last**](https://www.usgs.gov/staff-profiles/first-last) - *Job title or role* - [Some Water Science Center](https://www.usgs.gov/centers/some-water-science-center)
+-   [**Another Author**](https://www.usgs.gov/staff-profiles/another-author) - *Job title or role* - [USGS Water Mission Area](https://www.usgs.gov/mission-areas/water-resources)
 
 ## License
 
-This project is licensed under the Creative Commons CC0 1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the Creative Commons CC0 1.0 Universal License - see the [LICENSE.md](LICENSE.md) file for details.
 
 ## Suggested Citation
 
 In the spirit of open source, please cite any re-use of the source code stored in this repository. Below is the suggested citation:
 
-`This project contains code produced for the Integrated Water Availability Assessments Trends and Drivers project at the United States Geological Survey (USGS). As a work of the United States Government, this project is in the public domain within the United States.`
+> Last FM, Author AM. 2026. Project title. U.S. Geological Survey software release. Reston, Va. <https://doi.org/10.5066/xxxxxxx>.
 
+## Associated products
+
+[List citations for associated works, such as associated publications or data releases, input data sets, or previous versions of software release.]
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration Note
+- A tip of the hat to anyone whose code was used or who helped but is not an author.
