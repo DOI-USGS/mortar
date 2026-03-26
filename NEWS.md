@@ -1,3 +1,7 @@
+mortar 0.3.2
+===========
+- Update README template with one geared toward software release.
+
 mortar 0.3.1
 ===========
 - Build mortar with GitLab CI instead of manually and committing HTML to repo
