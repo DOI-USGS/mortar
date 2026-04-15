@@ -1,7 +1,7 @@
 Package: mortar
 Type: Package
 Title: Standardize data science workflows
-Version: 0.3.2
+Version: 0.3.3
 Authors@R:
     c(
     person("Joseph","Zemmels",email="jzemmels@usgs.gov",role = c("aut"),comment = c(ORCID = "0009-0008-1463-6313")),
@@ -12,7 +12,8 @@ Maintainer: Anthony Martinez <ajmartinez@usgs.gov>
 Description: Helper functions to standardize common workflows in the USGS Water 
     Mission Area Data Science Branch.
 License: CC0
-URL: https://code.usgs.gov/water/computational-tools/mortar, https://water.code-pages.usgs.gov/computational-tools/mortar
+BugReports: https://github.com/DOI-USGS/mortar/issues
+URL: https://doi-usgs.github.io/mortar/, https://github.com/DOI-USGS/mortar, https://code.usgs.gov/water/computational-tools/mortar
 Encoding: UTF-8
 LazyData: true
 Imports: 

@@ -1,3 +1,8 @@
+mortar 0.3.3
+===========
+- Switch website build and hosting from GitLab to GitHub.
+- Update documentation in preparation for CRAN release
+
 mortar 0.3.2
 ===========
 - Update README template with one geared toward software release.

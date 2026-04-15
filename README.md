@@ -19,46 +19,37 @@
 
 > *“If you need to copy + paste the same code more than once, write a
 > function. If you need to write the same function more than once,
-> create a package.”* –DRY coding principle
+> create a package.”*
+>
+> –DRY coding principle
 
-`mortar` was created to standardize common workflows in the USGS Water
-Mission Area’s Data Science Branch to produce more robust, reproducible
-pipelines. It contains helper functions to standardize (1) the
-organization of project repositories and (2) the creation of
-[`targets`](https://books.ropensci.org/targets/) pipelines using the
-Data Science Practitioners Community of Practice best practices. We draw
-upon community developed best practices as well as certain USGS-specific
-requirements. We welcome feedback and suggestions from the DSP community
-and beyond!
+`mortar` was created to standardize common workflows in the USGS Data
+Science Community of Practice (DS CoP) to produce more robust,
+reproducible pipelines. It contains helper functions to standardize (1)
+the organization of project repositories and (2) the creation of
+[`targets`](https://books.ropensci.org/targets/) pipelines using the DS
+CoP best practices. We draw upon community developed best practices as
+well as certain USGS-specific requirements. We welcome feedback and
+suggestions from the DS CoP community and beyond!
 
 #### Where did the name come from?
 
-The package name has multiple meanings. The package mixes water (😉)
-with structural ingredients to form a foundation upon which our
-pipelines can be more easily and efficiently built. It was also
-initially conceptualized to provide **mor**e **tar**gets functions than
-those available in the `targets` and `tarchetypes` packages.
+Thepackage name has multiple meanings. The package mixes water (😉) with
+structural ingredients to form a foundation upon which our pipelines can
+be more easily and efficiently built. It was also initially
+conceptualized to provide **mor**e **tar**gets functions than those
+available in the `targets` and `tarchetypes` packages.
 
 ## Installation
 
-This package is hosted on code.usgs.gov (the USGS self-hosted instance
-of GitLab), so you must install it from the source code from GitLab.
-
-Until this package is publicly available, you must provide a Personal
-Access Token (PAT) to install this package. If you do not already have a
-GitLab PAT, you can follow the instructions
-[here](https://code.usgs.gov/water/templates/r-package#installation-instructions-when-repo-is-internal-facing).
+Install the package from source from
+[GitHub](https://github.com/DOI-USGS/mortar):
 
 ``` r
-# Install the remotes package if you don't already have it
-#install.packages("remotes")
+# Install the pak package if you don't already have it
+#install.packages("pak")
 
-remotes::install_gitlab(
-  "water/computational-tools/mortar",
-  host = "code.usgs.gov",
-  build_opts = c("--no-resave-data", "--no-manual"),
-  build_vignettes = TRUE
-)
+pak::pak("DOI-USGS/mortar")
 ```
 
 ## Usage
@@ -68,7 +59,7 @@ The main two functions in this package are `use_project_usgs()` and
 pipelines, removing much of the tedium of starting up a project and/or
 pipeline.
 
-#### `use_project_usgs()`
+### `use_project_usgs()`
 
 Use `use_project_usgs()` to setup your project repository. It will
 create all the metadata files necessary for a software release, with
@@ -85,11 +76,11 @@ There are additional `use_*_usgs()` functions to add common project
 files to a directory such as a `.gitignore`, `README.md`, if you want to
 add them individually without setting up an entire project.
 
-#### `tar_init()`
+### `tar_init()`
 
 If you’re setting up a `targets` pipeline project, you can **also** run
 `tar_init()` to set up the `targets` directory structure we commonly use
-in the DSP CoP. `tar_init()` generates the targets script file
+in the DS CoP. `tar_init()` generates the targets script file
 (`_targets.R`), split phase directories (optional; e.g., `01_fetch/`),
 and subdirectories (e.g., `02_process/src/`).
 
@@ -103,7 +94,7 @@ tar_init(
 ```
 
 Refer to the [Get
-started](https://water.code-pages.usgs.gov/computational-tools/mortar/articles/mortar.html)
+started](https://doi-usgs.github.io/mortar/articles/mortar.html) page
 for more information using `mortar.`
 
 ## Consider contributing
@@ -111,9 +102,12 @@ for more information using `mortar.`
 Please consider reporting bugs, asking questions, or suggesting
 enhancements. This is a community developed package and we want it to be
 inclusive of the needs of our community. If considering contributing,
-please read [CONTRIBUTING.md]() for more information. Also, please read
-through [CONDUCT.md]() to ensure that we maintain a warm, welcoming,
-safe, and professional environment.
+please read
+[CONTRIBUTING.md](https://github.com/DOI-USGS/mortar/blob/main/CONTRIBUTING.md)
+for more information. Also, please read through
+[CONDUCT.md](https://github.com/DOI-USGS/mortar/blob/main/CONDUCT.md) to
+ensure that we maintain a warm, welcoming, safe, and professional
+environment.
 
 ## Disclaimer
 
