@@ -44,28 +44,30 @@
 #' \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}
 #'
 #' @export
-use_project_usgs <- function(home = ".",
-                             gitignore_additions = NULL,
-                             readme_type = c("md", "rmd"),
-                             disclaimer_type = c("provisional", "approved"),
-                             repo_url = get_usgs_gitlab_url("origin"),
-                             use_mr_template = TRUE,
-                             open = rlang::is_interactive()) {
+use_project_usgs <- function(
+  home = ".",
+  gitignore_additions = NULL,
+  readme_type = c("md", "rmd"),
+  disclaimer_type = c("provisional", "approved"),
+  repo_url = get_usgs_gitlab_url("origin"),
+  use_mr_template = TRUE,
+  open = rlang::is_interactive()
+) {
   disclaimer_type <- rlang::arg_match(disclaimer_type)
   readme_type <- rlang::arg_match(readme_type)
-  if(!any(rlang::is_scalar_character(repo_url) | is.null(repo_url))) {
+  if (!any(rlang::is_scalar_character(repo_url) | is.null(repo_url))) {
     cli::cli_abort(c(
       "{.arg repo_url} must be a character with length 1 or NULL.",
       x = "You provided a class {.cls {class(repo_url)}} of length {length(repo_url)}."
     ))
   }
-  if(!rlang::is_scalar_logical(use_mr_template)) {
+  if (!rlang::is_scalar_logical(use_mr_template)) {
     cli::cli_abort(c(
       "{.arg use_mr_template} must be a logical with length 1.",
       x = "You provided a class {.cls {class(use_mr_template)}} of length {length(use_mr_template)}."
     ))
   }
-  if(!rlang::is_scalar_logical(open)) {
+  if (!rlang::is_scalar_logical(open)) {
     cli::cli_abort(c(
       "{.arg open} must be a logical with length 1.",
       x = "You provided a class {.cls {class(open)}} of length {length(open)}."
@@ -78,20 +80,20 @@ use_project_usgs <- function(home = ".",
   }
 
   # README file
-  if(readme_type == "rmd"){
+  if (readme_type == "rmd") {
     use_readme_rmd_usgs(home, open = open)
   } else {
     use_readme_usgs(home, open = open)
   }
 
   # DISCLAIMER file
-  if(disclaimer_type == "approved"){
+  if (disclaimer_type == "approved") {
     use_disclaimer_approved_usgs(home, open = open)
   } else {
     use_disclaimer_provisional_usgs(home, open = open)
   }
 
-  if(use_mr_template) {
+  if (use_mr_template) {
     use_gitlab_mr_template_usgs(home = home, open = open)
   }
 
@@ -139,60 +141,72 @@ use_project_usgs <- function(home = ".",
 #' @name use-file-usgs
 #' @rdname use-file-usgs
 #' @export
-use_gitignore_usgs <- function(home = ".", additions = NULL, open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "GITIGNORE",
-                out_file = ".gitignore",
-                home = home,
-                additions = additions,
-                open = open)
+use_gitignore_usgs <- function(
+  home = ".",
+  additions = NULL,
+  open = rlang::is_interactive()
+) {
+  use_file_usgs(
+    inst_file = "GITIGNORE",
+    out_file = ".gitignore",
+    home = home,
+    additions = additions,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_readme_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "README",
-                out_file = "README.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_readme_usgs <- function(home = ".", open = rlang::is_interactive()) {
+  use_file_usgs(
+    inst_file = "README",
+    out_file = "README.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_readme_rmd_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "README",
-                out_file = "README.Rmd",
-                home = home,
-                additions = NULL,
-                open = open)
+use_readme_rmd_usgs <- function(home = ".", open = rlang::is_interactive()) {
+  use_file_usgs(
+    inst_file = "README",
+    out_file = "README.Rmd",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   # add YAML heading as in usethis::use_readme_rmd
-  cat(c("---",
-        "output: github_document",
-        "---",
-        " ",
-        "<!-- README.md is generated from README.Rmd. Please edit that file -->",
-        " ",
-        readLines(file.path(home, "README.Rmd"))),
-      file = file.path(home, "README.Rmd"),
-      sep = "\n",
-      fill = FALSE)
+  cat(
+    c(
+      "---",
+      "output: github_document",
+      "---",
+      " ",
+      "<!-- README.md is generated from README.Rmd. Please edit that file -->",
+      " ",
+      readLines(file.path(home, "README.Rmd"))
+    ),
+    file = file.path(home, "README.Rmd"),
+    sep = "\n",
+    fill = FALSE
+  )
 
   # add git hook that forces README.md to be updated if README.Rmd is updated.
-  repo <- tryCatch(gert::git_find(usethis::proj_get()), error = function(e) NULL)
-  if(!is.null(repo)){
+  repo <- tryCatch(gert::git_find(usethis::proj_get()), error = function(e) {
+    NULL
+  })
+  if (!is.null(repo)) {
     # copied + pasted from usethis:::render_template("readme-rmd-pre-commit.sh")
     readme_rmd_pre_commit_sh <-
-      c("#!/bin/bash",
+      c(
+        "#!/bin/bash",
         "README=($(git diff --cached --name-only | grep -Ei '^README\\.[R]?md$'))",
         "MSG=\"use 'git commit --no-verify' to override this check\"",
         "",
@@ -206,84 +220,95 @@ use_readme_rmd_usgs <- function(home = ".", open = rlang::is_interactive()){
         "elif [[ ${#README[@]} -lt 2 ]]; then",
         "  echo -e \"README.Rmd and README.md should be both staged\\n$MSG\"",
         "  exit 1",
-        "fi")
+        "fi"
+      )
 
-    usethis::use_git_hook(hook = "pre-commit",
-                          script = readme_rmd_pre_commit_sh)
+    usethis::use_git_hook(
+      hook = "pre-commit",
+      script = readme_rmd_pre_commit_sh
+    )
   }
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_license_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "LICENSE",
-                out_file = "LICENSE.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_license_usgs <- function(home = ".", open = rlang::is_interactive()) {
+  use_file_usgs(
+    inst_file = "LICENSE",
+    out_file = "LICENSE.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "CODE_JSON",
-                out_file = "code.json",
-                home = home,
-                additions = NULL,
-                open = open)
+use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()) {
+  use_file_usgs(
+    inst_file = "CODE_JSON",
+    out_file = "code.json",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_disclaimer_provisional_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "DISCLAIMER_PROVISIONAL",
-                out_file = "DISCLAIMER_PROVISIONAL.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_disclaimer_provisional_usgs <- function(
+  home = ".",
+  open = rlang::is_interactive()
+) {
+  use_file_usgs(
+    inst_file = "DISCLAIMER_PROVISIONAL",
+    out_file = "DISCLAIMER_PROVISIONAL.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_disclaimer_approved_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "DISCLAIMER_APPROVED",
-                out_file = "DISCLAIMER_APPROVED.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_disclaimer_approved_usgs <- function(
+  home = ".",
+  open = rlang::is_interactive()
+) {
+  use_file_usgs(
+    inst_file = "DISCLAIMER_APPROVED",
+    out_file = "DISCLAIMER_APPROVED.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_code_of_conduct_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "CODE_OF_CONDUCT",
-                out_file = "CODE_OF_CONDUCT.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_code_of_conduct_usgs <- function(
+  home = ".",
+  open = rlang::is_interactive()
+) {
+  use_file_usgs(
+    inst_file = "CODE_OF_CONDUCT",
+    out_file = "CODE_OF_CONDUCT.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @param repo_url chr, URL to Git repository. If `NULL` (default) a generic
@@ -291,17 +316,21 @@ use_code_of_conduct_usgs <- function(home = ".", open = rlang::is_interactive())
 #'   Otherwise, the issue page for `repo_url` will be used as the link.
 #' @rdname use-file-usgs
 #' @export
-use_contributing_usgs <- function(home = ".", repo_url = NULL,
-                                  open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "CONTRIBUTING",
-                out_file = "CONTRIBUTING.md",
-                home = home,
-                additions = NULL,
-                open = FALSE)
+use_contributing_usgs <- function(
+  home = ".",
+  repo_url = NULL,
+  open = rlang::is_interactive()
+) {
+  use_file_usgs(
+    inst_file = "CONTRIBUTING",
+    out_file = "CONTRIBUTING.md",
+    home = home,
+    additions = NULL,
+    open = FALSE
+  )
 
   # Add repo issue link if applicable
-  if(!is.null(repo_url)) {
+  if (!is.null(repo_url)) {
     file_edit(
       file = file.path(home, "CONTRIBUTING.md"),
       txt = glue::glue("[1]: {repo_url}/-/issues"),
@@ -314,30 +343,28 @@ use_contributing_usgs <- function(home = ".", repo_url = NULL,
   usethis::edit_file(path = file.path(home, "CONTRIBUTING.md"), open = open)
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()){
-
-  use_file_usgs(inst_file = "CHANGELOG",
-                out_file = "CHANGELOG.md",
-                home = home,
-                additions = NULL,
-                open = open)
+use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()) {
+  use_file_usgs(
+    inst_file = "CHANGELOG",
+    out_file = "CHANGELOG.md",
+    home = home,
+    additions = NULL,
+    open = open
+  )
 
   return(invisible(NULL))
-
 }
 
 #' @rdname use-file-usgs
 #' @export
-use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE){
-
+use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE) {
   dir_path <- file.path(".gitlab", "merge_request_templates")
 
-  if(! dir.exists(file.path(home, dir_path))) {
+  if (!dir.exists(file.path(home, dir_path))) {
     dir.create(file.path(home, dir_path), recursive = TRUE)
   }
 
@@ -351,7 +378,6 @@ use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE){
   )
 
   return(invisible(NULL))
-
 }
 
 #' Get the HTTPS URL for the git remote of a repo at code.usgs.gov
@@ -369,14 +395,14 @@ get_usgs_gitlab_url <- function(remote_name = "origin") {
   remote_url <- usethis::git_remotes()
 
   # Ensure remote name is valid
-  if(! remote_name %in% names(remote_url)) {
+  if (!remote_name %in% names(remote_url)) {
     cli::cli_abort("{.arg {remote_name}} is not an existing remote.")
   }
 
   remote_url <- remote_url[[remote_name]]
 
   # Ensure remote is from code.usgs.gov
-  if(! grepl(x = remote_url, pattern = "code.usgs.gov")) {
+  if (!grepl(x = remote_url, pattern = "code.usgs.gov")) {
     cli::cli_abort(c(
       "x" = "The git remote was expecting a remote from {.url https://code.usgs.gov}.",
       "i" = "The remote URL is {.url {remote_url}}"
@@ -384,10 +410,13 @@ get_usgs_gitlab_url <- function(remote_name = "origin") {
   }
 
   # Convert SSH URL to HTTPS URL
-  if(grepl(x = remote_url, pattern = "^git@")) {
-    remote_url <- remote_url |>
-      gsub(x = _, pattern = ".git$", replacement = "") |>
-      gsub(x = _, pattern = "^git@code.usgs.gov:", replacement = "https://code.usgs.gov/")
+  if (grepl(x = remote_url, pattern = "^git@")) {
+    remote_url <- gsub(x = remote_url, pattern = ".git$", replacement = "")
+    remote_url <- gsub(
+      x = remote_url,
+      pattern = "^git@code.usgs.gov:",
+      replacement = "https://code.usgs.gov/"
+    )
   }
 
   return(remote_url)
@@ -407,12 +436,13 @@ get_usgs_gitlab_url <- function(remote_name = "origin") {
 #' @return NULL, invisibly
 #' @noRd
 #'
-use_file_usgs <- function(inst_file,
-                          out_file = stringr::str_remove(inst_file, "\\.txt"),
-                          home = ".",
-                          additions = NULL,
-                          open = rlang::is_interactive()){
-
+use_file_usgs <- function(
+  inst_file,
+  out_file = stringr::str_remove(inst_file, "\\.txt"),
+  home = ".",
+  additions = NULL,
+  open = rlang::is_interactive()
+) {
   # Write file ----
   use_file(
     inst_file,

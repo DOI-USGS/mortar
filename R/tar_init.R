@@ -55,58 +55,59 @@
 #' }
 #' @returns \code{NULL} invisibly
 #' @export
-tar_init <- function(phase_names,
-                     phase_nums = seq_along(phase_names),
-                     home = ".",
-                     separate_phase_scripts = TRUE,
-                     phase_subdirs = c("src","out"),
-                     use_leading_zeros = FALSE,
-                     overwrite = FALSE){
-
+tar_init <- function(
+  phase_names,
+  phase_nums = seq_along(phase_names),
+  home = ".",
+  separate_phase_scripts = TRUE,
+  phase_subdirs = c("src", "out"),
+  use_leading_zeros = FALSE,
+  overwrite = FALSE
+) {
   # Check arguments ----
-  if(!is.character(phase_names)) {
+  if (!is.character(phase_names)) {
     cli::cli_abort(c(
       "x" = "{.arg phase_names} must be a character vector, not class {.cls {class(phase_names)}}."
     ))
   }
 
-  if(! rlang::is_integerish(as.numeric(phase_nums))) {
+  if (!rlang::is_integerish(as.numeric(phase_nums))) {
     cli::cli_abort(c(
       "x" = "{.arg phase_nums} must be an integer-like vector, not class {.cls {class(phase_nums)}}."
     ))
   }
 
-  if(! all(rlang::is_scalar_character(home), dir.exists(home))) {
+  if (!all(rlang::is_scalar_character(home), dir.exists(home))) {
     cli::cli_abort(c(
       "x" = "{.arg home} must be a character path (length 1) to a directory that exists."
     ))
   }
 
-  if(!rlang::is_scalar_logical(separate_phase_scripts)) {
+  if (!rlang::is_scalar_logical(separate_phase_scripts)) {
     cli::cli_abort(c(
       "x" = "{.arg separate_phase_scripts} must be logical (length 1), not class {.cls {class(separate_phase_scripts)}} (length {length(separate_phase_scripts)})."
     ))
   }
 
-  if(!is.character(phase_subdirs)) {
+  if (!is.character(phase_subdirs)) {
     cli::cli_abort(c(
       "x" = "{.arg phase_subdirs} must be a character vector not class {.cls {class(phase_subdirs)}}."
     ))
   }
 
-  if(!rlang::is_scalar_logical(overwrite)) {
+  if (!rlang::is_scalar_logical(overwrite)) {
     cli::cli_abort(c(
       "x" = "{.arg overwrite} must be logical (length 1), not class {.cls {class(overwrite)}} (length {length(overwrite)})."
     ))
   }
 
-  if(!rlang::is_scalar_logical(use_leading_zeros)) {
+  if (!rlang::is_scalar_logical(use_leading_zeros)) {
     cli::cli_abort(c(
       "x" = "{.arg use_leading_zeros} must be logical (length 1), not class {.cls {class(use_leading_zeros)}} (length {length(use_leading_zeros)})."
     ))
   }
 
-  if(length(phase_names) != length(phase_nums)) {
+  if (length(phase_names) != length(phase_nums)) {
     cli::cli_abort(c(
       "x" = "{.arg phase_nums} must be the same length as {.arg phase_names}.",
       "!" = "{.arg phase_nums} has a length of {length(phase_nums)} and {.arg phase_names} has a length of {length(phase_names)}."
@@ -126,9 +127,9 @@ tar_init <- function(phase_names,
   )
 
   # Normalize home directory
-  if(home == ".") {
+  if (home == ".") {
     home <- ""
-  } else if(!endsWith(home, "/")) {
+  } else if (!endsWith(home, "/")) {
     home <- paste0(home, "/")
   }
 
@@ -136,22 +137,24 @@ tar_init <- function(phase_names,
   subdir_paths <- expand.grid(
     dir = glue::glue("{home}{phase_nums_files}_{phase_names}"),
     subdir = phase_subdirs
-  ) |>
-    glue::glue_data("{dir}/{subdir}")
+  )
+  subdir_paths <- glue::glue_data(.x = subdir_paths, "{dir}/{subdir}")
 
   purrr::walk(subdir_paths, ~ dir_setup(.x, overwrite = overwrite))
 
   ## Create phase scripts (if applicable) ----
   phase_files <- glue::glue("{home}{phase_nums_files}_{phase_names}.R")
   phase_dirs <- glue::glue("{home}{phase_nums_files}_{phase_names}")
-  if(separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
-    phase_file_text <- glue::glue("p{phase_nums_targets}_targets_list <- list()")
-    purrr::walk2(phase_file_text, phase_files, ~cat(.x, file = .y))
+  if (separate_phase_scripts & (!all(file.exists(phase_files)) | overwrite)) {
+    phase_file_text <- glue::glue(
+      "p{phase_nums_targets}_targets_list <- list()"
+    )
+    purrr::walk2(phase_file_text, phase_files, ~ cat(.x, file = .y))
   }
 
   # Create targets file ----
-  if(!file.exists("_targets.R") | overwrite){
-    if(separate_phase_scripts) {
+  if (!file.exists("_targets.R") | overwrite) {
+    if (separate_phase_scripts) {
       phase_function_text <- glue::glue(
         "# tar_source(c({glue::glue_collapse(glue::double_quote(phase_dirs), sep = \", \")}))"
       )
@@ -160,9 +163,11 @@ tar_init <- function(phase_names,
         "tar_source(c({glue::glue_collapse(glue::double_quote(phase_files),",
         "sep = \", \")}))\n\n"
       )
-      phase_targets <- glue::glue_collapse(glue::glue("p{phase_nums_targets}_targets_list"), sep = ", ")
+      phase_targets <- glue::glue_collapse(
+        glue::glue("p{phase_nums_targets}_targets_list"),
+        sep = ", "
+      )
       phase_target_text <- glue::glue("c({phase_targets})")
-
     } else {
       phase_script_text <- ""
       phase_target_text <- "list()"
@@ -192,7 +197,6 @@ tar_init <- function(phase_names,
   }
 
   return(invisible(NULL))
-
 }
 
 #' Internal: create a directory (with .empty file) if it doesn't exist
@@ -203,11 +207,11 @@ tar_init <- function(phase_names,
 #' @return lgl; did file creation succeed
 #' @noRd
 #'
-dir_setup <- function(dir_path, overwrite){
-  if(!dir.exists(dir_path) | overwrite){
-    unlink(dir_path,recursive = TRUE)
+dir_setup <- function(dir_path, overwrite) {
+  if (!dir.exists(dir_path) | overwrite) {
+    unlink(dir_path, recursive = TRUE)
     dir.create(dir_path, recursive = TRUE)
   }
 
-  file.create(paste0(dir_path,"/.empty"))
+  file.create(paste0(dir_path, "/.empty"))
 }
