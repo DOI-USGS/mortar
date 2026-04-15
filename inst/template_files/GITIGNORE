@@ -1,7 +1,5 @@
 # **NOTE: this is a template created using the `mortar` package. The contents below are for illustrative purposes and should be edited to reflect your use case. This message can be deleted in acknowledgement that you've added this file to your project.**
 
-# Copied from https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/-/blob/master/.gitignore?ref_type=heads
-
 ### R ###
 
 # R Environment Variables

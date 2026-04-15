@@ -40,9 +40,6 @@
 #' list.files(tmp)
 #' }
 #'
-#' @seealso
-#' \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}
-#'
 #' @export
 use_project_usgs <- function(
   home = ".",
@@ -116,9 +113,7 @@ use_project_usgs <- function(
 #' Add individual USGS project files to a directory
 #'
 #' @description Creates common project files like .gitignore, README.md. LICENSE.md,
-#'   etc. based on the templates here:
-#'   \url{https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}.
-#'
+#'   etc.#'
 #'
 #' @param home chr, root directory of project. Defaults to current working
 #'   directory
@@ -455,8 +450,7 @@ use_file_usgs <- function(
 
   # Inform user of source ----
   cli::cli_inform(c(
-    "i" = "Using {.file {out_file}} from
-    {.url https://code.usgs.gov/water/IWAAs-trends/templates/standard-template-repository/}"
+    "i" = "Using {.file {out_file}} from mortar template."
   ))
 
   return(invisible(NULL))

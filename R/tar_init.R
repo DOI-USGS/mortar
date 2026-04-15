@@ -1,12 +1,10 @@
 #' Initialize a targets project
 #'
 #' @description Run this function in a new targets project directory. It will
-#'   create R files and directories using the targets project structure we often
-#'   use in the IIDD Data Science Branch (see
-#'   \url{https://wma.code-pages.usgs.gov/dsp/trainings/ds-pipelines-targets-2-course/12-usgs-data-science-conventions.html}
-#'   for more information on our naming conventions and
-#'   \url{https://code.usgs.gov/wma/dsp/trainings/ds-pipelines-targets-2-course}
-#'   for an example targets project).
+#'   create R files and directories using the targets project structure often
+#'   used by the USGS Data Science Community of Practice. Ror more information,
+#'   internal USGS employees can look at section 12 of Targets 2 training
+#'   course.
 #'
 #' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
