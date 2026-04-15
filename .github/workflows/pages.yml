@@ -3,7 +3,7 @@ name: Build & Deploy pkgdown to GitHub Pages
 on:
   # Pushes to main deploy; tags deploy too. Adjust to your preference.
   push:
-    branches: ["use-github-pages"]    # change to your default branch if needed
+    branches: ["main"]    # change to your default branch if needed
   workflow_dispatch:      # allow manual runs from the Actions tab
 
 # Required permissions for GitHub Pages deployments
