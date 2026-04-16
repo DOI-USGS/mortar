@@ -2,10 +2,10 @@ Contributing
 ============
 
 Contributions are welcome from the community. Questions can be asked on the
-issues page of this repo. Before creating a new issue, please take a moment to search
-and make sure a similar issue does not already exist. If one does exist, you
-can comment (most simply even with just a `:+1:`) to show your support for that
-issue.
+[issues][1] page of this repo. Before
+creating a new issue, please take a moment to search and make sure a similar
+issue does not already exist. If one does exist, you can comment (most simply
+even with just a `:+1:`) to show your support for that issue.
 
 If you have direct contributions you would like considered for incorporation
 into the project you can [fork this repository][2] and
@@ -36,5 +36,6 @@ See [this cheat sheet](https://rstudio.github.io/cheatsheets/package-development
 
 6. Stage, commit, and push your changes to the `mortar` GitLab repo. Open a merge request and add someone appropriate (e.g., the package maintainer) as a reviewer.
 
-[2]: https://docs.gitlab.com/ee/user/project/working_with_projects.html#fork-a-project
-[3]: https://docs.gitlab.com/ee/user/project/merge_requests/
+[1]: https://github.com/DOI-USGS/mortar/issues
+[2]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo
+[3]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
