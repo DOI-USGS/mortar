@@ -14,8 +14,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-The goal of `mortar` is to standardize how we USGS Data Science Practitioners Community of Practice structure our collaborative projects.
-The package's functionality focuses on setting up project directories using our branch's conventions.
+The goal of `mortar` is to standardize how we USGS Data Science Community of Practice (DS CoP) structure our collaborative projects.
+The package's functionality focuses on setting up project directories using the DS CoP conventions.
 Think of `mortar` as a collection of helper functions for creating files and folders we often use in our workflows.
 
 ```{r setup}
@@ -25,9 +25,9 @@ library(mortar)
 ## Set up a USGS git repo with `use_project_usgs()`
 
 You may want or need to include common files in a project's git repo to adhere to coding conventions or standards.
-These include a **README** that summarizes basic information about a repo, a **License** that details how the contents of a repo can be used, and others (see [standard-template-repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository/) for more details).
+These include a **README** that summarizes basic information about a repo, a **License** that details how the contents of a repo can be used, and others.
 
-The `use_*_usgs()` family of functions create these sorts of files based on USGS-specific templates adapted from the [standard-template-repository](https://code.usgs.gov/wma/national-iwaas/NWAA/standard-template-repository).
+The `use_*_usgs()` family of functions create these sorts of files based on USGS-specific templates.
 These functions are heavily inspired by similar functions from the [`usethis`](https://usethis.r-lib.org/) R package.
 
 At the top of each of these template files, the following message is included:
@@ -60,7 +60,7 @@ Run `?mortar::use_project_usgs` to view the function's documentation and more ex
 
 ## Set up a `targets` project with `tar_init()`
 
-The `tar_init()` function will initialize a `targets` pipeline project directory according to our branch's convention described in more detail [here](https://wma.code-pages.usgs.gov/dsp/trainings/ds-pipelines-targets-2-course/12-usgs-data-science-conventions.html).
+The `tar_init()` function will initialize a `targets` pipeline project directory according to the DS CoP conventions. Internal USGS users can see more on this in section 12 of the Targets 2 training course.
 Run this function at the beginning of a `targets` pipeline project to avoid manually setting up the project directory (and forgetting to add those pesky `.empty` files in each sub-directory).
 
 The call below illustrates how to use `tar_init()`.

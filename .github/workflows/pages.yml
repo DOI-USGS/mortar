@@ -1,0 +1,73 @@
+name: Build & Deploy pkgdown to GitHub Pages
+
+on:
+  # Pushes to main deploy; tags deploy too. Adjust to your preference.
+  push:
+    branches: ["main"]    # change to your default branch if needed
+  workflow_dispatch:      # allow manual runs from the Actions tab
+
+# Required permissions for GitHub Pages deployments
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Only one deployment at a time
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Set up R, Pandoc, and TinyTeX (LaTeX). Equivalent to rocker/verse tooling.
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Set up TinyTeX (LaTeX)
+        uses: r-lib/actions/setup-tinytex@v2
+
+      - name: Install R package deps (incl. devtools & pkgdown)
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: >
+            any::devtools,
+            any::pkgdown,
+            any::R.utils,
+            any::R.methodsS3,
+            any::R.oo
+
+      # Run the same R steps you have in GitLab
+      - name: Build pkgdown site into ./public
+        run: |
+          R -e 'devtools::build_readme()'
+          R -e 'devtools::document()'
+          R -e 'pkgdown::build_favicons()'
+          R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
+
+      # Upload the built site as the GitHub Pages artifact
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # Publish the artifact to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
