@@ -7,14 +7,6 @@
 
 <!-- badges: end -->
 
-<!-- > *Mortar: a plastic building material (such as a mixture of cement, -->
-
-<!-- > lime, or gypsum plaster with sand and water) that hardens and is used -->
-
-<!-- > in masonry or plastering* -->
-
-<!-- > ([source](https://www.merriam-webster.com/dictionary/mortar)) -->
-
 ## Overview
 
 > *“If you need to copy + paste the same code more than once, write a
@@ -23,41 +15,13 @@
 >
 > –DRY coding principle
 
-`mortar` was created to standardize common workflows in the USGS Data
-Science Community of Practice (DS CoP) to produce more robust,
-reproducible pipelines. It contains helper functions to standardize (1)
-the organization of project repositories and (2) the creation of
+`mortar` standardizes common workflows in the USGS Data Science
+Community of Practice (DS CoP) to produce more robust, reproducible
+pipelines. It contains helper functions to standardize (1) the
+organization of project repositories and (2) the creation of
 [`targets`](https://books.ropensci.org/targets/) pipelines using the DS
 CoP best practices. We draw upon community developed best practices as
-well as certain USGS-specific requirements. We welcome feedback and
-suggestions from the DS CoP community and beyond!
-
-#### Where did the name come from?
-
-Thepackage name has multiple meanings. The package mixes water (😉) with
-structural ingredients to form a foundation upon which our pipelines can
-be more easily and efficiently built. It was also initially
-conceptualized to provide **mor**e **tar**gets functions than those
-available in the `targets` and `tarchetypes` packages.
-
-## Installation
-
-Install the package from source from
-[GitHub](https://github.com/DOI-USGS/mortar):
-
-``` r
-# Install the pak package if you don't already have it
-#install.packages("pak")
-
-pak::pak("DOI-USGS/mortar")
-```
-
-## Usage
-
-The main two functions in this package are `use_project_usgs()` and
-`tar_init()`. These build the structure of your projects and targets
-pipelines, removing much of the tedium of starting up a project and/or
-pipeline.
+well as certain USGS-specific requirements.
 
 ### `use_project_usgs()`
 
@@ -65,16 +29,6 @@ Use `use_project_usgs()` to setup your project repository. It will
 create all the metadata files necessary for a software release, with
 options to customize the files. These files can then be manually edited
 throughout the development process to keep metadata up to date.
-
-``` r
-library(mortar)
-
-use_project_usgs()
-```
-
-There are additional `use_*_usgs()` functions to add common project
-files to a directory such as a `.gitignore`, `README.md`, if you want to
-add them individually without setting up an entire project.
 
 ### `tar_init()`
 
@@ -84,20 +38,29 @@ in the DS CoP. `tar_init()` generates the targets script file
 (`_targets.R`), split phase directories (optional; e.g., `01_fetch/`),
 and subdirectories (e.g., `02_process/src/`).
 
-``` r
-tar_init(
-  phase_names = c("fetch", "process", "visualize"),
-  seperate_phase_scripts = TRUE,
-  phase_subdirs = c("in", "src", "out"),
-  use_leading_zeros = TRUE
-)
-```
-
 Refer to the [Get
 started](https://doi-usgs.github.io/mortar/articles/mortar.html) page
 for more information using `mortar.`
 
-## Consider contributing
+## Installation
+
+Install mortar from CRAN with
+
+``` r
+install.packages("mortar")
+```
+
+You can also install the development version from source from
+[GitHub](https://github.com/DOI-USGS/mortar):
+
+``` r
+# Install the pak package if you don't already have it
+#install.packages("pak")
+
+pak::pak("DOI-USGS/mortar")
+```
+
+## Contributing
 
 Please consider reporting bugs, asking questions, or suggesting
 enhancements. This is a community developed package and we want it to be
@@ -108,15 +71,3 @@ for more information. Also, please read through
 [CONDUCT.md](https://github.com/DOI-USGS/mortar/blob/main/CONDUCT.md) to
 ensure that we maintain a warm, welcoming, safe, and professional
 environment.
-
-## Disclaimer
-
-This software is preliminary or provisional and is subject to revision.
-It is being provided to meet the need for timely best science. The
-software has not received final approval by the U.S. Geological Survey
-(USGS). No warranty, expressed or implied, is made by the USGS or the
-U.S. Government as to the functionality of the software and related
-material nor shall the fact of release constitute any such warranty. The
-software is provided on the condition that neither the USGS nor the U.S.
-Government shall be held liable for any damages resulting from the
-authorized or unauthorized use of the software.
