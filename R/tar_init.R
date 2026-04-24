@@ -2,17 +2,17 @@
 #'
 #' @description Run this function in a new targets project directory. It will
 #'   create R files and directories using the targets project structure often
-#'   used by the USGS Data Science Community of Practice. Ror more information,
+#'   used by the USGS Data Science Community of Practice. For more information,
 #'   internal USGS employees can look at section 12 of Targets 2 training
 #'   course.
 #'
+#' @param home chr, root directory of targets project. To use the current
+#'   working directory, use  \code{"."}.
 #' @param phase_names chr vector, names of target phases like "fetch",
 #'   "process", etc.
 #' @param phase_nums int vector, numbers to prepend to phase_names like
 #'   \code{"1_fetch"}, \code{"2_process"}, etc. Defaults to
 #'   seq_along(phase_names)
-#' @param home chr, root directory of targets project. Defaults to current
-#'   working directory "."
 #' @param separate_phase_scripts lgl, should a different R script be created for
 #'   each phase like "1_fetch.R", "2_process.R", etc? If FALSE, then targets
 #'   lists will be initialized in _targets.R file. Defaults to TRUE
@@ -24,7 +24,6 @@
 #'   that already exist? Defaults to FALSE
 #'
 #' @examples
-#' \dontrun{
 #' # temporary directories in which targets project is initialized (you can skip
 #' # this part if creating your own project)
 #' tmp <- tempdir()
@@ -50,13 +49,17 @@
 #'
 #' list.files(tmp, full.names = FALSE, recursive = TRUE, all.files = TRUE,
 #'            pattern = "\\.(R|empty)$")
-#' }
+#'
+#' # clean out tmp folder
+#' unlink(tmp, recursive = TRUE, force = TRUE)
+#' dir.create(tmp)
+#'
 #' @returns \code{NULL} invisibly
 #' @export
 tar_init <- function(
+  home,
   phase_names,
   phase_nums = seq_along(phase_names),
-  home = ".",
   separate_phase_scripts = TRUE,
   phase_subdirs = c("src", "out"),
   use_leading_zeros = FALSE,
@@ -202,7 +205,7 @@ tar_init <- function(
 #' @param dir_path chr; path to directory to create
 #' @param overwrite lgl; if directory exists, should it be overwritten?
 #'
-#' @return lgl; did file creation succeed
+#' @returns lgl; did file creation succeed
 #' @noRd
 #'
 dir_setup <- function(dir_path, overwrite) {

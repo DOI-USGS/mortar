@@ -3,8 +3,8 @@
 #' @description Wraps the other \code{use_*_usgs} functions to initialize
 #'   multiple files in one directory.
 #'
-#' @param home chr, root directory of project. Defaults to current working
-#'   directory.
+#' @param home chr, root directory of targets project. To use the current
+#'   working directory, use  \code{"."}.
 #' @param gitignore_additions chr vector, other files/directories to be added to
 #'   .gitignore or `NULL` (default) for no additions.
 #' @param readme_type chr, either "md" to create README as a markdown file
@@ -22,13 +22,17 @@
 #'   in project repository. Default is `TRUE`.
 #' @param open lgl; whether to open the files for interactive editing.
 #'
+#' @returns \code{NULL} invisibly
+#'
 #' @examples
-#' \dontrun{
 #' tmp <- tempdir()
 #' unlink(tmp, recursive = TRUE, force = TRUE)
 #' dir.create(tmp)
 #'
-#' use_project_usgs(home = tmp)
+#' use_project_usgs(
+#'   home = tmp,
+#'   repo_url = "https://code.usgs.gov/water/computational-tools/mortar"
+#' )
 #' list.files(tmp)
 #'
 #' # start over
@@ -36,13 +40,20 @@
 #' dir.create(tmp)
 #'
 #' # creates README.Rmd and DISCLAIMER_APPROVED instead
-#' use_project_usgs(home = tmp, readme_type = "rmd", disclaimer_type = "approved")
+#' use_project_usgs(
+#'   home = tmp,
+#'   readme_type = "rmd",
+#'   disclaimer_type = "approved",
+#'   repo_url = "https://code.usgs.gov/water/computational-tools/mortar"
+#' )
 #' list.files(tmp)
-#' }
+#'
+#' # Clean up temp files
+#' unlink(tmp, recursive = TRUE, force = TRUE)
 #'
 #' @export
 use_project_usgs <- function(
-  home = ".",
+  home,
   gitignore_additions = NULL,
   readme_type = c("md", "rmd"),
   disclaimer_type = c("provisional", "approved"),
@@ -78,16 +89,16 @@ use_project_usgs <- function(
 
   # README file
   if (readme_type == "rmd") {
-    use_readme_rmd_usgs(home, open = open)
+    use_readme_rmd_usgs(home = home, open = open)
   } else {
-    use_readme_usgs(home, open = open)
+    use_readme_usgs(home = home, open = open)
   }
 
   # DISCLAIMER file
   if (disclaimer_type == "approved") {
-    use_disclaimer_approved_usgs(home, open = open)
+    use_disclaimer_approved_usgs(home = home, open = open)
   } else {
-    use_disclaimer_provisional_usgs(home, open = open)
+    use_disclaimer_provisional_usgs(home = home, open = open)
   }
 
   if (use_mr_template) {
@@ -95,19 +106,23 @@ use_project_usgs <- function(
   }
 
   # code.json
-  use_code_json_usgs(home, open = open)
+  use_code_json_usgs(home = home, open = open)
 
   # CHANGELOG
-  use_changelog_usgs(home, open = open)
+  use_changelog_usgs(home = home, open = open)
 
   # CONTRIBUTING
-  use_contributing_usgs(home, repo_url = repo_url, open = open)
+  use_contributing_usgs(home = home, repo_url = repo_url, open = open)
 
   # CODE OF CONDUCT
-  use_code_of_conduct_usgs(home, open = open)
+  use_code_of_conduct_usgs(home = home, open = open)
 
   # .gitignore
-  use_gitignore_usgs(home, gitignore_additions, open = open)
+  use_gitignore_usgs(
+    home = home,
+    additions = gitignore_additions,
+    open = open
+  )
 }
 
 #' Add individual USGS project files to a directory
@@ -115,14 +130,15 @@ use_project_usgs <- function(
 #' @description Creates common project files like .gitignore, README.md. LICENSE.md,
 #'   etc.#'
 #'
-#' @param home chr, root directory of project. Defaults to current working
-#'   directory
+#' @param home chr, root directory of targets project. To use the current
+#'   working directory, use  \code{"."}.
 #' @param additions chr vector, other files/directories to be added to
 #'   .gitignore
 #' @param open lgl; whether to open the file for interactive editing
 #'
+#' @returns \code{NULL} invisibly
+#'
 #' @examples
-#' \dontrun{
 #' tmp <- tempdir()
 #'
 #' use_gitignore_usgs(home = tmp,
@@ -131,20 +147,21 @@ use_project_usgs <- function(
 #'                                  "*excluded_pattern*"))
 #' # here are the contents of the .gitignore:
 #' cat(readLines(file.path(tmp,".gitignore")), sep = "\n")
-#' }
+#'
+#' unlink(tmp, recursive = TRUE, force = TRUE)
 #'
 #' @name use-file-usgs
 #' @rdname use-file-usgs
 #' @export
 use_gitignore_usgs <- function(
-  home = ".",
+  home,
   additions = NULL,
   open = rlang::is_interactive()
 ) {
   use_file_usgs(
+    home = home,
     inst_file = "GITIGNORE",
     out_file = ".gitignore",
-    home = home,
     additions = additions,
     open = open
   )
@@ -154,11 +171,11 @@ use_gitignore_usgs <- function(
 
 #' @rdname use-file-usgs
 #' @export
-use_readme_usgs <- function(home = ".", open = rlang::is_interactive()) {
+use_readme_usgs <- function(home, open = rlang::is_interactive()) {
   use_file_usgs(
+    home = home,
     inst_file = "README",
     out_file = "README.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -168,11 +185,11 @@ use_readme_usgs <- function(home = ".", open = rlang::is_interactive()) {
 
 #' @rdname use-file-usgs
 #' @export
-use_readme_rmd_usgs <- function(home = ".", open = rlang::is_interactive()) {
+use_readme_rmd_usgs <- function(home, open = rlang::is_interactive()) {
   use_file_usgs(
+    home = home,
     inst_file = "README",
     out_file = "README.Rmd",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -229,11 +246,11 @@ use_readme_rmd_usgs <- function(home = ".", open = rlang::is_interactive()) {
 
 #' @rdname use-file-usgs
 #' @export
-use_license_usgs <- function(home = ".", open = rlang::is_interactive()) {
+use_license_usgs <- function(home, open = rlang::is_interactive()) {
   use_file_usgs(
+    home = home,
     inst_file = "LICENSE",
     out_file = "LICENSE.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -243,11 +260,11 @@ use_license_usgs <- function(home = ".", open = rlang::is_interactive()) {
 
 #' @rdname use-file-usgs
 #' @export
-use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()) {
+use_code_json_usgs <- function(home, open = rlang::is_interactive()) {
   use_file_usgs(
+    home = home,
     inst_file = "CODE_JSON",
     out_file = "code.json",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -258,13 +275,13 @@ use_code_json_usgs <- function(home = ".", open = rlang::is_interactive()) {
 #' @rdname use-file-usgs
 #' @export
 use_disclaimer_provisional_usgs <- function(
-  home = ".",
+  home,
   open = rlang::is_interactive()
 ) {
   use_file_usgs(
+    home = home,
     inst_file = "DISCLAIMER_PROVISIONAL",
     out_file = "DISCLAIMER_PROVISIONAL.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -275,13 +292,13 @@ use_disclaimer_provisional_usgs <- function(
 #' @rdname use-file-usgs
 #' @export
 use_disclaimer_approved_usgs <- function(
-  home = ".",
+  home,
   open = rlang::is_interactive()
 ) {
   use_file_usgs(
+    home = home,
     inst_file = "DISCLAIMER_APPROVED",
     out_file = "DISCLAIMER_APPROVED.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -292,13 +309,13 @@ use_disclaimer_approved_usgs <- function(
 #' @rdname use-file-usgs
 #' @export
 use_code_of_conduct_usgs <- function(
-  home = ".",
+  home,
   open = rlang::is_interactive()
 ) {
   use_file_usgs(
+    home = home,
     inst_file = "CODE_OF_CONDUCT",
     out_file = "CODE_OF_CONDUCT.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -312,14 +329,14 @@ use_code_of_conduct_usgs <- function(
 #' @rdname use-file-usgs
 #' @export
 use_contributing_usgs <- function(
-  home = ".",
+  home,
   repo_url = NULL,
   open = rlang::is_interactive()
 ) {
   use_file_usgs(
+    home = home,
     inst_file = "CONTRIBUTING",
     out_file = "CONTRIBUTING.md",
-    home = home,
     additions = NULL,
     open = FALSE
   )
@@ -342,11 +359,11 @@ use_contributing_usgs <- function(
 
 #' @rdname use-file-usgs
 #' @export
-use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()) {
+use_changelog_usgs <- function(home, open = rlang::is_interactive()) {
   use_file_usgs(
+    home = home,
     inst_file = "CHANGELOG",
     out_file = "CHANGELOG.md",
-    home = home,
     additions = NULL,
     open = open
   )
@@ -356,7 +373,7 @@ use_changelog_usgs <- function(home = ".", open = rlang::is_interactive()) {
 
 #' @rdname use-file-usgs
 #' @export
-use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE) {
+use_gitlab_mr_template_usgs <- function(home, open = FALSE) {
   dir_path <- file.path(".gitlab", "merge_request_templates")
 
   if (!dir.exists(file.path(home, dir_path))) {
@@ -364,10 +381,10 @@ use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE) {
   }
 
   use_file(
+    home = home,
     inst_file = "MR_TEMPLATE",
     inst_subdir = "template_files",
     out_file = file.path(dir_path, "Default.md"),
-    home = home,
     additions = NULL,
     open = open
   )
@@ -379,11 +396,12 @@ use_gitlab_mr_template_usgs <- function(home = ".", open = FALSE) {
 #'
 #' @param remote_name chr; name of the git remote. The default is "origin".
 #'
-#' @return a character sting of the HTTPS URL to the remote repo
+#' @returns a character sting of the HTTPS URL to the remote repo
 #' @export
 #'
 #' @examples
 #' \dontrun{
+#' # Will fail if working directory is not in a git repo
 #' get_usgs_gitlab_url("origin")
 #' }
 get_usgs_gitlab_url <- function(remote_name = "origin") {
@@ -421,29 +439,29 @@ get_usgs_gitlab_url <- function(remote_name = "origin") {
 #' Internal: core function used in other use_*_usgs functions, which all have
 #' the same basic structure
 #'
+#' @param home chr, root directory of targets project. To use the current
+#'   working directory, use  \code{"."}.
 #' @param inst_file chr; template file to be included
 #' @param out_file chr; path to location of output file
-#' @param home chr, root directory of project. Defaults to current working
-#'   directory
 #' @param additions chr; additional lines to add to the template file
 #' @param open lgl; whether to open the file for interactive editing
 #'
-#' @return NULL, invisibly
+#' @returns NULL, invisibly
 #' @noRd
 #'
 use_file_usgs <- function(
+  home,
   inst_file,
   out_file = stringr::str_remove(inst_file, "\\.txt"),
-  home = ".",
   additions = NULL,
   open = rlang::is_interactive()
 ) {
   # Write file ----
   use_file(
+    home = home,
     inst_file,
     inst_subdir = "template_files",
     out_file = out_file,
-    home = home,
     additions = additions,
     open = open
   )

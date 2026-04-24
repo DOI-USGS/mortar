@@ -2,6 +2,10 @@ mortar 0.4.0
 ===========
 - Switch website build and hosting from GitLab to GitHub.
 - Update documentation in preparation for CRAN release
+- Remove default from `home` argument to comply with CRAN requirement that default arguments do not write files to a user's home filespace.
+- Add `@returns` tag for all functions to comply with CRAN requirements.
+- Beef up Description field in `DESCRIPTION` and add references to comply with CRAN requirements.
+- Remove unnecessary `/dontrun` tags to comply with CRAN requirements.
 
 mortar 0.3.2
 ===========

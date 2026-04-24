@@ -14,4 +14,5 @@ code\.json$
 ^\.github$
 ^public$
 ^revdep$
+^CRAN-SUBMISSION$
 ^cran-comments\.md$

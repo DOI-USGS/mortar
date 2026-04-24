@@ -9,7 +9,15 @@ Authors@R:
     person("Jesse","Ross",role = c("ctb"),comment = c(ORCID = "0000-0002-5422-8284"))
     )
 Maintainer: Anthony Martinez <ajmartinez@usgs.gov>
-Description: Helper functions to standardize common workflows in the U.S. Geological Survey Data Science Community of Practice.
+Description: Helper functions to standardizes common workflows in the USGS Data
+    Science Community of Practice to produce more robust, reproducible
+    pipelines. It contains helper functions to standardize (1) the organization
+    of project repositories and (2) the creation ofpipelines from the 'targets'
+    R Package (Landau et al. (2026) <doi:10.5281/zenodo.18555866>), using the DS
+    CoP best practices. We draw upon community developed best practices as well
+    as certain USGS-specific requirements. See 
+    Shrycock et al. (2023) <doi:10.3133/tm7B2> for examples of these USGS
+    requirements.
 License: CC0
 BugReports: https://github.com/DOI-USGS/mortar/issues
 URL: https://doi-usgs.github.io/mortar/, https://github.com/DOI-USGS/mortar, https://code.usgs.gov/water/computational-tools/mortar
