@@ -12,7 +12,10 @@ code\.json$
 ^public$
 ^renovate\.json$
 ^\.github$
+.gitlab-ci.yml
 ^public$
 ^revdep$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
+^\.positai$
+^\.claude$

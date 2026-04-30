@@ -234,3 +234,4 @@ revdep/
 ### vim ###
 .*.swp
 .swp
+.positai
