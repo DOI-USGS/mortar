@@ -23,12 +23,11 @@ pages:
     - R -e 'devtools::build_readme()'
     - R -e 'devtools::document()'
     - R -e 'pkgdown::build_favicons()'
-    # Fix downlit cache directory issue: downlit tries to write to
-    # tempdir()/downlit/ but that dir doesn't exist in child R processes.
-    # R_PROFILE_USER runs at the start of every R session, including children
-    # spawned by pkgdown, ensuring the directory always exists.
-    - echo 'dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)' > /tmp/.Rprofile_ci
-    - export R_PROFILE_USER=/tmp/.Rprofile_ci
+    # Fix: downlit tries to cache package metadata at tempdir()/downlit/<pkg>
+    # but doesn't create the directory first. pkgdown runs examples via callr,
+    # which ignores R_PROFILE_USER. Instead, we inject a .First.sys hook via
+    # Rprofile.site (system-level profile that callr does NOT suppress).
+    - echo 'dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)' >> $(R RHOME)/etc/Rprofile.site
     - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
     - echo "Deploying pkgdown site to GitLab Pages"
   artifacts:
