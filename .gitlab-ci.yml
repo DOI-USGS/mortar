@@ -23,17 +23,7 @@ pages:
     - R -e 'devtools::build_readme()'
     - R -e 'devtools::document()'
     - R -e 'pkgdown::build_favicons()'
-    # Workaround for downlit bug: remote_metadata() calls saveRDS to
-    # tempdir()/downlit/<pkg> without creating the directory first.
-    # Write a build script to ensure dir exists in the same R session.
-    - |
-      cat > /tmp/build_site.R << 'EOF'
-      dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)
-      message("downlit cache dir: ", file.path(tempdir(), "downlit"))
-      message("exists: ", dir.exists(file.path(tempdir(), "downlit")))
-      pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)
-      EOF
-    - Rscript /tmp/build_site.R
+    - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
     - echo "Deploying pkgdown site to GitLab Pages"
   artifacts:
     paths:

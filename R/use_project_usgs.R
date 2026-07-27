@@ -138,7 +138,8 @@ use_project_usgs <- function(
 #' @returns \code{NULL} invisibly
 #'
 #' @examples
-#' tmp <- tempdir()
+#' tmp <- file.path(tempdir(), "use_file_usgs_example")
+#' dir.create(tmp, showWarnings = FALSE)
 #'
 #' use_gitignore_usgs(home = tmp,
 #'                    additions = c("excluded_file.R",
