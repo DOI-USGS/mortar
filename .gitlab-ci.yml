@@ -24,37 +24,16 @@ pages:
     - R -e 'devtools::document()'
     - R -e 'pkgdown::build_favicons()'
     # Workaround for downlit bug: remote_metadata() calls saveRDS to
-    # tempdir()/downlit/<pkg> without creating the directory. This crashes in
-    # callr subprocesses. Fix: reinstall downlit from source with the bug
-    # patched (add dir.create before saveRDS in remote_metadata).
+    # tempdir()/downlit/<pkg> without creating the directory first.
+    # Write a build script to ensure dir exists in the same R session.
     - |
-      R -e '
-        # Download downlit source, patch it, and reinstall
-        pkg <- download.packages("downlit", destdir = tempdir(), type = "source")
-        src_tar <- pkg[1, 2]
-        untar(src_tar, exdir = tempdir())
-        src_dir <- file.path(tempdir(), "downlit")
-        
-        # Find and patch the file containing remote_metadata
-        r_files <- list.files(file.path(src_dir, "R"), full.names = TRUE)
-        for (f in r_files) {
-          content <- readLines(f)
-          # Look for the saveRDS call in remote_metadata context
-          idx <- grep("saveRDS\\(meta,\\s*cache_path\\)", content)
-          if (length(idx) > 0) {
-            # Insert dir.create before the saveRDS line
-            patch_line <- "  dir.create(dirname(cache_path), recursive = TRUE, showWarnings = FALSE)"
-            content <- append(content, patch_line, after = idx[1] - 1)
-            writeLines(content, f)
-            message("Patched ", f, " at line ", idx[1])
-            break
-          }
-        }
-        
-        # Reinstall from patched source
-        install.packages(src_dir, repos = NULL, type = "source")
-      '
-    - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
+      cat > /tmp/build_site.R << 'EOF'
+      dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)
+      message("downlit cache dir: ", file.path(tempdir(), "downlit"))
+      message("exists: ", dir.exists(file.path(tempdir(), "downlit")))
+      pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)
+      EOF
+    - Rscript /tmp/build_site.R
     - echo "Deploying pkgdown site to GitLab Pages"
   artifacts:
     paths:
