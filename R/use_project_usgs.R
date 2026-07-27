@@ -25,9 +25,8 @@
 #' @returns \code{NULL} invisibly
 #'
 #' @examples
-#' tmp <- tempdir()
-#' unlink(tmp, recursive = TRUE, force = TRUE)
-#' dir.create(tmp)
+#' tmp <- file.path(tempdir(), "usgs_examples")
+#' dir.create(tmp, showWarnings = FALSE)
 #'
 #' use_project_usgs(
 #'   home = tmp,

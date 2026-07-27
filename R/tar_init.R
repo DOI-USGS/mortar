@@ -26,9 +26,8 @@
 #' @examples
 #' # temporary directories in which targets project is initialized (you can skip
 #' # this part if creating your own project)
-#' tmp <- tempdir()
-#' unlink(tmp, recursive = TRUE, force = TRUE)
-#' dir.create(tmp)
+#' tmp <- file.path(tempdir(), "usgs_examples")
+#' dir.create(tmp, showWarnings = FALSE)
 #'
 #' # creates 1_fetch, 2_process, 3_summarize R scripts and directories
 #' tar_init(home = tmp, phase_names = c("fetch", "process", "summarize"))

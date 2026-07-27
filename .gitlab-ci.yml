@@ -1,41 +1,59 @@
 stages:
+  - build
   - deploy
 
-# This section has rules which determine whether a CI pipeline will run when
-# changes are committed or merge requests are created.
-#
-# Note also that in order for a CI pipeline to run on a given project, it also
-# needs to have a runner available  to it. Usually enabling shared runners in
-# Settings -> CI/CD -> Runners will be sufficient.
+# Run pipelines for any branch or tag
 workflow:
   rules:
-    # Only generate pipelines for branches/tags (i.e., not for merge requests)
     - if: $CI_COMMIT_TAG
     - if: $CI_COMMIT_BRANCH
 
-# The section below defines a job named "pages". Jobs with this name are
-# special; if the job has this name and leaves an artifact directory named
-# "public", the contents of that directory get deployed to GitLab Pages. This
-# could be adapted to anything which builds a website.
-pages:
-  stage: deploy
+# Optional: cache R packages to speed up builds
+cache:
+  key: "$CI_PROJECT_ID"
+  paths:
+    - /usr/local/lib/R/site-library/
+
+# Build the site on every branch and upload the result as artifacts
+build_site:
+  stage: build
   image: rocker/verse:latest
   script:
     - R -e 'install.packages(c("devtools", "pkgdown", "R.utils", "R.methodsS3", "R.oo"))'
     - R -e 'devtools::build_readme()'
     - R -e 'devtools::document()'
     - R -e 'pkgdown::build_favicons()'
+    # Build into ./public (pkgdown supports this)
     - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
+
+    # Print a direct link to the artifact index.html so you can click it in logs.
+    # Works on GitLab.com and most self-managed GitLab instances.
+    - echo "Preview your branch build:"
+    - echo "$CI_PROJECT_URL/-/jobs/$CI_JOB_ID/artifacts/public/index.html"
+
   artifacts:
-    # The folder that contains the files to be exposed at the Pages URL. The
-    # name "public" is the only option if you want Pages to deploy the site.
+    # Save the built site
     paths:
       - public
-  #only: #use this to set only branch to build site from
-    #- main
-  #rules:
-    # This ensures that only pushes to the default branch will trigger
-    # a pages deploy. That is to say, we don't want to build the site for every
-    # branch which gets pushed up. Only when `main` changes, i.e. when a MR
-    # is merged, do we want to build the site.
-    #- if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    # Keep artifacts long enough for review; adjust as needed
+    expire_in: 1 week
+    when: always
+  rules:
+    # Run on any branch or tag
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+
+# Deploy to GitLab Pages from the default branch only
+pages:
+  stage: deploy
+  needs:
+    - job: build_site
+      artifacts: true
+  image: alpine:latest
+  script:
+    # 'pages' job just exposes the 'public' folder; no extra work needed
+    - echo "Deploying GitLab Pages from default branch: $CI_DEFAULT_BRANCH"
+  artifacts:
+    paths:
+      - public
+  rules:
