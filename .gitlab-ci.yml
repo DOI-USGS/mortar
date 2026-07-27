@@ -23,10 +23,12 @@ pages:
     - R -e 'devtools::build_readme()'
     - R -e 'devtools::document()'
     - R -e 'pkgdown::build_favicons()'
-    # Ensure downlit cache directory exists to prevent gzfile() errors during
-    # cross-reference link resolution in pkgdown's reference builds.
-    - R -e 'dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)'
-    - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
+    # Build site in a single R session so the downlit cache dir fix persists.
+    - |
+      R -e '
+        dir.create(file.path(tempdir(), "downlit"), recursive = TRUE, showWarnings = FALSE)
+        pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)
+      '
     - echo "Deploying pkgdown site to GitLab Pages"
   artifacts:
     paths:
