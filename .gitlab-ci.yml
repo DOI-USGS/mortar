@@ -1,0 +1,33 @@
+stages:
+  - deploy
+
+# Run pipelines for any branch or tag
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+
+# Optional: cache R packages to speed up builds
+cache:
+  key: "$CI_PROJECT_ID"
+  paths:
+    - /usr/local/lib/R/site-library/
+
+# Build and deploy to GitLab Pages on every branch/tag.
+# GitLab Pages requires a job named "pages" that produces a "public" artifact.
+pages:
+  stage: deploy
+  image: rocker/verse:latest
+  script:
+    - R -e 'install.packages(c("devtools", "pkgdown", "R.utils", "R.methodsS3", "R.oo"))'
+    - R -e 'devtools::build_readme()'
+    - R -e 'devtools::document()'
+    - R -e 'pkgdown::build_favicons()'
+    - R -e 'pkgdown::build_site_github_pages(dest_dir = "public", install = TRUE)'
+    - echo "Deploying pkgdown site to GitLab Pages"
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
