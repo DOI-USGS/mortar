@@ -207,7 +207,7 @@ testthat::test_that("get_usgs_gitlab_url() fails gracefully for unknown remotes"
   # usethis::git_remotes() to retrieve remote names.  If usethis isn't
   # installed or if not using a git repo, we can't exercise this behavior.
   testthat::skip_if_not_installed("usethis")
-  testthat::skip_if_not(tryCatch(gert::git_find(), error = \(e) FALSE))
+  testthat::skip_if_not(tryCatch(nzchar(gert::git_find()), error = \(e) FALSE))
   # Provide a remote name that is extremely unlikely to exist.  We don't
   # assert on the error message itself because it may change; it's
   # sufficient to know that the function throws an error.
