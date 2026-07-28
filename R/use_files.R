@@ -8,17 +8,19 @@
 #' @param additions chr; additional lines to add to the template file
 #' @param open lgl; whether to open the file for interactive editing
 #'
-#' @return NULL, invisibly
+#' @returns \code{NULL} invisibly
 #' @noRd
 #'
-use_file <- function(inst_file,
-                     inst_subdir = "",
-                     out_file = stringr::str_remove(inst_file, "\\.txt"),
-                     home = ".",
-                     additions = NULL,
-                     open = rlang::is_interactive()) {
+use_file <- function(
+  inst_file,
+  inst_subdir = "",
+  out_file = stringr::str_remove(inst_file, "\\.txt"),
+  home = ".",
+  additions = NULL,
+  open = rlang::is_interactive()
+) {
   # Check arguments ----
-  if(! dir.exists(system.file(inst_subdir, package = "mortar"))) {
+  if (!dir.exists(system.file(inst_subdir, package = "mortar"))) {
     cli::cli_abort(c(
       "x" = "{.arg inst_subdir} must be a subdirectory of inst that exists."
     ))
@@ -50,7 +52,9 @@ use_file <- function(inst_file,
   # Write file ----
   out_file_path <- file.path(home, out_file)
 
-  if (!file.exists(out_file_path)) file.create(out_file_path)
+  if (!file.exists(out_file_path)) {
+    file.create(out_file_path)
+  }
 
   inst_file_path <- file.path(inst_subdir, inst_file)
 
@@ -65,8 +69,7 @@ use_file <- function(inst_file,
   )
 
   # Open file ----
-  usethis::edit_file(path = out_file_path,
-                     open = open)
+  usethis::edit_file(path = out_file_path, open = open)
 
   return(invisible(NULL))
 }

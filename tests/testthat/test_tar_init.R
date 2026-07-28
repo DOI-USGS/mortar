@@ -1,33 +1,32 @@
 # Simple tests to make sure that errors work as expected.
-testthat::test_that(
-  "Errors thrown in `tar_init()`", {
+testthat::test_that("Errors thrown in `tar_init()`", {
   # Set temporary working directory and removal instructions
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
   on.exit(setwd(old), add = TRUE)
 
   testthat::expect_error(
-    tar_init(c("a", "b", "c"), phase_nums = 1:2),
+    tar_init(".", c("a", "b", "c"), phase_nums = 1:2),
     "`phase_nums` must be the same length as `phase_names`"
   )
   testthat::expect_error(
-    tar_init(phase_names = "a", separate_phase_scripts = c(TRUE, FALSE)),
+    tar_init(".", phase_names = "a", separate_phase_scripts = c(TRUE, FALSE)),
     "`separate_phase_scripts` must be logical"
   )
   testthat::expect_error(
-    tar_init(phase_names = "a", overwrite = c(TRUE, FALSE)),
+    tar_init(".", phase_names = "a", overwrite = c(TRUE, FALSE)),
     "`overwrite` must be logical"
   )
   testthat::expect_error(
-    tar_init(phase_names = "a", use_leading_zeros = "TRUE"),
+    tar_init(".", phase_names = "a", use_leading_zeros = "TRUE"),
     "`use_leading_zeros` must be logical"
   )
   testthat::expect_error(
-    tar_init(phase_names = "a", phase_subdirs = TRUE),
+    tar_init(".", phase_names = "a", phase_subdirs = TRUE),
     "`phase_subdirs` must be a character vector"
   )
   testthat::expect_no_error(
-    tar_init(c("a", "b"), phase_nums = 1:2)
+    tar_init(".", c("a", "b"), phase_nums = 1:2)
   )
 })
 
@@ -38,14 +37,14 @@ testthat::test_that(
 #  - exact/ordered content expectations inside _targets.R for both modes:
 #       * separate_phase_scripts = TRUE
 #       * separate_phase_scripts = FALSE
-testthat::test_that(
-  "tar_init creates expected structure with separate_phase_scripts = TRUE", {
+testthat::test_that("tar_init creates expected structure with separate_phase_scripts = TRUE", {
   # Set temporary working directory and removal instructions
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
   on.exit(setwd(old), add = TRUE)
 
   tar_init(
+    ".",
     phase_names = c("fetch", "process"),
     phase_nums = c(1, 2),
     separate_phase_scripts = TRUE,
@@ -92,13 +91,13 @@ testthat::test_that(
   )
 })
 
-testthat::test_that(
-  "tar_init in non-phase mode (separate_phase_scripts = FALSE) uses list()", {
+testthat::test_that("tar_init in non-phase mode (separate_phase_scripts = FALSE) uses list()", {
   tmp <- withr::local_tempdir()
   old <- setwd(tmp)
   on.exit(setwd(old), add = TRUE)
 
   tar_init(
+    ".",
     phase_names = c("config", "run"),
     phase_nums = c(0, 1),
     separate_phase_scripts = FALSE,
@@ -117,6 +116,7 @@ testthat::test_that(
   testthat::expect_true(any(grepl("^list\\()$", txt)))
   # And the 'tar_source' helper should be commented with the project home
   testthat::expect_true(any(
-    grepl('^# tar_source\\(\\"\\")$', txt) | grepl('^# tar_source\\(".*/?")$', txt)
+    grepl('^# tar_source\\(\\"\\")$', txt) |
+      grepl('^# tar_source\\(".*/?")$', txt)
   ))
 })

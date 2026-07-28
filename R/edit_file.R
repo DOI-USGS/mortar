@@ -21,7 +21,7 @@
 #'   line(s) specified in the match argument. If FALSE, then the text will
 #'   replace the lines specified in the match argument
 #'
-#' @return (invisibly) FALSE if no lines in the specified file match the match
+#' @returns (invisibly) FALSE if no lines in the specified file match the match
 #'   argument and TRUE otherwise
 #' @export
 #'
@@ -85,17 +85,17 @@
 #'           match = length(readLines(tmpfile)),
 #'           append = TRUE)
 #' cat(readLines(tmpfile),sep = "\n")
-
-file_edit <- function(file, txt, match, append = TRUE){
-
-  if(!is.character(file) | length(file) > 1){
-    cli::cli_abort("Argument {.arg file} must be a single string, not a
-                   {.cls {class(file)}} of length {length(file)}.")
+#'
+file_edit <- function(file, txt, match, append = TRUE) {
+  if (!is.character(file) | length(file) > 1) {
+    cli::cli_abort(
+      "Argument {.arg file} must be a single string, not a
+                   {.cls {class(file)}} of length {length(file)}."
+    )
   }
-  if(!file.exists(file)){
+  if (!file.exists(file)) {
     cli::cli_abort("I couldn't find a file at {.file {file}}.")
   }
-
 
   # txt must be character or function
   # match must be numeric vector or function
@@ -103,8 +103,8 @@ file_edit <- function(file, txt, match, append = TRUE){
   lines <- readLines(file)
 
   # either match is a numeric vector
-  if(all(is.numeric(match))){
-    if(any(match < 0)) {
+  if (all(is.numeric(match))) {
+    if (any(match < 0)) {
       cli::cli_abort(c(
         "{.arg match} cannot contain negative numbers.",
         x = "Negative indices are not valid.",
@@ -112,7 +112,7 @@ file_edit <- function(file, txt, match, append = TRUE){
       ))
     }
 
-    if(any(match == 0) & !append) {
+    if (any(match == 0) & !append) {
       cli::cli_abort(c(
         "If {.arg match} equals 0, then {.arg append} must be TRUE.",
         i = "When {.arg match} equals 0, it adds text to the beginning of the file.",
@@ -120,13 +120,13 @@ file_edit <- function(file, txt, match, append = TRUE){
       ))
     }
 
-    if(any(match == 0)) {
+    if (any(match == 0)) {
       cli::cli_inform(c(
         "{.arg match} == 0 which will result in text being prepended to the beginning of the file."
       ))
     }
 
-    if(!rlang::is_integerish(match)) {
+    if (!rlang::is_integerish(match)) {
       cli::cli_abort(c(
         "{.arg match} cannot contain non-integer(ish) numbers.",
         x = "Non-integer indices are not valid.",
@@ -134,22 +134,26 @@ file_edit <- function(file, txt, match, append = TRUE){
       ))
     }
 
-
     matched_lines <- match
-  } else {   # or its a function that returns a boolean
+  } else {
+    # or its a function that returns a boolean
     match <- rlang::as_function(match)
 
-    if(!rlang::is_function(match)){
-      cli::cli_abort("Invalid argument {.arg match}. This must be a named or
-                     anonymous function.")
+    if (!rlang::is_function(match)) {
+      cli::cli_abort(
+        "Invalid argument {.arg match}. This must be a named or
+                     anonymous function."
+      )
     }
 
     # determine lines for which match returns TRUE
     matched_lines_list <- purrr::map(lines, match)
-    if(!all(
-      purrr::map_lgl(matched_lines_list, is.logical),
-      sum(lengths(matched_lines_list)) == length(matched_lines_list)
-    )) {
+    if (
+      !all(
+        purrr::map_lgl(matched_lines_list, is.logical),
+        sum(lengths(matched_lines_list)) == length(matched_lines_list)
+      )
+    ) {
       cls_out <- as.character(unique(purrr::map(matched_lines_list, class)))
       cli::cli_abort(c(
         "{.arg match} must return a single logical value for each line.",
@@ -164,7 +168,7 @@ file_edit <- function(file, txt, match, append = TRUE){
     matched_lines <- which(matched_lines)
   }
 
-  if(length(matched_lines) == 0){
+  if (length(matched_lines) == 0) {
     cli::cli_warn(c(
       "!" = "No lines in {.file {file}} match the {.arg match} argument.",
       "i" = "No changes were made to {.file {file}}."
@@ -173,8 +177,8 @@ file_edit <- function(file, txt, match, append = TRUE){
   }
 
   # either txt is a string or it's a function that returns another string
-  if(all(is.character(txt))){
-    if(all(length(txt) > 1, length(txt) != length(matched_lines))) {
+  if (all(is.character(txt))) {
+    if (all(length(txt) > 1, length(txt) != length(matched_lines))) {
       cli::cli_abort(c(
         "The length of {.arg txt} must be equal to 1 or the number of matches identified by {.arg match}.",
         "i" = "{.arg match} resulted in {length(matched_lines)} matched line{?s} and {.arg txt} has a length of {length(txt)}."
@@ -182,23 +186,26 @@ file_edit <- function(file, txt, match, append = TRUE){
       return(invisible(FALSE))
     }
 
-
     new_txt <- txt
   } else {
     txt <- rlang::as_function(txt)
 
-    if(! rlang::is_function(txt)){
-      cli::cli_abort("Invalid argument {.arg txt}. This must be a named or
-                     anonymous function.")
+    if (!rlang::is_function(txt)) {
+      cli::cli_abort(
+        "Invalid argument {.arg txt}. This must be a named or
+                     anonymous function."
+      )
     }
 
     # apply the transformation to the matched lines
     new_txt <- purrr::map(lines[matched_lines], txt)
 
-    if(any(
-      purrr::map_chr(new_txt, class) != "character",
-      sum(lengths(new_txt)) != length(matched_lines)
-    )){
+    if (
+      any(
+        purrr::map_chr(new_txt, class) != "character",
+        sum(lengths(new_txt)) != length(matched_lines)
+      )
+    ) {
       cls_out <- as.character(unique(purrr::map(new_txt, class)))
 
       cli::cli_abort(c(
@@ -213,15 +220,16 @@ file_edit <- function(file, txt, match, append = TRUE){
   }
 
   # replace the matched lines if append = FALSE
-  if(!append){
+  if (!append) {
     lines[matched_lines] <- new_txt
-  }
-  # otherwise, insert the new_txt values after each matched line
-  else{
-    lines <- R.utils::insert(x = lines,
-                             ats = matched_lines + 1,
-                             values = new_txt,
-                             useNames = FALSE)
+  } else {
+    # otherwise, insert the new_txt values after each matched line
+    lines <- R.utils::insert(
+      x = lines,
+      ats = matched_lines + 1,
+      values = new_txt,
+      useNames = FALSE
+    )
   }
 
   writeLines(lines, con = file)
